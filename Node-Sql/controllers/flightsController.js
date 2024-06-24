@@ -1,8 +1,8 @@
 const model = require('../models/flightsModel');
 
-async function createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime) {
+async function createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image) {
     try {
-        return model.createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime);
+        return model.createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image);
     } catch (err) {
         throw err;
     }
@@ -87,6 +87,7 @@ async function getFlightByParamsNotDirect(exitP, target, date) {
                                     Date2: flight2.departureDate,
                                     ArrivalTime2: flight2.arrivalTime,
                                     DepartureTime2: flight2.departureTime,
+
                                     flight1,
                                     flight2
                                 });
@@ -136,9 +137,9 @@ async function deleteFlight(ID) {
     }
 }
 
-async function updateFlight(id,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active) {
+async function updateFlight(id,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image) {
     try {
-        return model.updateFlight(id,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active);
+        return model.updateFlight(id,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image);
     } catch (err) {
         throw err;
     }

@@ -84,6 +84,7 @@ CREATE TABLE Flights (
     departureTime time,
     arrivalTime time,
     active bool,
+    image VARCHAR(255),
 FOREIGN KEY (company) REFERENCES Companies(name),
 FOREIGN KEY (airplain_id) REFERENCES Airplanes(id)
 );
@@ -196,18 +197,18 @@ VALUES
 (2, 3, 1, true),
 (2, 3, 2, false);
 
-INSERT INTO Flights (company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,active)
+INSERT INTO Flights (company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,active,image)
 VALUES
-("Company B", 1, 'New York', 1001, 200, 'Los Angeles', '2024-06-10', '2024-06-10', '08:00:00', '10:30:00',1),
-("Company C", 2, 'Los Angeles', 1002, 250, 'Paris', '2024-06-10', '2024-06-15', '10:50:00', '12:30:00',1),
-("Company C", 3, 'Tokyo', 1003, 300, 'Beijing', '2024-06-20', '2024-06-20', '12:00:00', '14:30:00',1),
-("Company C", 4, 'Dubai', 1004, 400, 'Singapore', '2024-06-25', '2024-06-26', '14:00:00', '16:30:00',1),
-("Company C", 5, 'Sydney', 1005, 350, 'Melbourne', '2024-06-30', '2024-06-30', '16:00:00', '18:30:00',1),
-("Company B", 6, 'Hong Kong', 1006, 380, 'Seoul', '2024-07-05', '2024-07-07', '18:00:00', '20:30:00',1),
-("Company C", 7, 'Berlin', 1007, 280, 'Rome', '2024-07-10', '2024-07-11', '20:00:00', '22:30:00',1),
-("Company A", 8, 'Madrid', 1008, 320, 'Barcelona', '2024-07-15', '2024-07-15', '22:00:00', '00:30:00',1),
-("Company A", 9, 'Rio de Janeiro', 1009, 450, 'Sao Paulo', '2024-07-20', '2024-07-23', '00:00:00', '02:30:00',1),
-("Company C", 10, 'Moscow', 1010, 270, 'Saint Petersburg', '2024-07-25', '2024-07-25', '02:00:00', '04:30:00',1);
+("Company B", 1, 'New York', 1001, 200, 'Los Angeles', '2024-06-10', '2024-06-10', '08:00:00', '10:30:00',1,"los.jpg"),
+("Company C", 2, 'Los Angeles', 1002, 250, 'Paris', '2024-06-10', '2024-06-15', '10:50:00', '12:30:00',1,"paris.jpg"),
+("Company C", 3, 'Tokyo', 1003, 300, 'Beijing', '2024-06-20', '2024-06-20', '12:00:00', '14:30:00',1,"Singapore.jpg"),
+("Company C", 4, 'Dubai', 1004, 400, 'Singapore', '2024-06-25', '2024-06-26', '14:00:00', '16:30:00',1,"Seoul.jpg"),
+("Company C", 5, 'Sydney', 1005, 350, 'Melbourne', '2024-06-30', '2024-06-30', '16:00:00', '18:30:00',1,"newyork.jpg"),
+("Company B", 6, 'Hong Kong', 1006, 380, 'Seoul', '2024-07-05', '2024-07-07', '18:00:00', '20:30:00',1,"Melbourne.jpg"),
+("Company C", 7, 'Berlin', 1007, 280, 'Rome', '2024-07-10', '2024-07-11', '20:00:00', '22:30:00',1,"newyork.jpg"),
+("Company A", 8, 'Madrid', 1008, 320, 'Barcelona', '2024-07-15', '2024-07-15', '22:00:00', '00:30:00',1,"newyork.jpg"),
+("Company A", 9, 'Rio de Janeiro', 1009, 450, 'Sao Paulo', '2024-07-20', '2024-07-23', '00:00:00', '02:30:00',1,"newyork.jpg"),
+("Company C", 10, 'Moscow', 1010, 270, 'Saint Petersburg', '2024-07-25', '2024-07-25', '02:00:00', '04:30:00',1,"newyork.jpg");
 
 INSERT INTO Orders (user_id, flight_id, place_id)
 VALUES

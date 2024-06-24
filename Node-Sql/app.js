@@ -1,5 +1,5 @@
 
-const {path} = require('path');
+const path = require('path');
 const express = require("express");
 const app = express();
 app.use(express.json());
@@ -7,6 +7,8 @@ app.use(express.urlencoded({ extended: true }));
 const port = 3000;
 const cors = require('cors');
 app.use(cors());
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 const flightsRouter = require("./routes/flightsRoutes")
 app.use("/flights", flightsRouter);

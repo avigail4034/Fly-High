@@ -17,6 +17,8 @@ function FlightDisplayPopUp(props) {
 
     return (
     <div>
+      
+
      <p>flightCode: {flight.flightCode}</p>
         <p>company: {flight.company}</p>
         <p>aaaa: {flight.airplain_id}</p>

@@ -150,17 +150,22 @@ const FlightAtScreen = (props) => {
             handleOpenModalOfAllUsers();
         }
         else {
+          
+           
             const url = `http://localhost:3000/flights/${props.flight.id}`;//אם אין אנשים שהזמינו את הטיסה-מחיקת הטיסה
             try {
                 const response = await fetch(url, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
-                    }
+                    },
+                    body: JSON.stringify(
+                       flight
+                    )
                 });
                 if (response) {
                     console.log('flight deleted successfully');
-                    window.location.reload();
+                   window.location.reload();
 
                 } else {
                     console.log('Failed to delete flight');
@@ -175,6 +180,11 @@ const FlightAtScreen = (props) => {
             <h3>Flight {flight.id}</h3>
             <h2>{flight.target}</h2>
             <p>Price: {flight.price}</p>
+            <img
+  src={`http://localhost:3000/images/${flight.image}`}
+  alt={flight.id}
+  style={{ maxWidth: '30%', height: 'auto' }}
+/>
 
             {/* נתונים רק אם הגעת מפרופיל הטיסות שהזמנת */}
             {props.IOrder && (

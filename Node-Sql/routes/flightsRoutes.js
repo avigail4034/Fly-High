@@ -4,7 +4,7 @@ const router = express.Router();
 const controller = require("../controllers/flightsController");
 
 router.get("/", async (req, res) => {
-  const {arrOfFlightsIdToCancel, exitP, target, date, isDirect, company, id, arrOfFlightsId } = req.query;
+  const {arrOfFlightsIdToCancel, exitP, target, date, isDirect, company, id, arrOfFlightsId} = req.query;
   let flights;
 
   try {
@@ -28,7 +28,6 @@ router.get("/", async (req, res) => {
       flights = await controller.getAllflights();
     }
     if (flights || flights.length > 0) {
-      console.log(flights,"fhfhgjhrjhevdjgh");
       res.status(200).send(flights);
     } else {
       return res.status(404).send({ error: "Flight not found" });
@@ -57,8 +56,8 @@ router.post("/", async (req, res) => {
   }
   else {
     try {
-      const { company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime } = req.body;
-      const response = await controller.createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime);
+      const { company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image } = req.body;
+      const response = await controller.createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image);
       res.status(200).send(response);
     } catch (error) {
       console.error(error);
@@ -74,8 +73,8 @@ router.post("/", async (req, res) => {
 router.put("/:ID", async (req, res) => {
   try {
     const ID = req.params.ID;
-    const { company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active} = req.body;
-    const flight = await controller.updateFlight(ID,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active);
+    const { company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image} = req.body;
+    const flight = await controller.updateFlight(ID,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image);
     // const updatedFlight = await controller.getFlight(ID);
     if (!flight) {
  
@@ -90,6 +89,7 @@ router.put("/:ID", async (req, res) => {
 
 router.delete("/:ID", async (req, res) => {
   try {
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     const ID = req.params.ID;
     const result = await await controller.deleteFlight(ID);
     if (result === false) {

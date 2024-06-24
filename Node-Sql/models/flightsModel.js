@@ -103,12 +103,12 @@ async function getFlightByParams(exitP,target,date) {
 //     throw err;
 //   }
 // }
-async function createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime ) {
+async function createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image ) {
   try {
-    const sql = `INSERT INTO flights (company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime ,active) VALUES (?,?,?, ?, ?,?,?,?,?,?,?)`;
-    const [result] = await pool.query(sql, [company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime ,1]);
+    const sql = `INSERT INTO flights (company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime ,active,image) VALUES (?,?,?, ?, ?,?,?,?,?,?,?,?)`;
+    const [result] = await pool.query(sql, [company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime ,1,image]);
     const newFlightID = result.insertId;
-    return  {"id":newFlightID, "company": company,"airplain_id":airplane_id, "exitP": exitP ,"flightCode":flightCode,"price":price, "target":target,  "departureDate":departureDate, "arrivalDate":arrivalDate, "departureTime":departureTime, "arrivalTime":arrivalTime ,"active":1};
+    return  {"id":newFlightID, "company": company,"airplain_id":airplane_id, "exitP": exitP ,"flightCode":flightCode,"price":price, "target":target,  "departureDate":departureDate, "arrivalDate":arrivalDate, "departureTime":departureTime, "arrivalTime":arrivalTime ,"active":1,"image":image};
   } catch (err) {
     throw err;
   }
@@ -135,7 +135,7 @@ async function deleteFlight(FlightID) {
 //     throw err;
 //   }
 // }
-async function updateFlight(id, company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active) {
+async function updateFlight(id, company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image) {
   try {
     const sql = `UPDATE flights SET   active=? WHERE id = ?`;
     const result = await pool.query(sql, [  0, id]);
