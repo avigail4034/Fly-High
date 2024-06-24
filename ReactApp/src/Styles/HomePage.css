@@ -1,0 +1,121 @@
+.homepage {
+    font-family: Arial, sans-serif;
+    margin-top: 3px;
+  }
+  body{
+    height: 100%;
+  }
+  .section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    min-height: 500px; /* Adjust this value as needed */
+  }
+  
+  .header {
+    background: linear-gradient(to right, #0066ff, #33ccff);
+    color: white;
+  }
+  
+  .white-section {
+    background-color: #f8f9fa;
+  }
+  
+  .content {
+    max-width: 50%;
+    padding: 1rem;
+  }
+  
+  .image-placeholder {
+    width: 50%;
+    height: 400px; /* Set a fixed height for visibility */
+    background-color: #e9ecef;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure the image does not overflow the div */
+}
+
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Make sure the image covers the entire div */
+    border-radius: 0.5rem; /* Match the border radius of the div */
+}
+
+  
+  .content h1, .content h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .content p {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .custom-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .footer {
+    background-color: #000;
+    color: white;
+    padding: 2rem;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .footer-section {
+    max-width: 25%;
+  }
+  
+  .footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-section input {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    width: 80%;
+    margin-bottom: 1rem;
+  }
+  
+  .subscribe-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding: 1rem;
+    background-color: #111;
+    color: white;
+  }
+  

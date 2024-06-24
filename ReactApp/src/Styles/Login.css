@@ -1,0 +1,62 @@
+/* /* Login.module.css */
+
+.login-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+  }
+  
+  .login-container h1 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .login-container p {
+    margin-bottom: 1.5rem;
+    color: #666;
+  }
+  
+  .login-container input[type="email"],
+  .login-container input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .login-container .remember-me {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .login-container input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
+  
+  .login-container a {
+    color: #a855f7;
+    text-decoration: none;
+  }
+  
+  .login-container button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #9333ea;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .login-container button:hover {
+    background-color: #7c3aed;
+  }
+   

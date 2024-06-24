@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+  
+  .edit-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6b73ff, #000dff);
+  }
+  
+  .edit-profile-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .edit-profile-form h2 {
+    margin-bottom: 1rem;
+    color: #4b0082;
+  }
+  
+  .edit-profile-form p {
+    margin-bottom: 2rem;
+    color: #808080;
+  }
+  
+  .edit-profile-form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    color: #4b0082;
+  }
+  
+  .edit-profile-form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .edit-profile-form button {
+    background: linear-gradient(135deg, #6b73ff, #000dff);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .edit-profile-form button:hover {
+    background: linear-gradient(135deg, #000dff, #6b73ff);
+  }
+  
+  .alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 0.75rem 1.25rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
