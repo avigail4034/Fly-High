@@ -19,21 +19,36 @@ const Flights = () => {
     const [searchTitle, setSearchTitle] = useState("");
     const [searchArrayflights, setSearchArrayflights] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    function isBeforeISODate(fullDateStr, isoDateStr) {
+        const fullDate = new Date(fullDateStr); // המרת התאריך המלא לאובייקט Date
+        const isoDate = new Date(isoDateStr); // המרת התאריך ה-ISO לאובייקט Date
 
+        return fullDate < isoDate; // בדיקה אם התאריך המלא הוא לפני התאריך ה-ISO
+    }
     async function getflights() {// פונקציה אסינכרונית בגלל שאני רוצה לחכות לתשובבה  מהשרת כדי להציג את המשימות
         try {
             const data = await fetch(`http://localhost:3000/flights`);
             const flights = await data.json();
-            setflightsArray(flights);
+            const today = new Date(); // מציין את תאריך היום
+
+            // סינון הטיסות לפי תאריך היום
+            const filteredFlights = flights.filter(flight => {
+                const result = isBeforeISODate(today, flight.departureDate);
+                return result;
+            });
+
+            setflightsArray(filteredFlights);
         }
         catch (error) {
             alert(error);
         }
+
     }
 
     useEffect(() => {//כל פעם שיש שינוי מציג אותו
         getflights();
     }, [])
+
 
 
     const orderOfFlights = (event) => {//פונקציה שמפנה לפונקציות המיון
@@ -79,26 +94,26 @@ const Flights = () => {
             <Navbar1></Navbar1>
             <h1>All flights:</h1>
             <div id="flexBtnflight">
-                {        (    userDetails.roleId==2||  userDetails.roleId==1)&&<button className='btnPost' onClick={() => { navigate("/add-flight")}}>הוספת טיסה</button>}       
+                {(userDetails.roleId == 2 || userDetails.roleId == 1) && <button className='btnPost' onClick={() => { navigate("/add-flight") }}>הוספת טיסה</button>}
                 <select className='btnTodo' name="order" id="order" onChange={orderOfFlights}>
                     <option value="serial">Serial</option>
                     <option value="price">price</option>
                     <option value="random">Random</option>
                 </select>
-                <input 
-                className='inputFill' 
-                type='text' 
-                onChange={(event) => setSearchTitle(event.target.value)} 
-                value={searchTitle} 
-                placeholder='FOR SEARCH ' 
-            />            </div>
+                <input
+                    className='inputFill'
+                    type='text'
+                    onChange={(event) => setSearchTitle(event.target.value)}
+                    value={searchTitle}
+                    placeholder='FOR SEARCH '
+                />            </div>
             <div id="boxShow">
                 {searchArrayflights.map((flight, index) => <FlightAtScreen key={flight.id} index={index} flight={flight}
                 />)}
 
             </div>
 
- </>
+        </>
     )
 }
 
