@@ -1,8 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../App';
 import { Navbar1 } from './Navbar1';
+import { useNavigate } from 'react-router-dom';
+
 
 function AddFlight() {
+    const navigate = useNavigate();
+
     const [flightDetails, setFlightDetails] = useState({
         company: '',
         airplane_id: '',
@@ -14,6 +18,7 @@ function AddFlight() {
         arrivalDate: '',
         departureTime: '',
         arrivalTime: '',
+        image: '',
     });
     const [airplanes, setAirplanes] = useState([]);
     const context = useContext(UserContext);
@@ -78,6 +83,7 @@ function AddFlight() {
                 });
                 if (response.ok) {
                     alert("טיסה נוספה בהצלחה");
+                    navigate("/Flights")
                 } else {
                     throw new Error('Failed to add flight');
                 }
@@ -109,7 +115,6 @@ function AddFlight() {
                     alert('שגיאה בבדיקת זמינות התאריכים');
                     return false;
                 } else {
-                    alert('מעולה');
                     return true;
 
                 }
@@ -217,6 +222,16 @@ function AddFlight() {
                             </option>
                         ))}
                     </select>
+                </label>
+                <br />       
+                <label>
+                    תמונה:
+                    <input
+                        type="text"
+                        name="image"
+                        value={flightDetails.image}
+                        onChange={handleChange}
+                    />
                 </label>
                 <br />
                 <button type="submit">שלח</button>

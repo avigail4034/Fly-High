@@ -1,8 +1,8 @@
 const model = require('../models/flightsModel');
 
-async function createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image) {
+async function createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, image) {
     try {
-        return model.createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image);
+        return model.createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, image);
     } catch (err) {
         throw err;
     }
@@ -21,7 +21,7 @@ async function getArrFlightsById(arrOfFlightsId) {
     } catch (err) {
         throw err;
     }
-}async function getArrFlightsByIdToCancel(arrOfFlightsId) {
+} async function getArrFlightsByIdToCancel(arrOfFlightsId) {
     try {
         return model.getArrFlightsByIdToCancel(arrOfFlightsId);
     } catch (err) {
@@ -53,12 +53,83 @@ async function getFlightByParams(exitP, target, date) {
 }
 
 
+// function compareDates(date1, date2) {
+//     const newDate = new Date(client.weddingDate).toISOString().split('T')[0];
+
+//     console.log(date1, date2, "date1, date2");
+//     const dateOnly1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+//     const dateOnly2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+//     console.log(dateOnly1, dateOnly2, "");
+//     return dateOnly1.getTime() === dateOnly2.getTime();
+// }
+
+
+
+
+
+
+
+
+// async function getFlightByParamsNotDirect(exitP, target, date) {
+//     try {
+//         const flights = await model.getFlightByExitTarget(exitP, target);
+//         const connectingFlights = [];
+
+//         flights.forEach(flight1 => {
+//             flights.forEach(flight2 => {
+//                 // Convert flight1 and flight2 dates to Date objects
+//                 // const arrivalDate1 = new Date(`${flight1.arrivalDate} ${flight1.arrivalTime}`);
+//                 // const departureDate2 = new Date(`${flight2.departureDate} ${flight2.departureTime}`);
+
+//                 // Compare the departure date of flight1 with the provided date
+//                 if (compareDates(flight1.departureDate, date)) {
+//                     if (
+//                         flight1.target === flight2.exitP &&
+//                         flight1.exitP !== flight2.target &&
+//                         flight1.exitP === exitP &&
+//                         flight2.target === target
+//                     ) {
+//                         const diffInDays = Math.abs((arrivalDate1 - departureDate2) / (1000 * 60 * 60 * 24));
+
+//                         if (diffInDays < 1) {
+
+//                             if (departureDate2 >= arrivalDate1) {
+//                                 connectingFlights.push({
+//                                     Company1: flight1.company,
+//                                     Exit1: flight1.exitP,
+//                                     Target1: flight1.target,
+//                                     Date1: flight1.departureDate,
+//                                     ArrivalTime1: flight1.arrivalTime,
+//                                     DepartureTime1: flight1.departureTime,
+//                                     Company2: flight2.company,
+//                                     Exit2: flight2.exitP,
+//                                     Target2: flight2.target,
+//                                     Date2: flight2.departureDate,
+//                                     ArrivalTime2: flight2.arrivalTime,
+//                                     DepartureTime2: flight2.departureTime,
+//                                     flight1,
+//                                     flight2
+//                                 });
+//                             }
+//                         }
+//                     }
+//                 }
+//             });
+//         });
+//         return connectingFlights;
+//     } catch (err) {
+//         throw err;
+//     }
+// }
+
+
+
+
 function compareDates(date1, date2) {
-    console.log(date1, date2,"date1, date2");
-    const dateOnly1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
-    const dateOnly2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
-    console.log(dateOnly1,dateOnly2,"");
-    return dateOnly1.getTime() === dateOnly2.getTime();
+    const newDate1 = new Date(date1);
+    newDate1.setDate(newDate1.getDate()+1) ;  
+   const dateOnly1= newDate1.toISOString().split('T')[0];
+    return dateOnly1 === date2;
 }
 
 async function getFlightByParamsNotDirect(exitP, target, date) {
@@ -67,33 +138,36 @@ async function getFlightByParamsNotDirect(exitP, target, date) {
         const connectingFlights = [];
         flights.forEach(flight1 => {
             flights.forEach(flight2 => {
+                  // Convert flight1 and flight2 dates to Date objects
+//                 // const arrivalDate1 = new Date(`${flight1.arrivalDate} ${flight1.arrivalTime}`);
+//                 // const departureDate2 = new Date(`${flight2.departureDate} ${flight2.departureTime}`);
+
+                if (compareDates(flight1.departureDate, date)) {//בדיקה שתאריך היציאה שווה לתאריך היציאה המבוקש
                     if (
                         flight1.target === flight2.exitP &&
                         flight1.exitP !== flight2.target &&
                         flight1.exitP === exitP &&
                         flight2.target === target
                     ) {
-                        
-                                connectingFlights.push({
-                                    Company1: flight1.company,
-                                    Exit1: flight1.exitP,
-                                    Target1: flight1.target,
-                                    Date1: flight1.departureDate,
-                                    ArrivalTime1: flight1.arrivalTime,
-                                    DepartureTime1: flight1.departureTime,
-                                    Company2: flight2.company,
-                                    Exit2: flight2.exitP,
-                                    Target2: flight2.target,
-                                    Date2: flight2.departureDate,
-                                    ArrivalTime2: flight2.arrivalTime,
-                                    DepartureTime2: flight2.departureTime,
 
-                                    flight1,
-                                    flight2
-                                });
-                            
-                        
-                    
+                        connectingFlights.push(
+                            // Company1: flight1.company,
+                            // Exit1: flight1.exitP,
+                            // Target1: flight1.target,
+                            // Date1: flight1.departureDate,
+                            // ArrivalTime1: flight1.arrivalTime,
+                            // DepartureTime1: flight1.departureTime,
+                            // Company2: flight2.company,
+                            // Exit2: flight2.exitP,
+                            // Target2: flight2.target,
+                            // Date2: flight2.departureDate,
+                            // ArrivalTime2: flight2.arrivalTime,
+                            // DepartureTime2: flight2.departureTime,
+
+                            flight1,
+                          flight2
+                        );
+                    }
                 }
             });
         });
@@ -137,9 +211,9 @@ async function deleteFlight(ID) {
     }
 }
 
-async function updateFlight(id,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image) {
+async function updateFlight(id, company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active, image) {
     try {
-        return model.updateFlight(id,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image);
+        return model.updateFlight(id, company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active, image);
     } catch (err) {
         throw err;
     }
@@ -147,7 +221,7 @@ async function updateFlight(id,  company, airplain_id, exitP, flightCode, price,
 
 module.exports = {
     createFlight,
-    getAllflights,getArrFlightsByIdToCancel,
+    getAllflights, getArrFlightsByIdToCancel,
     getFlightById,
     checkDatesController,
     deleteFlight,

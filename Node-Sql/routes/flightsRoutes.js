@@ -89,7 +89,6 @@ router.put("/:ID", async (req, res) => {
 
 router.delete("/:ID", async (req, res) => {
   try {
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     const ID = req.params.ID;
     const result = await await controller.deleteFlight(ID);
     if (result === false) {

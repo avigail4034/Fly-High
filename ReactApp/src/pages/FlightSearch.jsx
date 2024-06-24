@@ -13,11 +13,12 @@ function FlightSearch() {
     const [isDirect, setIsDirect] = useState(false);
 
     const handleSearch = () => {
-        fetch(`http://localhost:3000/flights?exitP=${exitP}&target=${target}&date=${new Date(date).toISOString()}&isDirect=${isDirect}`)
+        fetch(`http://localhost:3000/flights?exitP=${exitP}&target=${target}&date=${date}&isDirect=${isDirect}`)
+   //     fetch(`http://localhost:3000/flights?exitP=${exitP}&target=${target}&date=${new Date(date).toISOString()}&isDirect=${isDirect}`)
             .then((response) => response.json())
             .then((answer) => {
-                console.log("answer,",answer);
-                if (!answer[0].id) {//אם חזרה תשובה זה אומר שקיים כזה משתמש
+                console.log(answer,"hghku");
+                if (!answer[0]) {//אם חזרה תשובה זה אומר שקיים כזה משתמש
                     alert("We apologize! There is currently no flight as requested")
                 }
                 else {
@@ -59,7 +60,6 @@ function FlightSearch() {
             <button onClick={handleSearch}>חיפוש</button>
             <br></br>
 
-            {console.log(flightsArray,"hhhhhhhhhhhhh")}
             {flightsArray.map((flight, index) => <FlightAtScreen key={flight.id} index={index} flight={flight} />)}
         </div>
     );

@@ -7,7 +7,6 @@ async function createOrder(user_id, flight_id, places_arr) {
 
   try {
     const sql = `INSERT INTO Orders (user_id, flight_id, place_id) VALUES ?`;
-    console.log(places_arr, "הטוב ביותר!!!!!!!");
     const values = places_arr.map(place => [user_id, flight_id, place.id]);
     const [result] = await pool.query(sql, [values]);
     const newOrderID = result.insertId;

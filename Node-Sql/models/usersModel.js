@@ -39,11 +39,9 @@ async function createUser(userName, password) {
 async function getArrUsersById(arrOfUsersId) {
   try {
       const users = [];
-     console.log(arrOfUsersId,"arrOfUsersId");
      const arrPlaces = arrOfUsersId.split(',').map(Number);
       for (const id of arrPlaces) {
         if (!isNaN(id)) {
-        console.log(id,"gifyhf");
           const sql = 'SELECT * FROM users WHERE id = ?';
           const result = await pool.query(sql, [id]);
           users.push(result[0][0]);}}

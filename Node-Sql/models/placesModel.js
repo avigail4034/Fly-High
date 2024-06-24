@@ -4,7 +4,6 @@ async function getPlacesByAirplaneId(ID) {
   try {
     const sql = 'SELECT * FROM places where airplane_id=?';
     const result = await pool.query(sql, [ID]);
-    console.log(result[0]);
     return result[0];
   } catch (err) {
     throw err;

@@ -9,7 +9,6 @@ router.get("/", async (req, res) => {
 
 
     try {
-      console.log(airplaneId,"dsf");
       if (airplaneId) { 
           const places = await controller.getPlacesByAirplaneId(airplaneId);
 

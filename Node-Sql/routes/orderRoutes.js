@@ -45,7 +45,6 @@ router.delete("/", async (req, res) => {
   const flight_id_arr = req.query.flight_id_arr;
   const user_id = req.query.user_id;
   const {arrPlaces} = req.body;
-  console.log(flight_id_arr,"VVVVVVVVVVVV", user_id);
   try {
     if(user_id){    const result = await await controller.deleteOrderToCancel(flight_id_arr, user_id);
       if (!result) {
