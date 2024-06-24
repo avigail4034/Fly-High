@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 
 function FlightSearch() {
     const [flightsArray, setFlightsArray] = useState([]);
+    const [flightsArrayOfRoute, setFlightsArrayOfRoute] = useState([]);
+    const [flightsArrayOfFlightsInRoute, setFlightsArrayOfFlightsInRoute] = useState([]);
     const [exitP, setExitP] = useState('');
     const [target, setTarget] = useState('');
     const [date, setDate] = useState("");
@@ -17,18 +19,29 @@ function FlightSearch() {
    //     fetch(`http://localhost:3000/flights?exitP=${exitP}&target=${target}&date=${new Date(date).toISOString()}&isDirect=${isDirect}`)
             .then((response) => response.json())
             .then((answer) => {
-                console.log(answer,"hghku");
-                if (!answer[0]) {//אם חזרה תשובה זה אומר שקיים כזה משתמש
+                if(isDirect)
+              {  if (!answer[0]) {//אם חזרה תשובה זה אומר שקיים כזה משתמש
                     alert("We apologize! There is currently no flight as requested")
                 }
                 else {
                     setFlightsArray( answer)
+                }}
+                else{ //אם מצב מסלול- כלומר טיסה לא ישירה
+                     if (!answer[0]) {//אם חזרה תשובה זה אומר שקיים כזה משתמש
+                    alert("We apologize! There is currently no flight as requested")
                 }
+                else {
+                    setFlightsArrayOfRoute( answer)
+                }}
             })
             .catch((error) => console.error('Error fetching data:', error));
 
         // כאן תוכל לכתוב קוד שמבצע את החיפוש לפי הנתונים שהוזנו
     };
+
+    const routeViewing = (flights) => {
+        setFlightsArrayOfFlightsInRoute(flights);
+    }
     return (
         <div>
             <Navbar1></Navbar1>
@@ -59,8 +72,24 @@ function FlightSearch() {
 
             <button onClick={handleSearch}>חיפוש</button>
             <br></br>
+            {flightsArray.length > 0 && flightsArray.map((flight, index) => (
+    <FlightAtScreen key={flight.id} index={index} flight={flight} />
+))}    
+  
+{flightsArrayOfRoute.length > 0 && flightsArrayOfRoute.map((route, index) => (
+    <div key={index}>
+        <p>תחנת ביניים: {route[0].target} </p>
+        <br />
+        <p>יציאה ב: {route[0].departureDate} {route[0].departureTime}</p>
+        <br />
+        <p>הגעה ב: {route[1].arrivalDate} {route[1].arrivalTime}</p>
+        <button onClick={(e) => { routeViewing(route); }}>לצפייה במסלול המפורט</button>
 
-            {flightsArray.map((flight, index) => <FlightAtScreen key={flight.id} index={index} flight={flight} />)}
+    </div>
+))}   
+   {flightsArrayOfFlightsInRoute.length > 0 && flightsArrayOfFlightsInRoute.map((flight, index) => (
+    <FlightAtScreen key={flight.id} index={index} flight={flight} />
+))}
         </div>
     );
 }

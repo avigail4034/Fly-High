@@ -124,58 +124,81 @@ async function getFlightByParams(exitP, target, date) {
 
 
 
-
 function compareDates(date1, date2) {
     const newDate1 = new Date(date1);
-    newDate1.setDate(newDate1.getDate()+1) ;  
-   const dateOnly1= newDate1.toISOString().split('T')[0];
+    newDate1.setDate(newDate1.getDate() + 1); // הוספת יום אחד לתאריך היציאה המבוקש
+    const dateOnly1 = newDate1.toISOString().split('T')[0];
     return dateOnly1 === date2;
 }
+
+
+
+function daysDifference(arrivalDate, arrivalTime, departureDate, departureTime) {
+    // יצירת אובייקטי Date מתאריך ושעה הכנסות
+    const arrivalDateTime = new Date(arrivalDate + 'T' + arrivalTime);
+    const departureDateTime = new Date(departureDate + 'T' + departureTime);
+
+    // בדיקה אם המטוס הראשון מגיע לפני שהמטוס השני יוצא
+    if (arrivalDateTime >= departureDateTime) {
+        return false; // המטוס הראשון לא מגיע לפני שהמטוס השני יוצא
+    }
+
+    // חישוב ההפרש בין המטוסים בימים
+    const diffTime = Math.abs(departureDateTime.getTime() - arrivalDateTime.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // בדיקה שההפרש בין המטוסים הוא לא יותר מיום אחד
+    if (diffDays > 1) {
+        return false; // ההפרש בין המטוסים גדול מיום אחד
+    }
+
+    return true; // התנאים מתקיימים - המטוס הראשון מגיע לפני שהמטוס השני יוצא וההפרש ביניהם הוא לא יותר מיום אחד
+}
+
+// דוגמה לשימוש בפונקציה
+const result = daysDifference('2024-06-10', '10:50:00', '2024-06-11', '08:00:00');
+console.log(result); // יציבית - המטוס הראשון מגיע לפני שהמטוס השני יוצא וההפרש ביניהם הוא לא יותר מיום אחד
+
+const result2 = daysDifference('2024-06-11', '12:00:00', '2024-06-11', '08:00:00');
+console.log(result2); // שלילית - המטוס הראשון לא מגיע לפני שהמטוס השני יוצא או ההפרש ביניהם גדול מיום אחד
+
+
+
 
 async function getFlightByParamsNotDirect(exitP, target, date) {
     try {
         const flights = await model.getFlightByExitTarget(exitP, target);
         const connectingFlights = [];
+        
         flights.forEach(flight1 => {
             flights.forEach(flight2 => {
-                  // Convert flight1 and flight2 dates to Date objects
-//                 // const arrivalDate1 = new Date(`${flight1.arrivalDate} ${flight1.arrivalTime}`);
-//                 // const departureDate2 = new Date(`${flight2.departureDate} ${flight2.departureTime}`);
-
-                if (compareDates(flight1.departureDate, date)) {//בדיקה שתאריך היציאה שווה לתאריך היציאה המבוקש
+                if (compareDates(flight1.departureDate, date)) {
+                    const flight1ArrivalDate = new Date(flight1.arrivalDate);
+                    const arrivalDate = flight1ArrivalDate.toISOString().split('T')[0];
+                    const flight2DepartureDate = new Date(flight2.departureDate);
+                    const departureDate = flight2DepartureDate.toISOString().split('T')[0];
                     if (
                         flight1.target === flight2.exitP &&
                         flight1.exitP !== flight2.target &&
                         flight1.exitP === exitP &&
-                        flight2.target === target
+                        flight2.target === target &&
+                        daysDifference(arrivalDate,flight1.arrivalTime,departureDate,flight2.departureTime) // בדיקת ההפרש בין הטיסות
                     ) {
-
-                        connectingFlights.push(
-                            // Company1: flight1.company,
-                            // Exit1: flight1.exitP,
-                            // Target1: flight1.target,
-                            // Date1: flight1.departureDate,
-                            // ArrivalTime1: flight1.arrivalTime,
-                            // DepartureTime1: flight1.departureTime,
-                            // Company2: flight2.company,
-                            // Exit2: flight2.exitP,
-                            // Target2: flight2.target,
-                            // Date2: flight2.departureDate,
-                            // ArrivalTime2: flight2.arrivalTime,
-                            // DepartureTime2: flight2.departureTime,
-
-                            flight1,
-                          flight2
+                        connectingFlights.push([  flight1,
+                            flight2]
+                          
                         );
                     }
                 }
             });
         });
+
         return connectingFlights;
     } catch (err) {
         throw err;
     }
 }
+
 
 // function compareDates(flightDate, givenDate) {
 //     // Ensure both dates are in Date object format
