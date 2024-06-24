@@ -6,6 +6,13 @@ async function getCancelOfUser(ID) {
         throw err;
     }
 
+}async function getCancelOfFlight(flightId) {
+    try {
+        return model.getCancelOfFlight(flightId)
+    } catch (err) {
+        throw err;
+    }
+
 }
 
 async function deleteOrder(flight_id,arrPlaces) {
@@ -34,4 +41,4 @@ async function deleteCancel(flight_id_arr, user_id) {
 }
 
 
-module.exports = {createCancel,deleteCancel,getCancelOfUser,deleteOrder}
+module.exports = {getCancelOfFlight,createCancel,deleteCancel,getCancelOfUser,deleteOrder}

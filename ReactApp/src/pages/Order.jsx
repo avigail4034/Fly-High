@@ -11,7 +11,8 @@ export function Order() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const airplaneId = searchParams.get('id');
-    const flightId = searchParams.get('flightId');
+    const flightId1 = searchParams.get('flightId'); // מקבל את הערך כמחרוזת
+    const flightId = parseInt(flightId1); // ממיר את המחרוזת למספר שלם
     const navigate = useNavigate();
 
     const [seatMap, setSeatMap] = useState([]);
@@ -22,7 +23,7 @@ export function Order() {
         seatMap.forEach(row => {
             row.forEach(seat => {
                 if (seat.selected) {
-                    selectedSeats.push({id:seat.id, airplane_id:airplaneId, rowP:seat.rowP, columnP:seat.columnP, isAvailable:seat.available});
+                    selectedSeats.push({ id: seat.id, airplane_id: airplaneId, rowP: seat.rowP, columnP: seat.columnP, isAvailable: seat.available });
                 }
             });
         });
@@ -50,18 +51,18 @@ export function Order() {
         fetch(`http://localhost:3000/Places/${airplaneId}`, {
             method: 'PUT',
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(selectedSeats),
-          })
+        })
             .then(() => {
-             navigate(`/thank`);
-            alert("ההרשמה התבצעה בהצלחה");
+                navigate(`/thank`);
+                alert("ההרשמה התבצעה בהצלחה");
 
             })
             .catch(error => {
-              console.error('Error making POST request:', error);
-              alert(error);
+                console.error('Error making POST request:', error);
+                alert(error);
             });
 
     };
@@ -73,8 +74,8 @@ export function Order() {
 
             const generatedSeatMap = generateSeatMap(seats);
             setSeatMap(generatedSeatMap);
-       
-       
+
+
         } catch (error) {
             alert(error);
         }
@@ -91,8 +92,8 @@ export function Order() {
             if (!seatMap[seat.rowP - 1]) {
                 seatMap[seat.rowP - 1] = [];
             }
-            seatMap[seat.rowP - 1][seat.columnP - 1] = seat.isAvailable === 1 ? { available: true, selected: false, id: seat.id, rowP:seat.rowP, columnP:seat.columnP } : { available: false, selected: false, id: seat.id , rowP:seat.rowP, columnP:seat.columnP};
-       
+            seatMap[seat.rowP - 1][seat.columnP - 1] = seat.isAvailable === 1 ? { available: true, selected: false, id: seat.id, rowP: seat.rowP, columnP: seat.columnP } : { available: false, selected: false, id: seat.id, rowP: seat.rowP, columnP: seat.columnP };
+
         });
         return seatMap;
     };
@@ -107,7 +108,8 @@ export function Order() {
 
     return (
         <>
-            <Navbar1 />
+            <Navbar1 />              
+              <h2>בחר את מקומך הטוב ביותר </h2>
             <div className="seat-map-container">
                 <div className="seat-map">
                     {seatMap.map((row, rowIndex) => (
@@ -118,7 +120,7 @@ export function Order() {
                                         type="checkbox"
                                         disabled={!seat.available}
                                         checked={seat.selected}
-                                        onChange={() => {toggleSeatSelection(rowIndex, seatIndex);}}
+                                        onChange={() => { toggleSeatSelection(rowIndex, seatIndex); }}
                                     />
                                 </label>
                             ))}

@@ -27,6 +27,14 @@ async function getCancelOfUser(ID) {
   } catch (err) {
     throw err;
   }
+}async function getCancelOfFlight(ID) {
+  try {
+    const sql = 'SELECT * FROM canceled_flights WHERE flight_id = ?'
+    const result = await pool.query(sql, [ID]);
+    return result[0];
+  } catch (err) {
+    throw err;
+  }
 }
 
 
@@ -50,4 +58,4 @@ async function deleteCancel(flight_id_arr, user_id) {
 }
 
 
-  module.exports = {createCancel,deleteCancel,getCancelOfUser}  
+  module.exports = {getCancelOfFlight,createCancel,deleteCancel,getCancelOfUser}  

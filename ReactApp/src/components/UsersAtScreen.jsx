@@ -39,7 +39,7 @@ function UsersAtScreen(props) {
             <p>firstName: {user.firstName}</p>
             <p> lastName: {user.lastName}</p>
             <p>   email: {user.email}</p>
-            <p>  roleId:{user.roleId}</p>
+            {user.roleId == 3 ?    <p>  roleId: user</p>: <p>  roleId: emploee</p>}
             {user.roleId == 3 ? <button onClick={handlePermissionChange}>  עדכון להרשאת עובד </button> : user.roleId == 2 ? <button onClick={handlePermissionChange}>  עדכון להרשאת משתמש רגיל </button> : null}
             <p>-----------------------</p>
         </div>
