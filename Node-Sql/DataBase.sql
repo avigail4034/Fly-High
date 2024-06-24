@@ -79,8 +79,8 @@ CREATE TABLE Flights (
     flightCode VARCHAR(255),
     price INT,
     target VARCHAR(255),
-    departureDate date,
-    arrivalDate date,
+    departureDate Date,
+    arrivalDate Date,
     departureTime time,
     arrivalTime time,
     active bool,
@@ -125,7 +125,7 @@ VALUES
 
 INSERT INTO Users (firstName, lastName, userName, email, phone, roleId )
 VALUES
-('John', 'Doe', 'john_doe', 'john@example.com', '123456789', 2),
+('John', 'Doe', 'john_doe', 'john@example.com', '123456789', 1),
 ('Alice', 'Smith', 'alice_smith', 'alice@example.com', '987654321', 2),
 ('Michael', 'Johnson', 'michael_johnson', 'michael@example.com', '555555555', 2),
 ('Emily', 'Brown', 'emily_brown', 'emily@example.com', '666666666', 2),
@@ -141,15 +141,15 @@ VALUES
 INSERT INTO Passwords (user_id, password)
 VALUES
 (1, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
-(2, 'password2'),
-(3, 'password3'),
-(4, 'password4'),
-(5, 'password5'),
-(6, 'password6'),
-(7, 'password7'),
-(8, 'password8'),
-(9, 'password9'),
-(10, 'password10');
+(2, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
+(3, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
+(4, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
+(5, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
+(6, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
+(7, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
+(8, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
+(9, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2'),
+(10, '$2b$10$8.xGWX72kxYTOEXDispypOYRa8k3yM8GtWIkYbzVbYhwFLzPb.PL2');
 INSERT INTO Companies (name)
 VALUES
 ('Company A'),
@@ -161,8 +161,8 @@ INSERT INTO Airplanes (company, num_places, num_rows, num_columns)
 VALUES
 ("Company A", 10, 5, 2),
 ("Company C", 6, 3, 2),
-("Company A", 25, 5, 5),
-("Company C", 22, 11, 2),
+("Company A", 8, 4, 2),
+("Company C", 12, 6, 2),
 ("Company C", 20, 10, 2),
 ("Company A", 30, 10, 3),
 ("Company C", 40, 20, 2),
@@ -195,28 +195,54 @@ VALUES
 (2, 2, 1, true),
 (2, 2, 2, false),
 (2, 3, 1, true),
-(2, 3, 2, false);
+(2, 3, 2, false),
+
+
+(3, 1, 1, true),
+(3, 1, 2, true),
+(3, 2, 1, true),
+(3, 2, 2, false),
+(3, 3, 1, true),
+(3, 3, 2, false),
+(3, 4, 1, true),
+(3, 4, 2, false),
+
+(4, 1, 1, true),
+(4, 1, 2, true),
+(4, 2, 1, true),
+(4, 2, 2, false),
+(4, 3, 1, true),
+(4, 3, 2, false),
+(4, 4, 1, true),
+(4, 4, 2, false),
+(4, 5, 1, true),
+(4, 5, 2, false),
+(4, 6, 1, true),
+(4, 6, 2, false)
+;
 
 INSERT INTO Flights (company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,active,image)
 VALUES
-("Company B", 1, 'New York', 1001, 200, 'Los Angeles', '2024-06-10', '2024-06-10', '08:00:00', '10:30:00',1,"los.jpg"),
-("Company C", 2, 'Los Angeles', 1002, 250, 'Paris', '2024-06-10', '2024-06-15', '10:50:00', '12:30:00',1,"paris.jpg"),
+("Company B", 1, 'New York', 1001, 800, 'Los Angeles', '2028-06-10', '2028-06-10', '08:00:00', '10:30:00',1,"los.jpg"),
+("Company C", 2, 'Los Angeles', 1002, 250, 'Paris', '2028-06-10', '2028-06-15', '10:50:00', '12:30:00',1,"paris.jpg"),
+("Company B", 3, 'New York', 1001, 200, 'a', '2022-06-10', '2022-06-10', '08:00:00', '10:30:00',1,"los.jpg"),
+("Company C", 4, 'a', 1002, 250, 'Paris', '2024-06-10', '2024-06-15', '10:50:00', '12:30:00',1,"paris.jpg"),
 ("Company C", 3, 'Tokyo', 1003, 300, 'Beijing', '2024-06-20', '2024-06-20', '12:00:00', '14:30:00',1,"Singapore.jpg"),
 ("Company C", 4, 'Dubai', 1004, 400, 'Singapore', '2024-06-25', '2024-06-26', '14:00:00', '16:30:00',1,"Seoul.jpg"),
-("Company C", 5, 'Sydney', 1005, 350, 'Melbourne', '2024-06-30', '2024-06-30', '16:00:00', '18:30:00',1,"newyork.jpg"),
-("Company B", 6, 'Hong Kong', 1006, 380, 'Seoul', '2024-07-05', '2024-07-07', '18:00:00', '20:30:00',1,"Melbourne.jpg"),
+("Company C", 3, 'Sydney', 1005, 350, 'Melbourne', '2024-06-30', '2024-06-30', '16:00:00', '18:30:00',1,"newyork.jpg"),
+("Company B", 4, 'Hong Kong', 1006, 380, 'Seoul', '2024-07-05', '2024-07-07', '18:00:00', '20:30:00',1,"Melbourne.jpg"),
 ("Company C", 7, 'Berlin', 1007, 280, 'Rome', '2024-07-10', '2024-07-11', '20:00:00', '22:30:00',1,"newyork.jpg"),
 ("Company A", 8, 'Madrid', 1008, 320, 'Barcelona', '2024-07-15', '2024-07-15', '22:00:00', '00:30:00',1,"newyork.jpg"),
 ("Company A", 9, 'Rio de Janeiro', 1009, 450, 'Sao Paulo', '2024-07-20', '2024-07-23', '00:00:00', '02:30:00',1,"newyork.jpg"),
 ("Company C", 10, 'Moscow', 1010, 270, 'Saint Petersburg', '2024-07-25', '2024-07-25', '02:00:00', '04:30:00',1,"newyork.jpg");
 
-INSERT INTO Orders (user_id, flight_id, place_id)
-VALUES
-(1, 1, 1);
+-- INSERT INTO Orders (user_id, flight_id, place_id)
+-- VALUES
+-- (1, 1, 1);
 
-INSERT INTO canceled_flights (user_id, flight_id)
-VALUES
-(1, 1);
+-- INSERT INTO canceled_flights (user_id, flight_id)
+-- VALUES
+-- (1, 1);
 INSERT INTO Company_employees (employee_id, company)
 VALUES
 (1, "Company C"),
