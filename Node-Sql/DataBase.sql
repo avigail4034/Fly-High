@@ -303,9 +303,9 @@ VALUES
 (9, 7, 2, false)
 ,(9, 8, 1, true),
 (9, 8, 2, false)
-
-
 ,
+
+
 (10, 1, 1, true),
 (10, 1, 2, true),
 (10, 2, 1, true),
@@ -358,7 +358,6 @@ VALUES
 (12, 7, 2, false)
 ,(12, 8, 1, true),
 (12, 8, 2, false)
-
 ;
 
 INSERT INTO Flights (company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,active,image)
@@ -371,10 +370,10 @@ VALUES
 ("Company C", 4, 'Dubai', 1004, 400, 'Singapore', '2024-06-25', '2024-06-26', '14:00:00', '16:30:00',1,"Seoul.jpg"),
 ("Company C", 7, 'Sydney', 1005, 350, 'Melbourne', '2024-06-30', '2024-06-30', '16:00:00', '18:30:00',1,"newyork.jpg"),
 ("Company B", 8, 'Hong Kong', 1006, 380, 'Seoul', '2024-07-05', '2024-07-07', '18:00:00', '20:30:00',1,"Melbourne.jpg"),
-("Company C", 9, 'Berlin', 1007, 280, 'Rome', '2024-07-10', '2024-07-11', '20:00:00', '22:30:00',1,"newyork.jpg"),
-("Company A", 10, 'Madrid', 1008, 320, 'Barcelona', '2024-07-15', '2024-07-15', '22:00:00', '00:30:00',1,"newyork.jpg"),
-("Company A", 11, 'Rio de Janeiro', 1009, 450, 'Sao Paulo', '2024-07-20', '2024-07-23', '00:00:00', '02:30:00',1,"newyork.jpg"),
-("Company C", 12, 'Moscow', 1010, 270, 'Saint Petersburg', '2024-07-25', '2024-07-25', '02:00:00', '04:30:00',1,"newyork.jpg");
+("Company C", 9, 'Berlin', 1007, 280, 'Rome', '2024-07-10', '2024-07-11', '20:00:00', '22:30:00',1,"Berlin.jpg"),
+("Company A", 10, 'Madrid', 1008, 320, 'Barcelona', '2024-07-15', '2024-07-15', '22:00:00', '00:30:00',1,"Madrid.jpg"),
+("Company A", 11, 'Rio de Janeiro', 1009, 450, 'Sao Paulo', '2024-07-20', '2024-07-23', '00:00:00', '02:30:00',1,"Rio de.jpg"),
+("Company C", 12, 'Moscow', 1010, 270, 'Saint Petersburg', '2024-07-25', '2024-07-25', '02:00:00', '04:30:00',1,"Moscow.jpg");
 
 -- INSERT INTO Orders (user_id, flight_id, place_id)
 -- VALUES
