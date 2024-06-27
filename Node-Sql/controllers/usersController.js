@@ -15,6 +15,13 @@ async function getArrUsersById(arrOfUsersId) {
         throw err;
     }
 }
+async function getArrUsersByRoleId(roleId) {
+    try {
+        return model.getArrUsersByRoleId(roleId);
+    } catch (err) {
+        throw err;
+    }
+}
 async function getUserByUserName(userName) {
     try {
         return model.getUserByUserName(userName)
@@ -59,4 +66,4 @@ async function updateUser(firstName, lastName, userName, email, phone,roleId,id)
     }
 }
 
-module.exports = { createUser,getArrUsersById, getAllUsers, getUserByUserName, updateUser, getUserByNamePassword }
+module.exports = { createUser,getArrUsersById, getAllUsers, getUserByUserName, updateUser, getUserByNamePassword ,getArrUsersByRoleId}

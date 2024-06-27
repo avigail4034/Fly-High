@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import Modal from 'react-modal';
+import emailjs from 'emailjs-com';
 
 const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
   const [usersArray, setUsersArray] = useState([{}]);
@@ -17,10 +18,32 @@ const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
         alert(error);
       }
 
+
+
     }
     getUsersByIds();
   }, []);
   const handleMessageToPassengers = async () => {
+
+    try {
+      // שליחת מייל לכל אחד מהמשתמשים
+      await Promise.all(usersArray.map(async (user) => {
+        const templateParams = {
+          from_name: `FLY-HIGH`,
+          to_name: `${user.firstName} ${user.lastName}`,
+          to_email: user.email,
+          message: ` טיסה מספר   ${flightId} שהזמנת בוטלה. נא הכנס לפרופיל שלך כדי לאשר ביטול. `,
+        };
+        // שליחת המייל באמצעות EmailJS
+        await emailjs.send('service_3d97smk', 'template_mugrt4p', templateParams, 'brqCSjHygkRyZhacH');
+      }));
+      alert('ההודעה נשלחה לנוסעים');
+    } catch (error) {
+      console.error('שגיאה בשליחת המייל:', error);
+      alert('נכשל לשלוח הודעה לנוסעים');
+    }
+    //////////////
+
     try {
       const response = await fetch(`http://localhost:3000/Cancel/${flightId}`, {
         method: 'POST',
@@ -38,6 +61,9 @@ const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
     } catch (error) {
       console.error(error);
     }
+
+
+
 
     window.location.reload();
 

@@ -67,3 +67,31 @@ function App() {
 }
 
 export default App;
+
+
+
+
+/**
+ * 
+ * const templateParams = {
+                    from_name: `${user.firstName} ${user.lastName}`,
+                    to_email: fullRide.email,
+                    message: `${user.firstName} ${user.lastName} wants to travel with you \n
+                      on your ride from ${fullRide.source} to ${fullRide.destination} at ${fullRide.date}\n
+                      in station ${stop.name}.`,
+                    requestId: requestId.toString()
+                };
+
+                emailjs.send(
+                    'service_7vdgzor',
+                    'template_ww2a0cd',
+                    templateParams,
+                    '-smQEZzJW4OLKNgra'
+                )
+                    .then((response) => {
+                        console.log('Email sent successfully!', response.status, response.text);
+                    }, (error) => {
+                        console.error('Failed to send email:', error);
+                    });
+
+ */

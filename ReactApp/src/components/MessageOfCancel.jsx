@@ -7,6 +7,7 @@ import { UserContext } from '../App';
 const MessageOfCancel = ({ cancels }) => {
     const [cancelsDetails, setCancelsDetails] = useState([{}]);
     const [flightsIdsToCancel, setFlightsIdsToCancel] = useState([]);
+    const [employeesArray, setEmployeesArray] = useState([]);
     const [haveMessage, setHaveMessage] = useState(false);
     const context = useContext(UserContext);
     const { userDetails } = context;
@@ -83,12 +84,39 @@ const MessageOfCancel = ({ cancels }) => {
             const cancelOfFlight = await data.json();
             console.log(cancelOfFlight, "cancelOfFlight");
             if (cancelOfFlight.length>0) { return false; }
-            else { alert("נשלחה הודעה למנהל שכולם ביטלו- כשיש מייל למחוק את ההודעה"); }
+            else {
+                //////////////מביאים את כל העובדים והמנהלים כדי לשלוח להם מייל שניתן למחוק סופית של הטיסה
+                try {
+                    const data = await fetch(`http://localhost:3000/users?roleId=${1}`);
+                    const employees = await data.json();
+
+                    setEmployeesArray(employees);
+                }
+                catch (error) {
+                    alert(error);
+                }
+                try {
+                // שליחת מייל לכל אחד מהמשתמשים
+                await Promise.all(employeesArray.map(async (employee) => {
+                  const templateParams = {
+                    from_name: `FLY-HIGH`,
+                    to_name: `${employee.firstName} ${employee.lastName}`,
+                    to_email: employee.email,
+                    message: ` ניתן למחוק סופית את טיסה  ${id} כל הנוסעים אישרו ביטול. `,
+                  };
+                  // שליחת המייל באמצעות EmailJS
+                  await emailjs.send('service_3d97smk', 'template_mugrt4p', templateParams, 'brqCSjHygkRyZhacH');
+                }));
+                console.log("ההודעה נשלחה לעובדים");
+              } catch (error) {
+                console.error('שגיאה בשליחת המייל:', error);
+                console.log('נכשל לשלוח הודעה לעובדים');
+              } }
         }
         catch (error) {
             alert(error);
         }
-        ////////////////////////פה להוסיף, את הבדיקה האם כולם בטלו
+
 
 
     }
@@ -98,7 +126,7 @@ const MessageOfCancel = ({ cancels }) => {
                 {cancelsDetails.map((cancel, index) => (
                     <div>
                         <p>Your flight to {cancel.target} was cancelled </p>
-                        <button className='btnPost' onClick={() => handleAgreeCancle(cancel.id)}>I am agree</button>
+                        <button className='btnPost' onClick={() => handleAgreeCancle(cancel.id)}>אישור</button>
 
                     </div>
                 ))}

@@ -42,7 +42,6 @@ router.post("/:flightId", async (req, res) => {
 router.delete("/", async (req, res) => {
   const flight_id_arr = req.query.flight_id_arr;
   const user_id = req.query.user_id;
-  console.log(flight_id_arr, "VVVVVVVVVVVV", user_id);
   try {
     if (user_id && flight_id_arr) {
       const result = await controller.deleteCancel(flight_id_arr, user_id);

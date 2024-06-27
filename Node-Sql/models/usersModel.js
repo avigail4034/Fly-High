@@ -20,6 +20,16 @@ async function getUserByUserName(userName) {
     throw err;
   }
 }
+async function getArrUsersByRoleId(roleId) {
+  try {
+    const sql = 'SELECT * FROM Users WHERE roleId = ? ';
+    const [rows, fields] = await pool.query(sql,[roleId]);
+     return rows;
+    
+  } catch (err) {
+    throw err;
+  }
+}
 
 async function createUser(userName, password) {
   try {
@@ -65,4 +75,4 @@ async function updateUser(firstName, lastName, userName, email, phone,roleId,id)
   }
 }
   
-module.exports = {getArrUsersById, getAllUsers, getUserByUserName, createUser, updateUser }  
+module.exports = {getArrUsersById, getAllUsers, getUserByUserName, createUser, updateUser ,getArrUsersByRoleId}  

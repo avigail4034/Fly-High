@@ -163,17 +163,15 @@ VALUES
 ("Company C", 6, 3, 2),
 ("Company A", 8, 4, 2),
 ("Company C", 12, 6, 2),
-("Company C", 20, 10, 2),
-("Company A", 30, 10, 3),
-("Company C", 40, 20, 2),
-("Company C", 30, 15, 2),
-("Company C", 50, 25,2),
+("Company C", 15, 5, 3),
+("Company A", 16, 8, 2),
 ("Company C", 16, 8, 2),
-("Company C", 49, 8, 2),
-("Company C", 99, 8, 2),
-("Company C", 100, 8, 2),
-("Company C", 200, 8, 2),
-("Company C", 33, 8, 2);
+("Company A", 16, 8, 2),
+("Company C", 16, 8, 2),
+("Company A", 16, 8, 2),
+("Company A", 16, 8, 2),
+("Company A", 16, 8, 2)
+;
 -- Insert data into Companies table
 
 
@@ -219,22 +217,164 @@ VALUES
 (4, 5, 2, false),
 (4, 6, 1, true),
 (4, 6, 2, false)
+,
+(5, 1, 1, true),
+(5, 1, 2, true),
+(5, 1, 3, true),
+(5, 2, 1, true),
+(5, 2, 2, true),
+(5, 2, 3, false),
+(5, 3, 1, true),
+(5, 3, 2, false),
+(5, 3, 3, true),
+(5, 4, 1, false),
+(5, 4, 2, true),
+(5, 4, 3, false),
+(5, 5, 1, true),
+(5, 5, 2, true),
+(5, 5, 3, true),
+
+(6, 1, 1, true),
+(6, 1, 2, true),
+(6, 2, 1, true),
+(6, 2, 2, false),
+(6, 3, 1, true),
+(6, 3, 2, false),
+(6, 4, 1, true),
+(6, 4, 2, false),
+(6, 5, 1, true),
+(6, 5, 2, false),
+(6, 6, 1, true),
+(6, 6, 2, false)
+,(6, 7, 1, true),
+(6, 7, 2, false)
+,(6, 8, 1, true),
+(6, 8, 2, false)
+,
+
+(7, 1, 1, true),
+(7, 1, 2, true),
+(7, 2, 1, true),
+(7, 2, 2, false),
+(7, 3, 1, true),
+(7, 3, 2, false),
+(7, 4, 1, true),
+(7, 4, 2, false),
+(7, 5, 1, true),
+(7, 5, 2, false),
+(7, 6, 1, true),
+(7, 6, 2, false)
+,(7, 7, 1, true),
+(7, 7, 2, false)
+,(7, 8, 1, true),
+(7, 8, 2, false)
+,
+(8, 1, 1, true),
+(8, 1, 2, true),
+(8, 2, 1, true),
+(8, 2, 2, false),
+(8, 3, 1, true),
+(8, 3, 2, false),
+(8, 4, 1, true),
+(8, 4, 2, false),
+(8, 5, 1, true),
+(8, 5, 2, false),
+(8, 6, 1, true),
+(8, 6, 2, false)
+,(8, 7, 1, true),
+(8, 7, 2, false)
+,(8, 8, 1, true),
+(8, 8, 2, false)
+
+,
+(9, 1, 1, true),
+(9, 1, 2, true),
+(9, 2, 1, true),
+(9, 2, 2, false),
+(9, 3, 1, true),
+(9, 3, 2, false),
+(9, 4, 1, true),
+(9, 4, 2, false),
+(9, 5, 1, true),
+(9, 5, 2, false),
+(9, 6, 1, true),
+(9, 6, 2, false)
+,(9, 7, 1, true),
+(9, 7, 2, false)
+,(9, 8, 1, true),
+(9, 8, 2, false)
+
+
+,
+(10, 1, 1, true),
+(10, 1, 2, true),
+(10, 2, 1, true),
+(10, 2, 2, false),
+(10, 3, 1, true),
+(10, 3, 2, false),
+(10, 4, 1, true),
+(10, 4, 2, false),
+(10, 5, 1, true),
+(10, 5, 2, false),
+(10, 6, 1, true),
+(10, 6, 2, false)
+,(10, 7, 1, true),
+(10, 7, 2, false)
+,(10, 8, 1, true),
+(10, 8, 2, false)
+,
+
+(11, 1, 1, true),
+(11, 1, 2, true),
+(11, 2, 1, true),
+(11, 2, 2, false),
+(11, 3, 1, true),
+(11, 3, 2, false),
+(11, 4, 1, true),
+(11, 4, 2, false),
+(11, 5, 1, true),
+(11, 5, 2, false),
+(11, 6, 1, true),
+(11, 6, 2, false)
+,(11, 7, 1, true),
+(11, 7, 2, false)
+,(11, 8, 1, true),
+(11, 8, 2, false)
+,
+
+(12, 1, 1, true),
+(12, 1, 2, true),
+(12, 2, 1, true),
+(12, 2, 2, false),
+(12, 3, 1, true),
+(12, 3, 2, false),
+(12, 4, 1, true),
+(12, 4, 2, false),
+(12, 5, 1, true),
+(12, 5, 2, false),
+(12, 6, 1, true),
+(12, 6, 2, false)
+,(12, 7, 1, true),
+(12, 7, 2, false)
+,(12, 8, 1, true),
+(12, 8, 2, false)
+
 ;
 
 INSERT INTO Flights (company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,active,image)
 VALUES
-("Company B", 1, 'New York', 1001, 800, 'Los Angeles', '2028-06-10', '2028-06-10', '08:00:00', '10:30:00',1,"los.jpg"),
-("Company C", 2, 'Los Angeles', 1002, 250, 'Paris', '2028-06-10', '2028-06-15', '10:50:00', '12:30:00',1,"paris.jpg"),
-("Company B", 3, 'New York', 1001, 200, 'a', '2022-06-10', '2022-06-10', '08:00:00', '10:30:00',1,"los.jpg"),
-("Company C", 4, 'a', 1002, 250, 'Paris', '2024-06-10', '2024-06-15', '10:50:00', '12:30:00',1,"paris.jpg"),
+("Company B", 5, 'New York', 1001, 800, 'Los Angeles', '2028-06-10', '2028-06-10', '08:00:00', '10:30:00',1,"los.jpg"),
+("Company C", 6, 'Los Angeles', 1002, 250, 'Paris', '2028-06-10', '2028-06-15', '10:50:00', '12:30:00',1,"paris.jpg"),
+("Company B", 1, 'New York', 1001, 200, 'a', '2022-06-10', '2022-06-10', '08:00:00', '10:30:00',1,"los.jpg"),
+("Company C", 2, 'a', 1002, 250, 'Paris', '2024-06-10', '2024-06-15', '10:50:00', '12:30:00',1,"paris.jpg"),
 ("Company C", 3, 'Tokyo', 1003, 300, 'Beijing', '2024-06-20', '2024-06-20', '12:00:00', '14:30:00',1,"Singapore.jpg"),
 ("Company C", 4, 'Dubai', 1004, 400, 'Singapore', '2024-06-25', '2024-06-26', '14:00:00', '16:30:00',1,"Seoul.jpg"),
-("Company C", 3, 'Sydney', 1005, 350, 'Melbourne', '2024-06-30', '2024-06-30', '16:00:00', '18:30:00',1,"newyork.jpg"),
-("Company B", 4, 'Hong Kong', 1006, 380, 'Seoul', '2024-07-05', '2024-07-07', '18:00:00', '20:30:00',1,"Melbourne.jpg"),
-("Company C", 7, 'Berlin', 1007, 280, 'Rome', '2024-07-10', '2024-07-11', '20:00:00', '22:30:00',1,"newyork.jpg"),
-("Company A", 8, 'Madrid', 1008, 320, 'Barcelona', '2024-07-15', '2024-07-15', '22:00:00', '00:30:00',1,"newyork.jpg"),
-("Company A", 9, 'Rio de Janeiro', 1009, 450, 'Sao Paulo', '2024-07-20', '2024-07-23', '00:00:00', '02:30:00',1,"newyork.jpg"),
-("Company C", 10, 'Moscow', 1010, 270, 'Saint Petersburg', '2024-07-25', '2024-07-25', '02:00:00', '04:30:00',1,"newyork.jpg");
+("Company C", 7, 'Sydney', 1005, 350, 'Melbourne', '2024-06-30', '2024-06-30', '16:00:00', '18:30:00',1,"newyork.jpg"),
+("Company B", 8, 'Hong Kong', 1006, 380, 'Seoul', '2024-07-05', '2024-07-07', '18:00:00', '20:30:00',1,"Melbourne.jpg"),
+("Company C", 9, 'Berlin', 1007, 280, 'Rome', '2024-07-10', '2024-07-11', '20:00:00', '22:30:00',1,"newyork.jpg"),
+("Company A", 10, 'Madrid', 1008, 320, 'Barcelona', '2024-07-15', '2024-07-15', '22:00:00', '00:30:00',1,"newyork.jpg"),
+("Company A", 11, 'Rio de Janeiro', 1009, 450, 'Sao Paulo', '2024-07-20', '2024-07-23', '00:00:00', '02:30:00',1,"newyork.jpg"),
+("Company C", 12, 'Moscow', 1010, 270, 'Saint Petersburg', '2024-07-25', '2024-07-25', '02:00:00', '04:30:00',1,"newyork.jpg");
 
 -- INSERT INTO Orders (user_id, flight_id, place_id)
 -- VALUES

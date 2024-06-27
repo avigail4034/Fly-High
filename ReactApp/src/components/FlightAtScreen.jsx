@@ -120,7 +120,7 @@ const FlightAtScreen = (props) => {
             const response = await fetch(`http://localhost:3000/Order?flightId=${props.flight.id}`);
 
             if (!response) {
-                throw new Error('Failed to fetch users');
+                console.error('Failed to fetch users');
             }
             usersData = await response.json();
             setUsersList(usersData);
