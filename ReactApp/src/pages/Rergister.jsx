@@ -3,7 +3,7 @@ import { useState, useContext ,useEffect} from 'react'
 // import '../CSS/Registation.css'
 import { UserContext } from '../App';
 import { useNavigate } from "react-router-dom"
-import '../Styles/Register.css';
+
 const Rergister = () => {
     useEffect(() => {
         document.title = 'הצטרפות אלינו';

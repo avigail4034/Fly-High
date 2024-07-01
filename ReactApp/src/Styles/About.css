@@ -1,104 +1,87 @@
+
+
 body {
-    background: linear-gradient( #e0f7fa, #ffffff);
-    /* font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; 
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px; */
+
+    font-family: 'Arial', sans-serif;
+   
 }
 
 .container {
     display: flex;
-    flex-direction: row; /* Align items horizontally */
-    justify-content: center; /* Center content horizontally */
-    align-items: flex-start; /* Align items at the start of the container */
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: flex-start;
     height:  100%;
-    gap: 20px; /* Increase gap for better spacing */
+    gap: 20px; 
     padding: 150px;
     background-color: #ffffff;
-    border-radius: 16px; /* Rounder corners for a more modern look */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for more depth */
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .find-your-seat, .how-it-works, .featured-flyers {
-    border: 1px solid #ddd; /* Lighter border color */
-    padding: 30px; /* Increase padding for better spacing */
-    border-radius: 16px; /* Rounder corners for a more modern look */
-    background-color: #ffffff; /* Set background to white */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    flex: 1 1 300px; /* Flexible width with minimum width */
-    max-width: 100%; /* Ensure sections do not overflow the viewport width */
-    text-align: center; /* Center text inside each section */
+    border: 1px solid #ddd; 
+    padding: 30px; 
+    border-radius: 16px;
+    background-color: #ffffff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    flex: 1 1 300px;
+    max-width: 100%; 
+    text-align: center; 
 }
 
 .steps, .testimonials {
     display: flex;
-    flex-direction: column; /* Align items vertically */
-    gap: 20px; /* Increase gap for better spacing */
+    flex-direction: column;
+    gap: 20px; 
 }
 
 .steps {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two items per row */
-    gap: 20px; /* Gap between items */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; 
 }
 
 .steps div, .testimonials div {
     background: #f3f4f6;
-    padding: 20px; /* Increase padding for better spacing */
-    border-radius: 16px; /* Rounder corners */
-    text-align: center; /* Center text */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Stronger shadow */
-    border: 1px solid #ddd; /* Lighter border color */
+    padding: 20px; 
+    border-radius: 16px; 
+    text-align: center; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #ddd; 
 }
 
 .large_icon {
-    color: #0284c7; /* More vibrant color for icons */
-    font-size: 2.5rem; /* Adjust icon size */
-    margin-bottom: 10px; /* Space between icon and text */
+    color: #0284c7;
+    font-size: 2.5rem; 
+    margin-bottom: 10px; 
 }
 
-button {
-    background-color: #0284c7;
-    color: white;
-    border: none;
-    padding: 15px 30px; /* Increase padding for a better look */
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem; /* Increase font size */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
-}
 
-button:hover {
-    background-color: #0369a1;
-    transform: scale(1.05); /* Slightly enlarge the button on hover */
-}
 
 h1, h2, p {
-    margin: 0 0 10px; /* Add margin only at the bottom */
+    margin: 0 0 10px; 
 }
 
 h1 {
-    font-size: 2.5rem; /* Increase heading size */
-    color: #333; /* Darker text color */
+    font-size: 2.5rem; 
+    color: #333; 
 }
 
 h2 {
-    font-size: 1.75rem; /* Adjust sub-heading size */
-    color: #555; /* Darker text color */
+    font-size: 1.75rem; 
+    color: #555;
 }
 
 p {
-    font-size: 1rem; /* Adjust paragraph size */
-    color: #666; /* Darker text color */
+    font-size: 1rem; 
+    color: #666;
 }
 
 .testimonials h2 {
-    margin-top: 0; /* Remove top margin for testimonials heading */
+    margin-top: 0; 
 }
 
 .testimonials p {
-    margin: 5px 0; /* Adjust margins for better spacing */
+    margin: 5px 0; 
 }

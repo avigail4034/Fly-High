@@ -2,6 +2,7 @@
 .seat-map-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 10px; /* Reduce padding */
   margin: 10px 0; /* Reduce margin */
 }
@@ -16,7 +17,9 @@
   background-color: #f9f9f9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+.map{
+  padding: 100px;
+}
 /* Styling for each row of seats */
 .seat-row {
   display: flex;
@@ -26,17 +29,18 @@
 
 /* Styling for each seat */
 .seat {
-  margin: 2.5px; /* Reduce margin between seats */
-  padding: 5px; /* Reduce padding */
+  margin: 5px; /* Increased margin between seats */
+  padding: 10px; /* Increased padding */
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px; /* Reduce width */
-  height: 20px; /* Reduce height */
+  width: 30px; /* Adjusted width */
+  height: 30px; /* Adjusted height */
   cursor: pointer;
   position: relative;
+  font-size: 12px; /* Adjusted font size */
 }
 
 /* Styling for available seats */
@@ -46,13 +50,13 @@
 
 /* Styling for selected seats */
 .seat.selected {
-  background-color: #4caf50;
+  background-color: #363636;
   color: white;
 }
 
 /* Styling for unavailable seats */
 .seat.unavailable {
-  background-color: #d32f2f;
+  background-color: #2f63d3;
   color: white;
   cursor: not-allowed;
 }
@@ -70,14 +74,18 @@
 /* Styling for the button to complete the order */
 .button.button-block {
   display: block;
-  width: 100%;
-  padding: 10px;
+  margin-left: 470px;
+  margin-top:60px;
+  width: 30%;
+  padding: 12px;
+  font-size: 20px;
+  font-weight: bold;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 20px 0;
+
 }
 
 .button.button-block:hover {

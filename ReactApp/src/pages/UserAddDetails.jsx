@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useContext } from 'react'
 import { UserContext } from '../App';
 import { useNavigate } from "react-router-dom"
-import '../Styles/Register.css';
+
 const UserAddDetails = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);

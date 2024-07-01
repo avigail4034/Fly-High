@@ -192,7 +192,7 @@ async function getFlightByParamsNotDirect(exitP, target, date) {
                 }
             });
         });
-
+console.log();
         return connectingFlights;
     } catch (err) {
         throw err;

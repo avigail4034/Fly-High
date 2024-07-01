@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../App';
 import { Navbar1 } from './Navbar1';
 import { useNavigate } from 'react-router-dom';
-
+import '../Styles/AddFlight.css';
 
 function AddFlight() {
     const navigate = useNavigate();
@@ -21,13 +21,16 @@ function AddFlight() {
         image: '',
     });
     const [airplanes, setAirplanes] = useState([]);
+    const [formError, setFormError] = useState('');
+    
     const context = useContext(UserContext);
     const { userDetails } = context;
+
     useEffect(() => {
         getAirplanesByCompany();
     }, []);
 
-    async function getAirplanesByCompany() {////מביאה את כל המטוסים ששייכים לחברה שלי
+    async function getAirplanesByCompany() {
         try {
             const response = await fetch(`http://localhost:3000/company_employees?employee_id=${userDetails.id}`);
             const companyData = await response.json();
@@ -46,6 +49,7 @@ function AddFlight() {
         const { name, value } = e.target;
         setFlightDetails({ ...flightDetails, [name]: value });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -53,22 +57,27 @@ function AddFlight() {
 
         // בדיקה שכל השדות מלאים
         if (Object.values(flightDetails).some(value => !value)) {
-            alert('אנא מלא את כל השדות.');
+            setFormError('אנא מלא את כל השדות.');
             return;
+        } else {
+            setFormError('');
         }
+
         // בדיקת תאריכים- יציאה ונחיתה
         const departureDateTime = new Date(`${departureDate}T${departureTime}`);
         const arrivalDateTime = new Date(`${arrivalDate}T${arrivalTime}`);
 
         if (departureDateTime >= arrivalDateTime) {
-            alert('תאריך ושעת ההמראה חייבים להיות לפני תאריך ושעת הנחיתה.');
+            setFormError('תאריך ושעת ההמראה חייבים להיות לפני תאריך ושעת הנחיתה.');
             return;
         }
+
         // בדיקה שמטוס נבחר
         if (!flightDetails.airplane_id) {
-            alert('אנא בחר מטוס.');
+            setFormError('אנא בחר מטוס.');
             return;
         }
+
         //בדיקת זמינות מטוסים
         const isAvailable = await checkAvailableAirplanes();
         if (isAvailable) {
@@ -83,7 +92,7 @@ function AddFlight() {
                 });
                 if (response.ok) {
                     alert("טיסה נוספה בהצלחה");
-                    navigate("/Flights")
+                    navigate("/Flights");
                 } else {
                     throw new Error('Failed to add flight');
                 }
@@ -97,9 +106,10 @@ function AddFlight() {
         const { departureDate, arrivalDate, airplane_id } = flightDetails;
 
         if (!departureDate || !arrivalDate) {
-            alert('אנא בחר תאריכי יציאה ונחיתה.');
+            setFormError('אנא בחר תאריכי יציאה ונחיתה.');
             return;
         }
+
         try {
             const response = await fetch(`http://localhost:3000/flights?airplane_id=${airplane_id}`, {
                 method: 'POST',
@@ -112,130 +122,152 @@ function AddFlight() {
             if (result.success) {
                 const unavailableAirplanes = result.unavailableAirplanes;
                 if (unavailableAirplanes[0]) {
-                    alert('שגיאה בבדיקת זמינות התאריכים');
+                    setFormError('שגיאה בבדיקת זמינות התאריכים');
                     return false;
                 } else {
                     return true;
-
                 }
             }
         } catch (error) {
             alert(error);
         }
     }
+
     return (
         <div>
             <Navbar1 />
-            <h1>הוספת טיסה חדשה</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    נקודת יציאה:
-                    <input
-                        type="text"
-                        name="exitP"
-                        value={flightDetails.exitP}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    קוד טיסה:
-                    <input
-                        type="text"
-                        name="flightCode"
-                        value={flightDetails.flightCode}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    מחיר:
-                    <input
-                        type="text"
-                        name="price"
-                        value={flightDetails.price}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    יעד:
-                    <input
-                        type="text"
-                        name="target"
-                        value={flightDetails.target}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    תאריך המראה:
-                    <input
-                        type="date"
-                        name="departureDate"
-                        value={flightDetails.departureDate}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    תאריך נחיתה:
-                    <input
-                        type="date"
-                        name="arrivalDate"
-                        value={flightDetails.arrivalDate}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    זמן המראה:
-                    <input
-                        type="time"
-                        name="departureTime"
-                        value={flightDetails.departureTime}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    זמן נחיתה:
-                    <input
-                        type="time"
-                        name="arrivalTime"
-                        value={flightDetails.arrivalTime}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    בחר מטוס:
-                    <select
-                        name="airplane_id"
-                        value={flightDetails.airplane_id}
-                        onChange={handleChange}
-                    >
-                        <option value="">בחר מטוס</option>
-                        {airplanes.map((airplane) => (
-                            <option key={airplane.id} value={airplane.id}>
-                                {`מטוס מספר: ${airplane.id}, מספר מושבים: ${airplane.num_places}`}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                <br />       
-                <label>
-                    תמונה:
-                    <input
-                        type="text"
-                        name="image"
-                        value={flightDetails.image}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <button type="submit">שלח</button>
-            </form>
+            <div className="form-container">
+                <h1 className="form-title">הוספת טיסה חדשה</h1>
+                <form onSubmit={handleSubmit}>
+                    <label className="form-label">
+                       :נקודת יציאה
+                        </label>
+                        <input
+                            type="text"
+                            name="exitP"
+                            value={flightDetails.exitP}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                  
+
+                    <label className="form-label">
+                   :קוד טיסה
+                        </label>
+                        <input
+                            type="text"
+                            name="flightCode"
+                            value={flightDetails.flightCode}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                 
+
+                    <label className="form-label">
+                 :מחיר
+                        </label>
+                        <input
+                            type="text"
+                            name="price"
+                            value={flightDetails.price}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                    
+
+                    <label className="form-label">
+                   :יעד
+                    </label>
+                        <input
+                            type="text"
+                            name="target"
+                            value={flightDetails.target}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                  
+
+                    <label className="form-label">
+                        :תאריך המראה
+                        </label>
+                        <input
+                            type="date"
+                            name="departureDate"
+                            value={flightDetails.departureDate}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                  
+
+                    <label className="form-label">
+                       :תאריך נחיתה
+                       </label>
+                        <input
+                            type="date"
+                            name="arrivalDate"
+                            value={flightDetails.arrivalDate}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+          
+                    <label className="form-label">
+                      :תמונה
+                      </label>
+                        <input
+                            type="text"
+                            name="image"
+                            value={flightDetails.image}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                   
+
+                    <label className="form-label">
+                        :זמן המראה
+                        <input
+                            type="time"
+                            name="departureTime"
+                            value={flightDetails.departureTime}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                    </label>
+
+                    <label className="form-label">
+                      :זמן נחיתה
+                        <input
+                            type="time"
+                            name="arrivalTime"
+                            value={flightDetails.arrivalTime}
+                            onChange={handleChange}
+                            className="form-input"
+                        />
+                    </label>
+
+                    <label className="form-label">
+                       :בחר מטוס
+                        <select
+                            name="airplane_id"
+                            value={flightDetails.airplane_id}
+                            onChange={handleChange}
+                            className="form-select"
+                        >
+                            <option value="">בחר מטוס</option>
+                            {airplanes.map((airplane) => (
+                                <option key={airplane.id} value={airplane.id}>
+                                    {`מטוס מספר: ${airplane.id}, מספר מושבים: ${airplane.num_places}`}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+
+                
+
+                    {formError && <p className="form-error">{formError}</p>}
+
+                    <button type="submit" className="form-button">שלח</button>
+                </form>
+            </div>
         </div>
     );
 }

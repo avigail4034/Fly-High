@@ -86,6 +86,7 @@ async function getFlightByParams(exitP,target,date) {
     const sql = 'SELECT * FROM flights where exitP=? AND target=? AND departureDate=? AND active=1';
 
     const result = await pool.query(sql, [exitP,target,date]);
+    console.log(result[0],"Paris");
     return result[0];
   } catch (err) {
     throw err;

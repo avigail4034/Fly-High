@@ -1,0 +1,78 @@
+/* DeletePlaceModal.css */
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 400px;
+    max-width: 90%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.modal p {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.modal ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.modal li {
+    margin-bottom: 10px;
+}
+
+.modal li p {
+    margin-bottom: 8px;
+}
+
+.modal input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.modal button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #6490ec;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.modal button:hover {
+    background-color: #3c5faa;
+}
+
+.modal button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

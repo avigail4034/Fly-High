@@ -71,8 +71,9 @@ export function Order() {
         try {
             const data = await fetch(`http://localhost:3000/Places?airplane_id=${airplaneId}`);
             const seats = await data.json();
-
+            console.log(airplaneId,"airplaneId");
             const generatedSeatMap = generateSeatMap(seats);
+            console.log(generatedSeatMap,"generatedSeatMap");
             setSeatMap(generatedSeatMap);
 
 
@@ -108,8 +109,10 @@ export function Order() {
 
     return (
         <>
-            <Navbar1 />              
-              <h2>בחר את מקומך הטוב ביותר </h2>
+            <Navbar1 />     
+           <div className='map'>   
+            <h1>בחר את מקומך הטוב ביותר</h1>
+            <p>.בחר את המקום המועדף עליך על פי מפת המושבים הבאה. לחיצה על המושב תבחר או תבטל את בחירתו</p>
             <div className="seat-map-container">
                 <div className="seat-map">
                     {seatMap.map((row, rowIndex) => (
@@ -129,6 +132,7 @@ export function Order() {
                 </div>
             </div>
             <button type="button" id="signUp" className="button button-block" onClick={handleOrderOnDBButton}>סיום הזמנה</button>
+            </div>    
         </>
     );
 }

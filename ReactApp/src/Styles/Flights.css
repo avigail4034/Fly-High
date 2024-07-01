@@ -1,0 +1,57 @@
+t/* Flights.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+   
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+  }
+  
+  #flexBtnflight {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 10px;
+  }
+.btnPost{
+  width: 300px;
+}
+  .btnPost:hover {
+    background-color: #a8cceb;
+  }
+  
+  .btnTodo {
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btnTodo:hover {
+    background-color: #ddd;
+  }
+  
+  .inputFill {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+  }
+  
+  #boxShow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  

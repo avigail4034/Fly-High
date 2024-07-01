@@ -1,0 +1,138 @@
+/* FlightAtScreen.css */
+.flight-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 450px;
+    height: 300px;
+    margin: 20px;
+    position: relative;
+    transition: transform 0.2s;
+    margin-left: 70px;
+}
+
+.flight-card:hover {
+    transform: scale(1.05);
+}
+
+.flight-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.btnPost {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s;
+    font-family: 'Arial', sans-serif; 
+    font-weight: bold;
+    font-size: 1rem;
+}
+.space{
+  
+ padding-top: 85px;
+}
+.btnPost:hover {
+    background-color: #ffffff;
+}
+
+.flight-card .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background: rgba(0, 0, 0, 0); /* חצי שקוף */
+    color: white;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+}
+
+.flight-card h2 {
+    font-size: 32px;
+    color: #faf6f6;
+    margin: 0;
+    text-align: center;
+    text-shadow: 3px 3px 3px #000, 3px 3px 3px #000, 3px 3px 3px #000, 3px 3px 3px 
+}
+
+.flight-card p {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+    text-shadow: 2px 3px 1px #000, 2px 3px 1px #000, 2px 3px 1px #000, 2px 3px 1px ;
+    color: #faf6f6;
+}
+
+.place-details {
+    white-space: nowrap;
+    padding: 10px;
+}
+
+.place-details span {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+#boxShow,
+#photosShow {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+    padding-left: 2px;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 1%;
+    margin-bottom: 5%;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    border-color: rgb(245, 167, 136);
+    border-radius: 3px;
+    border-style: solid;
+    margin-bottom: 7px;
+    margin-left: 10px;
+    width: 350px;
+    height: 200px;
+    max-width: 400px;
+    box-shadow: 0 1px 13px 0 rgba(0, 0, 0, 0.4);
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* ללא רווחים בין הכפתורים */
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+}

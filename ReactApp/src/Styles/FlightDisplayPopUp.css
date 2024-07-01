@@ -1,0 +1,88 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.popup-container {
+    text-align: right;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* קרן רכה יותר */
+    max-width: 90%;
+    /* max-height: 90%; */
+    overflow-y: auto; /* נוסיף גלילה רק כאשר התוכן גדול מהפופאפ */
+    text-align: left;
+}
+
+.popup-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333333;
+    text-align: center;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popup-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup-label {
+    font-weight: bold;
+}
+
+.popup-value {
+    font-weight: normal;
+}
+
+.custom-button {
+    background-color: #f6f7f6;
+    color: rgb(10, 10, 10);
+    border: none;
+    font-weight: bold;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #41698f;
+}
+
+.close-button {
+    background-color: #71c6f7;
+    color: white;
+    width: 100%;
+    border: none;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+    background-color: #5eb7eb;
+}

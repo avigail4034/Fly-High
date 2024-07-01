@@ -4,6 +4,7 @@ import { UserContext } from '../App';
 import FlightAtScreen from '../components/FlightAtScreen';
 import { Navbar1 } from './Navbar1';
 import { useNavigate } from 'react-router-dom';
+import '../Styles/Flights.css';
 
 // import '../CSS/list.css'
 const Flights = () => {
@@ -91,29 +92,33 @@ const Flights = () => {
 
     return (
         <>
-            <Navbar1></Navbar1>
-            <h1>All flights:</h1>
-            <div id="flexBtnflight">
-                {(userDetails.roleId == 2 || userDetails.roleId == 1) && <button className='btnPost' onClick={() => { navigate("/add-flight") }}>הוספת טיסה</button>}
-                <select className='btnTodo' name="order" id="order" onChange={orderOfFlights}>
-                    <option value="serial">Serial</option>
-                    <option value="price">price</option>
-                    <option value="random">Random</option>
-                </select>
-                <input
-                    className='inputFill'
-                    type='text'
-                    onChange={(event) => setSearchTitle(event.target.value)}
-                    value={searchTitle}
-                    placeholder='FOR SEARCH '
-                />            </div>
-            <div id="boxShow">
-                {searchArrayflights.map((flight, index) => <FlightAtScreen key={flight.id} index={index} flight={flight}
-                />)}
-
-            </div>
-
-        </>
+        <Navbar1 />
+        <h1>הטיסות הכי זולות</h1>
+        <div id="flexBtnflight">
+            {(userDetails.roleId === 2 || userDetails.roleId === 1) && 
+                <button className='btnPost' onClick={() => navigate("/add-flight")}>הוספת טיסה</button>
+            }
+            <select className='btnTodo' name="order" id="order" onChange={orderOfFlights}>
+            <option value="price">מחיר</option>
+             <option value="serial">שם</option>
+                <option value="random">רנדומלי</option>
+                
+            </select>
+            <input
+                className='inputFill'
+                type='text'
+                onChange={(event) => setSearchTitle(event.target.value)}
+                value={searchTitle}
+                placeholder='חיפוש '
+            />
+        </div>
+        <div id="boxShow">
+            {searchArrayflights.map((flight, index) => (
+               
+                <FlightAtScreen key={flight.id} index={index} flight={flight} />
+            ))}
+        </div>
+    </>
     )
 }
 

@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
    else if (exitP && target && date) {
     console.log("exitP && target && date",exitP, target , date,isDirect);
       if (isDirect=="true") {
+        console.log(isDirect,"isDirect");
         flights = await controller.getFlightByParams(exitP, target, date);
       }
       else{

@@ -1,3 +1,5 @@
+// Profile.jsx
+
 import { Navbar1 } from '../pages/Navbar1';
 import BringThemHome from '../pages/BringThemHome';
 import '../Styles/Profile.css';
@@ -12,18 +14,20 @@ export function Profile() {
     const [flightsArray, setFlightsArray] = useState([]);
     const [cancelsArray, setCancelsArray] = useState([]);
     const [flightsData, setflightsData] = useState([]);
+
     useEffect(() => {
         async function getFlightsOfUser() {
-            try {//כל הטיסות של המשתמש
+            try {
                 const userId = userDetails.id;
                 const orderResponse = await fetch(`http://localhost:3000/Order?user_id=${userId}`);
                 const orders = await orderResponse.json();
-                const flightsIds = orders.map(item => item.flight_id).join('');//מערך של ID של הטיסות
-                const flightsData = orders.map(order => ({//בניית מערך שיכיל בכל תא את מספר המקומות בשביל התצוגה של הטיסה
+                const flightsIds = orders.map(item => item.flight_id).join('');
+
+                const flightsData = orders.map(order => ({
                     flight_id: order.flight_id,
                     places: order.place_ids.split(',').map(placeId => ({
                         place_id: placeId,
-                        // אם יש צורך להוסיף פרטים נוספים עבור כל מקום, ניתן להוסיף אותם כאן
+                        // Additional details for each place can be added here if needed
                     }))
                 }));
 
@@ -32,7 +36,7 @@ export function Profile() {
                 setCancelsArray(cancels);
 
                 setflightsData(flightsData);
-                if (flightsIds.length > 0) {//כל פרטי הטיסות של המשתמש
+                if (flightsIds.length > 0) {
                     const flightsResponse = await fetch(`http://localhost:3000/flights?arrOfFlightsId=${flightsIds}`);
                     const flights = await flightsResponse.json();
                     setFlightsArray(flights);
@@ -51,38 +55,42 @@ export function Profile() {
         <>
             <Navbar1 />
             <BringThemHome />
-            <div className="page-content page-container" id="page-content">
+            <div className="page-container">
                 <img src="https://img.icons8.com/bubbles/100/000000/user.png" className="img-radius" alt="User-Profile-Image" />
-            </div>
-            <h5 className="f-w-600">{userDetails.firstName} {userDetails.lastName}</h5>
-            <div className="col-sm-8">
+                <h2 className="f-w-600">{userDetails.firstName} {userDetails.lastName}</h2>
                 <div className="card-block">
-                    <h2>הודעות</h2>
-                        <MessageOfCancel  cancels={cancelsArray} />
-                    <h6 className="m-b-20 p-b-5 b-b-default f-w-600">פרטים אישיים</h6>
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <p className="m-b-10 f-w-600">מספר טלפון</p>
-                            <h6 className="text-muted f-w-400">{userDetails.phone}</h6>
-                        </div>
-                        <div className="col-sm-6">
-                            <p className="m-b-10 f-w-600">כתובת דוא"ל</p>
-                            <h6 className="text-muted f-w-400">{userDetails.email}</h6>
+                    <h2>:הודעות</h2>
+                    <MessageOfCancel cancels={cancelsArray} />
+                    <div className="personal-info">
+                        <h6 className="m-b-20 p-b-5 b-b-default f-w-600">:פרטים אישיים</h6>
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <p className="m-b-10 f-w-600">:מספר טלפון</p>
+                                <h6 className="text-muted f-w-400">{userDetails.phone}</h6>
+                            </div>
+                            <div className="col-sm-6">
+                                <p className="m-b-10 f-w-600">:כתובת דוא"ל</p>
+                                <h6 className="text-muted f-w-400">{userDetails.email}</h6>
+                            </div>
                         </div>
                     </div>
                     <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">נתוני טיסות</h6>
                     <div className="row mergeRow">
-                        {flightsArray.length !== 0 && flightsArray.map((flight, index) => {
-                            return (
-                                <FlightAtScreen key={flight.id} index={index} flight={flight} IOrder={true} numPlaces={flightsData.find(data => data.flight_id === flight.id)?.places.length || 0} places={flightsData.find(data => data.flight_id === flight.id)?.places || []} />
-                            );
-                        })}
-
+                        {flightsArray.length !== 0 && flightsArray.map((flight, index) => (
+                            <FlightAtScreen
+                                key={flight.id}
+                                index={index}
+                                flight={flight}
+                                IOrder={true}
+                                numPlaces={flightsData.find(data => data.flight_id === flight.id)?.places.length || 0}
+                                places={flightsData.find(data => data.flight_id === flight.id)?.places || []}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
-           
         </>
     );
 }
+
 export default Profile;
