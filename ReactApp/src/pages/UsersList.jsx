@@ -25,7 +25,7 @@ function UsersList() {
     return (
         <div>
             <Navbar1 />
-            <h2>Users List</h2>
+            <h1>רשימת לקוחות</h1>
             <div id="boxShow">
                 {users.map((user, index) => <UsersAtScreen key={user.id} index={index} user={user}
                 />)}

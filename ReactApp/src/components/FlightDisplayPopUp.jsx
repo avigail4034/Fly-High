@@ -7,7 +7,6 @@ function FlightDisplayPopUp(props) {
     const context = useContext(UserContext);
     const { userDetails } = context;
     const { flight } = props;
-    console.log(flight,"flightdfh");
 
     return (
         <div className="popup-overlay">

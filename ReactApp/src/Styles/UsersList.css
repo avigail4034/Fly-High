@@ -1,0 +1,81 @@
+/* UsersList.css */
+.container1 {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+    padding-top: 40px;
+    text-align: center; /* מרכז את הכותרת במרכז העמוד */
+    font-size: 2.5rem; /* גודל גופן גדול לכותרת */
+    margin-top: 40px; /* רווח מלמעלה */
+    color: #333; /* צבע הטקסט */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* צל מעט שמאלה-מטה */
+    font-weight: bold; /* גודל גופן מודגש */
+}
+  h2 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .user-card {
+    display: flex;
+    flex-direction: column; /* שינוי לכיוון עמוד */
+    align-items: center; /* יישור למרכז */
+    border: 1px solid #ddd;
+    width: 60%;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto; /* מרווחים בין כרטיסיות */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .user-info {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  .user-name {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .user-email {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  

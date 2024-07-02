@@ -6,6 +6,8 @@ import { IoCodeSharp } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
 import { MdFlight } from "react-icons/md";
 import { BiHappyBeaming } from "react-icons/bi";
+
+
 import '../Styles/About.css';
 
 const About = () => {
@@ -18,7 +20,7 @@ const About = () => {
             <Navbar1></Navbar1>
             <BringThemHome></BringThemHome>
             <div className="main-content" dir='rtl'>
-                <div className="container">
+                <div className="container1">
                     <section className="find-your-seat">
                         <h1>מצא את מושבך</h1>
                         <p>הזן את גילך, תחביבים והעדפות כדי למצוא את המושב המושלם בטיסה הבאה שלך</p>
