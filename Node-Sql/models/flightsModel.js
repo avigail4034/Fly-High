@@ -24,6 +24,7 @@ async function getFlightById(ID) {
 async function getArrFlightsById(arrOfFlightsId) {
   try {
       const flights = [];
+      console.log(arrOfFlightsId,"arrOfFlightsId");
       for (const id of arrOfFlightsId) {
           const sql = 'SELECT * FROM flights WHERE active = 1 AND id = ?';
           const [rows] = await pool.query(sql, [id]);
@@ -31,6 +32,7 @@ async function getArrFlightsById(arrOfFlightsId) {
               flights.push(rows[0]);
           }
       }
+      console.log(flights,"flights");
       return flights;
   } catch (err) {
       throw err;

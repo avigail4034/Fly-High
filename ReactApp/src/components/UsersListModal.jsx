@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import emailjs from 'emailjs-com';
-import '../Styles/UsersList.css'
+import '../Styles/UsersListModal.css'
 
 const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
   const [usersArray, setUsersArray] = useState([]);

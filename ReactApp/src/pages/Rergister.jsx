@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState, useContext ,useEffect} from 'react'
-// import '../CSS/Registation.css'
+import '../Styles/Login.css';
 import { UserContext } from '../App';
 import { useNavigate } from "react-router-dom"
+import { Navbar1 } from '../pages/Navbar1';
 
 const Rergister = () => {
     useEffect(() => {
@@ -21,13 +22,13 @@ const Rergister = () => {
             .then((response) => response.json())
             .then((answer) => {
                 if (answer[0]) {//אם חזרה תשובה זה אומר שקיים כזה משתמש
-                    alert('User with the same name already exists.');
+                    alert('קיים כבר משתמש עם שם זהה.');
                 }
                 else if (password != verifyPassword) {
-                    alert('Passwords do not match.');
+                    alert('סיסמאות לא תואמות.');
                 }
                 else if (!isStrongPassword(password)) {
-                    alert('Password is not strong enough.');
+                    alert('סיסמא לא חזקה מספיק.');
                 }
                 else {
                     fetch('http://localhost:3000/users', {
@@ -62,29 +63,30 @@ const Rergister = () => {
 
     return (
         <div>
+             <Navbar1 />
             <form id="form">
                 <ul id="tabs" className="register-buttons active">
                     <li className="tab active">
-                        <a href="#signup" className="link-btn">Sign Up</a>
+                        <a href="#signup" className="link-btn">הרשמה</a>
                     </li>
                     <li className="tab">
-                        <a href="/logIn" className="link-btn">Log In</a>
+                        <a href="/logIn" className="link-btn">התחברות</a>
                     </li>
                 </ul>
-                <div className="content" id="signUpForm">
-                    <h1>Register</h1>
+                <div className="User-fill" id="signUpForm">
+                    <h1> !ברוך הבא</h1>
                     <div className="User-fill">
-                        <input className="input" onChange={(e) => setuserName(e.target.value)} value={userName} type="text" placeholder="User Name" required />
+                        <input className="input" onChange={(e) => setuserName(e.target.value)} value={userName} type="text" placeholder=":שם" required />
                     </div>
                     <div className="password">
                         <div className="User-fill">
-                            <input className="input" onChange={(e) => setPassword(e.target.value)} value={password} id="pwd1" type="password" placeholder="Set A Password" required />
+                            <input className="input" onChange={(e) => setPassword(e.target.value)} value={password} id="pwd1" type="password" placeholder=":סיסמא" required />
                         </div>
                         <div className="User-fill">
-                            <input className="input" onChange={(e) => setVerifyPassword(e.target.value)} value={verifyPassword} id="pwd2" type="password" placeholder="Verify-Password" required />
+                            <input className="input" onChange={(e) => setVerifyPassword(e.target.value)} value={verifyPassword} id="pwd2" type="password" placeholder=" :אימות סיסמא" required />
                         </div>
                     </div>
-                    <button type="button" id="signUp" className="button button-block" onClick={handleRegisterButton}>Get Started</button>
+                    <button type="button" id="signUp" className="button1" onClick={handleRegisterButton}>הרשמה</button>
                 </div>
             </form>
         </div>

@@ -1,62 +1,77 @@
-/* /* Login.module.css */
+/* CSS/Registration.css */
+body {
+  background: linear-gradient(to right, #ffffff, #ffffff);
+  font-family: 'Arial', sans-serif;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
 
-.login-container {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
-  }
-  
-  .login-container h1 {
-    margin-bottom: 1rem;
-    color: #333;
-  }
-  
-  .login-container p {
-    margin-bottom: 1.5rem;
-    color: #666;
-  }
-  
-  .login-container input[type="email"],
-  .login-container input[type="password"] {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  .login-container .remember-me {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .login-container input[type="checkbox"] {
-    margin-right: 0.5rem;
-  }
-  
-  .login-container a {
-    color: #a855f7;
-    text-decoration: none;
-  }
-  
-  .login-container button {
-    width: 100%;
-    padding: 0.5rem;
-    background-color: #9333ea;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 1rem;
-  }
-  
-  .login-container button:hover {
-    background-color: #7c3aed;
-  }
-   
+#form { 
+  margin: auto;
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(56, 55, 55, 0.6);
+  width: 700px; /* הוספתי גודל רחב יותר לטופס */
+  text-align: center;
+  transform: translateY(50%); /* הוספתי השתקפות על פי רוחב העמוד */
+}
+
+#tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.tab {
+  margin: 0 10px;
+}
+
+.link-btn {
+  text-decoration: none;
+  color: #0072ff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: background 0.3s, color 0.3s;
+}
+
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.User-fill {
+  margin-bottom: 20px;
+}
+
+/* .input {
+  text-align: right;
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+} */
+
+.button1 {
+  background: #0072ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 35px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+
+
+}
+
+.button-block:hover {
+  background: #061320;
+}

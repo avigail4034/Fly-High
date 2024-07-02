@@ -46,7 +46,7 @@ export function Navbar1() {
         </Nav.Item>
         ) : null}
                 {userDetails.userName ? null : (<Nav.Item>
-          <Nav.Link onClick={() => navigate("/logIn")}>הרשמה</Nav.Link>
+          <Nav.Link onClick={() => navigate("/logIn")}>התחברות</Nav.Link>
           {/* מה עוד עושים ביציאה??????????? */}
         </Nav.Item>
         )}

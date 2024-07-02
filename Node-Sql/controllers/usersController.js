@@ -32,11 +32,8 @@ async function getUserByUserName(userName) {
 
 async function getUserByNamePassword(userName, password) {
     try {
-        
-
         const user = await model.getUserByUserName(userName);
         if (user) {
-           
             if (bcrypt.compareSync(password, user.password))
                 return user;
         }

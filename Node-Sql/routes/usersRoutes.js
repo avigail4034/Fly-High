@@ -2,6 +2,9 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/usersController");
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
 
 // GET all users
 router.get("/", async (req, res) => {
@@ -64,17 +67,36 @@ router.get("/", async (req, res) => {
 });
 
 
-
+//פונקציה שמשמשת כאשר לקוח נרשפ פעם ראשונה למערכת (לאחר בדיקה שבאמת הוא לא קיים)
 router.post("/", async (req, res) => {
   try {
     const { userName, password } = req.body; // Assuming you meant to include completed
     const user = await controller.createUser(userName, password);
-    res.status(200).send(user);
+    if(user){
+      const accessToken = jwt.sign(
+        {
+            userId: user.id,
+            roleId: user.roleId,
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "5m" }
+    );
+    res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+    });
+      res.status(200).send(user);
+    }
+    else {
+      res.sendStatus(501)
+  }
   } catch (error) {
-    console.error(error);
     res.status(500).send({ error: "Failed to create user" });
   }
 });
+
+
 
 // PUT (update) an existing user by userName
 router.put("/:id", async (req, res) => {

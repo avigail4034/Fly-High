@@ -23,7 +23,7 @@ const navigate = useNavigate();
             <p>חוו את הריגוש שבנסיעה עם שירותי הטיסה המובילים שלנו. הזמינו את ההרפתקה הבאה שלכם היום!</p>
             <div className="button-group" dir='ltr'>
               <Button variant="primary" className="custom-button" onClick={() => navigate("/register")}>הירשם</Button>
-              <Button variant="secondary" className="custom-button"onClick={() => navigate("/deals")}>גלו מבצעים</Button>
+              <Button variant="secondary" className="custom-button"onClick={() => navigate("/Flights")}>גלו מבצעים</Button>
             </div>
           </div>
           <div className="image-placeholder">
@@ -43,7 +43,7 @@ const navigate = useNavigate();
               עם הפלטפורמה הקלה לשימוש שלנו, תוכלו לחפש טיסות, להשוות מחירים ולהזמין מושבים בלחיצה אחת. הצוות שלנו תמיד כאן לעזור לכם למצוא את היעד המושלם, מלהמליץ על המקומות הטובים ביותר לביקור ועד מתן טיפים מקומיים.
             </p> */}
             <div className="button-group" dir='ltr'>
-              <Button variant="primary" className="custom-button">למד עוד</Button>
+              <Button variant="primary" className="custom-button"onClick={() => navigate("/about-us")}>למד עוד</Button>
               <Button variant="secondary" className="custom-button">צור קשר</Button>
             </div>
           </div>
@@ -56,8 +56,8 @@ const navigate = useNavigate();
               חווית הטיסה שלכם חשובה לנו. אנו מציעים התאמה אישית של שכנים לטיסה על בסיס גיל, תחביבים ופעילויות מועדפות בטיסה, כדי שתוכלו לבלות בטיסה בצורה הכי נוחה ונעימה. הצטרפו עכשיו ותיהנו מטיסה מושלמת!
             </p>
             <div className="button-group" dir='ltr'>
-              <Button variant="primary" className="custom-button">ראה מבצעים</Button>
-              <Button variant="secondary" className="custom-button">הזמינו עכשיו</Button>
+              <Button variant="primary" className="custom-button" onClick={() => navigate("/Flights")}>ראה מבצעים</Button>
+              <Button variant="secondary" className="custom-button" onClick={() => navigate("/Flights")}>הזמינו עכשיו</Button>
             </div>
           </div>
           <div className="image-placeholder">
