@@ -19,24 +19,24 @@ function FlightDisplayPopUp(props) {
                         <span className="popup-value">{flight.flightCode}</span>
                     </div> */}
                     <div className="popup-row">
-                        <span className="popup-label">:חברה</span>
                         <span className="popup-value">{flight.company}</span>
+                        <span className="popup-label">:חברה</span>
                     </div>
                     <div className="popup-row">
+                    <span className="popup-value">{flight.airplain_id}</span>
                         <span className="popup-label">:מטוס</span>
-                        <span className="popup-value">{flight.airplain_id}</span>
                     </div>
                     <div className="popup-row">
+                    <span className="popup-value">{flight.exitP}</span>
                         <span className="popup-label">:ארץ מוצא</span>
-                        <span className="popup-value">{flight.exitP}</span>
                     </div>
                     <div className="popup-row">
+                    <span className="popup-value">{flight.departureDate}</span>
                         <span className="popup-label">:תאריך יציאה</span>
-                        <span className="popup-value">{flight.departureDate}</span>
                     </div>
                     <div className="popup-row">
+                    <span className="popup-value">{flight.arrivalDate}</span>
                         <span className="popup-label">:תאריך הגעה</span>
-                        <span className="popup-value">{flight.arrivalDate}</span>
                     </div>
 
                     {userDetails.userName && (

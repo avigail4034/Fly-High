@@ -17,29 +17,39 @@ export function Navbar1() {
       </div>
       <Nav className='mainNavigation' dir='rtl'>
         <Nav.Item>
-          <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
+          <Nav.Link onClick={() => navigate("/home")}>בית</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={() => navigate("/Flights")}>Flights</Nav.Link>
+          <Nav.Link onClick={() => navigate("/Flights")}>טיסות</Nav.Link>
         </Nav.Item>
         {userDetails.userName ? (
           <Nav.Item>
-            <Nav.Link onClick={() => navigate("/FlightSearch")}>Flight Search</Nav.Link>
+            <Nav.Link onClick={() => navigate("/FlightSearch")}>חיפוש טיסה</Nav.Link>
           </Nav.Item>
         ) : null}
         {userDetails.roleId === 1 ? (
           <Nav.Item>
-            <Nav.Link onClick={() => navigate("/users")}>Users List</Nav.Link>
+            <Nav.Link onClick={() => navigate("/users")}>לקוחות</Nav.Link>
           </Nav.Item>
         ) : null}
         {userDetails.userName ? (
           <Nav.Item>
-            <Nav.Link onClick={() => navigate("/profile")}>Profile</Nav.Link>
+            <Nav.Link onClick={() => navigate("/profile")}>פרופיל</Nav.Link>
           </Nav.Item>
         ) : null}
         <Nav.Item>
-          <Nav.Link onClick={() => navigate("/about-us")}>About</Nav.Link>
+          <Nav.Link onClick={() => navigate("/about-us")}>אודות</Nav.Link>
         </Nav.Item>
+        {userDetails.userName ? (<Nav.Item>
+          <Nav.Link onClick={() => navigate("/logIn")}>התנתקות</Nav.Link>
+          {/* מה עוד עושים ביציאה??????????? */}
+        </Nav.Item>
+        ) : null}
+                {userDetails.userName ? null : (<Nav.Item>
+          <Nav.Link onClick={() => navigate("/logIn")}>הרשמה</Nav.Link>
+          {/* מה עוד עושים ביציאה??????????? */}
+        </Nav.Item>
+        )}
       </Nav>
     </div>
   );

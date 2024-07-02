@@ -44,21 +44,12 @@ function App() {
           <Route path='/about-us' element={<About />}></Route>
           <Route path="/register/add-details" element={<UserAddDetails />} />
           <Route path="/register/about-us" element={<About />} />
-          <Route path="/order" element={<Order />}/>
-          <Route path="/users" element={<UsersList />}/>
-          <Route path="/thank" element={<ThankYou />}/>
-          <Route path="/add-flight" element={<AddFlight />}/>
+          <Route path="/order" element={<Order />} />
+          <Route path="/users" element={<UsersList />} />
+          <Route path="/thank" element={<ThankYou />} />
+          <Route path="/add-flight" element={<AddFlight />} />
           <Route path="/home" element={<Home />}>
-       
-            <Route path="users/:userId">
-              {/* <Route path="todos" element={<Todos />} />
-              <Route path="info" element={<UserDetailsPopup />} />
-              <Route path="posts" element={<Posts />}  />
-                <Route path=":postId" element={<PostDisplayPopUp />}  /> */}
-                  {/* <Route path="comments" element={<PostDisplayPopUp />} /> */}
-              {/* <Route path="albums" element={<Albums />} />
-              <Route path="albums/:albumId/photos" element={<Photos />} /> */}
-            </Route>
+          <Route path="users/:userId">  </Route>
           </Route>
         </Routes>
       </UserContext.Provider>
