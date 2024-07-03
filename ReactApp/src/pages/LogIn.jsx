@@ -14,6 +14,7 @@ const LogIn = () => {
     const handleLogInButton = () => {
         const requestData = {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
             },

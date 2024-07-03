@@ -33,6 +33,7 @@ const Rergister = () => {
                 else {
                     fetch('http://localhost:3000/users', {
                         method: 'POST',
+                        credentials: 'include',
                         headers: {
                             'Content-Type': 'application/json',
                         },
@@ -40,6 +41,7 @@ const Rergister = () => {
                     })
                         .then(response => response.json())  // Parse the JSON from the response
                         .then(data => {
+                            console.log(data,"data");
                             setUserDetails(data);
                         })
                         .catch(error => {

@@ -40,9 +40,7 @@ async function getPlacesById(arrPlacesStr) {
             const values = [airplaneId, place.rowP, place.columnP, !place.isAvailable, place.id];
             await pool.query(updateUserSql, values);
         }
-  
     } catch (error) {
-        console.error('Error updating user:', error);
         throw error;
     }
 }

@@ -18,6 +18,7 @@ function UsersAtScreen(props) {
         // בקשת PUT לשרת לעדכון המשתמש
         fetch(`http://localhost:3000/users/${props.user.id}`, {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },

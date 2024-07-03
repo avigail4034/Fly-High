@@ -16,7 +16,7 @@ function Orders() {
 
     const handleSearch = () => {
 
-            fetch(`http://localhost:3000/flights?exitP=${exitP}&target=${target}&date=${date}&isDirect=${isDirect}`)
+            fetch(`http://localhost:3000/flights?exitP=${exitP}&target=${target}&date=${date}&isDirect=${isDirect}`,{credentials: 'include'})
                 .then((response) => response.json())
                 .then((answer) => {
   

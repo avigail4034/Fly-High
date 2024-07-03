@@ -46,6 +46,7 @@ body {
 input[type="text"],
 input[type="date"],
 input[type="password"],
+input[type="email"],
 input[type="checkbox"] {
     text-align: right;
     font-weight: bold;

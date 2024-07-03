@@ -8,8 +8,7 @@ function UsersList() {
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const response = await fetch(`http://localhost:3000/users`);
-
+                const response = await fetch(`http://localhost:3000/users`,{credentials: 'include'});
                 if (!response.ok) {
                     console.error('Failed to fetch users');
                 }

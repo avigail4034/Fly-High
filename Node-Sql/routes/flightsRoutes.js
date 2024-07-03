@@ -2,9 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/flightsController");
+const roleAuthorization = require('../middlewares/roleAuthorization');
 
 router.get("/", async (req, res) => {
-  const {arrOfFlightsIdToCancel, exitP, target, date, isDirect, company, id, arrOfFlightsId} = req.query;
+  const { arrOfFlightsIdToCancel, exitP, target, date, isDirect, company, id, arrOfFlightsId } = req.query;
   let flights;
 
   try {
@@ -13,14 +14,11 @@ router.get("/", async (req, res) => {
     } else if (arrOfFlightsIdToCancel) {
       flights = await controller.getArrFlightsByIdToCancel(arrOfFlightsIdToCancel);
     }
-   else if (exitP && target && date) {
-    console.log("exitP && target && date",exitP, target , date,isDirect);
-      if (isDirect=="true") {
-        console.log(isDirect,"isDirect");
+    else if (exitP && target && date) {
+      if (isDirect == "true") {
         flights = await controller.getFlightByParams(exitP, target, date);
       }
-      else{
-        console.log("durect");
+      else {
         flights = await controller.getFlightByParamsNotDirect(exitP, target, date);
       }
     } else if (id) {
@@ -40,45 +38,44 @@ router.get("/", async (req, res) => {
 });
 
 
+//יצירת טיסה חדשה
+// router.post("/", roleAuthorization([1, 2]), async (req, res) => {
+  router.post("/", async (req, res) => {
+  try {
+    const airplane_id = req.query.airplane_id;
 
-router.post("/", async (req, res) => {
-  const airplane_id = req.query.airplane_id;
-  if (airplane_id) {
-    try {
+    if (airplane_id) {
       const { departureDate, arrivalDate } = req.body;
       const response = await controller.checkDatesController(departureDate, arrivalDate, airplane_id);
-      res.status(200).send(response);
-      return;
+      if (response) {
+        res.status(200).send(response);
+      } else {
+        res.status(404).send({ error: "Error to post" });
+      }
+    } else {
+      const { company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, image } = req.body;
+      const response = await controller.createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, image);
+      if (response) {
+        res.status(200).send(response);
+      } else {
+        res.status(404).send({ error: "Error to post" });
+      }
     }
-    catch (error) {
-      console.error(error);
-      res.status(500).send({ error: "Failed to checkDates" });
-    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Failed to process request" });
   }
-  else {
-    try {
-      const { company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image } = req.body;
-      const response = await controller.createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image);
-      res.status(200).send(response);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ error: "Failed to create Flight" });
-    }
-  }
-
-
 });
 
 
 
-router.put("/:ID", async (req, res) => {
+//עדכון טיסה לטיסה לא פעילה
+// router.put("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+  router.put("/:ID", async (req, res) => {
   try {
     const ID = req.params.ID;
-    const { company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image} = req.body;
-    const flight = await controller.updateFlight(ID,  company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image);
-    // const updatedFlight = await controller.getFlight(ID);
+    const flight = await controller.updateFlight(ID);
     if (!flight) {
- 
       return res.status(404).send({ error: "Flight not found" });
     }
     res.status(200).send(flight);
@@ -88,7 +85,9 @@ router.put("/:ID", async (req, res) => {
   }
 });
 
-router.delete("/:ID", async (req, res) => {
+
+// router.delete("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+  router.delete("/:ID", async (req, res) => {
   try {
     const ID = req.params.ID;
     const result = await await controller.deleteFlight(ID);

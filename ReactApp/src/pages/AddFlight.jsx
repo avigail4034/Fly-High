@@ -85,6 +85,7 @@ function AddFlight() {
             try {
                 const response = await fetch('http://localhost:3000/flights', {
                     method: 'POST',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -113,6 +114,7 @@ function AddFlight() {
         try {
             const response = await fetch(`http://localhost:3000/flights?airplane_id=${airplane_id}`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },

@@ -32,6 +32,7 @@ export function Order() {
 
         fetch('http://localhost:3000/Order', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -50,6 +51,7 @@ export function Order() {
 
         fetch(`http://localhost:3000/Places/${airplaneId}`, {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -69,7 +71,7 @@ export function Order() {
 
     async function getAirplane() {
         try {
-            const data = await fetch(`http://localhost:3000/Places?airplane_id=${airplaneId}`);
+            const data = await fetch(`http://localhost:3000/Places?airplane_id=${airplaneId}`,({credentials: 'include'}));
             const seats = await data.json();
             console.log(airplaneId,"airplaneId");
             const generatedSeatMap = generateSeatMap(seats);

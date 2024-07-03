@@ -137,7 +137,7 @@ async function deleteFlight(FlightID) {
 //     throw err;
 //   }
 // }
-async function updateFlight(id, company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active,image) {
+async function updateFlight(id) {
   try {
     const sql = `UPDATE flights SET   active=? WHERE id = ?`;
     const result = await pool.query(sql, [  0, id]);

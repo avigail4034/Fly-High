@@ -20,7 +20,7 @@ const MessageOfCancel = ({ cancels }) => {
                 if (flightsIdsToCancel.length > 0) {
                     try {
                         //בקשת הטיסות שהתבטלו בשביל התצוגה
-                        const response = await fetch(`http://localhost:3000/flights?arrOfFlightsIdToCancel=${flightsIdsToCancel}`);
+                        const response = await fetch(`http://localhost:3000/flights?arrOfFlightsIdToCancel=${flightsIdsToCancel}`,{credentials: 'include'});
                         if (response.ok) {
                             const cancels = await response.json();
                             if (cancels.length > 0) {
@@ -47,6 +47,7 @@ const MessageOfCancel = ({ cancels }) => {
         try {
             const response = await fetch(url, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -63,6 +64,7 @@ const MessageOfCancel = ({ cancels }) => {
         try {
             const response = await fetch(url2, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -80,14 +82,14 @@ const MessageOfCancel = ({ cancels }) => {
 
         console.log(id, "id!!!!!");
         try {
-            const data = await fetch(`http://localhost:3000/Cancel?flightId=${id}`);
+            const data = await fetch(`http://localhost:3000/Cancel?flightId=${id}`,{credentials: 'include'});
             const cancelOfFlight = await data.json();
             console.log(cancelOfFlight, "cancelOfFlight");
             if (cancelOfFlight.length>0) { return false; }
             else {
                 //////////////מביאים את כל העובדים והמנהלים כדי לשלוח להם מייל שניתן למחוק סופית של הטיסה
                 try {
-                    const data = await fetch(`http://localhost:3000/users?roleId=${1}`);
+                    const data = await fetch(`http://localhost:3000/users?roleId=${1}`,{credentials: 'include'});
                     const employees = await data.json();
 
                     setEmployeesArray(employees);

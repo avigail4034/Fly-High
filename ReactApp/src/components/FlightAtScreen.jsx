@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import FlightDisplayPopUp from './FlightDisplayPopUp';
 import { useNavigate } from 'react-router-dom';
 import UsersListModal from './UsersListModal';
-import DeletePlaceScreen from './deletePlaceScreen';
+import DeletePlaceScreen from './DeletePlaceScreen';
 import { UserContext } from '../App';
 import '../Styles/FlightAtScreen.css';
 
@@ -46,7 +46,7 @@ const FlightAtScreen = (props) => {
 
     const handleDeletePlace = async () => {
         if (selectedPlace.length > 0) {
-            const url = `http://localhost:3000/Order?flight_id=${props.flight.id}`;
+            const url = (`http://localhost:3000/Order?flight_id=${props.flight.id}`,{credentials: 'include'});
             try {
                 const response = await fetch(url, {
                     method: 'DELETE',
@@ -71,6 +71,7 @@ const FlightAtScreen = (props) => {
         const airplaneId = flight.airplain_id;
         fetch(`http://localhost:3000/Places/${airplaneId}`, {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -92,7 +93,7 @@ const FlightAtScreen = (props) => {
                 let PlacesIds = [{}];
                 PlacesIds = props.places.map(item => item.place_id);
                 try {
-                    const response = await fetch(`http://localhost:3000/Places?arrOfPlacesId=${PlacesIds}`);
+                    const response = await fetch(`http://localhost:3000/Places?arrOfPlacesId=${PlacesIds}`,{credentials: 'include'});
                     if (response.ok) {
                         const places = await response.json();
                         setPlacesDetails(places);
@@ -111,7 +112,7 @@ const FlightAtScreen = (props) => {
     const deleteFlight = async () => {
         let usersData;
         try {
-            const response = await fetch(`http://localhost:3000/Order?flightId=${props.flight.id}`);
+            const response = await fetch(`http://localhost:3000/Order?flightId=${props.flight.id}`  ,{credentials: 'include'});
 
             if (!response) {
                 console.error('Failed to fetch users');
@@ -126,6 +127,7 @@ const FlightAtScreen = (props) => {
             try {
                 const response = await fetch(`http://localhost:3000/flights/${props.flight.id}`, {
                     method: 'PUT',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -142,7 +144,7 @@ const FlightAtScreen = (props) => {
             alert("אינך יכול למחוק את הטיסה, כיון שנרשמו אליה כבר. לצפיה ברשימת הנוסעים לחץ אישור.");
             handleOpenModalOfAllUsers();
         } else {
-            const url = `http://localhost:3000/flights/${props.flight.id}`;
+            const url = (`http://localhost:3000/flights/${props.flight.id}`,{credentials: 'include'});
             try {
                 const response = await fetch(url, {
                     method: 'DELETE',
@@ -165,7 +167,7 @@ const FlightAtScreen = (props) => {
 
     return (
         <div className='flight-card'>
-            <img src={`http://localhost:3000/images/${flight.image}`} alt={flight.id} />
+        <img src={`http://localhost:3000/images/${flight.image}`} alt={flight.id} style={{credentials: 'include'}} />   
             <div className="overlay">
                 <h3>Flight {flight.id}</h3>
                 <h2>{flight.target}</h2>

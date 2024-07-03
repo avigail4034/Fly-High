@@ -17,17 +17,15 @@ import FlightDisplayPopUp from './components/FlightDisplayPopUp'
 export const UserContext = React.createContext();
 
 function App() {
- const storedUserDetails = JSON.parse(localStorage.getItem('currentUser')) || {};
+//  const storedUserDetails = JSON.parse(localStorage.getItem('currentUser')) || {};
 
-  const [userDetails, setUserDetails] = useState(storedUserDetails);
+  const [userDetails, setUserDetails] = useState({});
 
-  useEffect(() => {
-    const userDetailsWithoutpassword = { ...userDetails };
-    delete userDetailsWithoutpassword.password;
-
-    // Store the modified userDetails in local storage
-   localStorage.setItem('currentUser', JSON.stringify(userDetailsWithoutpassword));
-  }, [userDetails]);
+  // useEffect(() => {
+  //   const userDetailsWithoutpassword = { ...userDetails };
+  //   delete userDetailsWithoutpassword.password;
+  //  localStorage.setItem('currentUser', JSON.stringify(userDetailsWithoutpassword));
+  // }, [userDetails]);
 
 
   return (

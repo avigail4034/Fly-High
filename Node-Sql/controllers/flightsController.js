@@ -234,9 +234,9 @@ async function deleteFlight(ID) {
     }
 }
 
-async function updateFlight(id, company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active, image) {
+async function updateFlight(id) {
     try {
-        return model.updateFlight(id, company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active, image);
+        return model.updateFlight(id);
     } catch (err) {
         throw err;
     }

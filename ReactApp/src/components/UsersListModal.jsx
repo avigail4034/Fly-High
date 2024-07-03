@@ -11,7 +11,7 @@ const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
     
     async function getUsersByIds() {
       try {
-        const usersResponse = await fetch(`http://localhost:3000/users?arrOfUsersId=${userIds}`);
+        const usersResponse = await fetch(`http://localhost:3000/users?arrOfUsersId=${userIds}`,({credentials: 'include'}));
         const users = await usersResponse.json();
         setUsersArray(users);
       } catch (error) {
@@ -44,6 +44,7 @@ const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
     try {
       const response = await fetch(`http://localhost:3000/Cancel/${flightId}`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
