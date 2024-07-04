@@ -54,7 +54,8 @@ const UserAddDetails = () => {
     <div>
       <form >
         <div className="content3" id="signUpForm">
-          <h1>! {userDetails.userName}שלום</h1>
+          <h1>! שלום {userDetails.userName}</h1>
+          <div id='form'>
           <h3>נא מלא פרטים אישיים</h3>
           <div className="User-fill">
             <input
@@ -99,6 +100,7 @@ const UserAddDetails = () => {
           <button type="button" id="signUp" className="button button-block" onClick={handleOkAddButton}>
             OK
           </button>
+          </div>
         </div>
       </form>
     </div>
