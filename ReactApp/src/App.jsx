@@ -17,16 +17,39 @@ import FlightDisplayPopUp from './components/FlightDisplayPopUp'
 export const UserContext = React.createContext();
 
 function App() {
-//  const storedUserDetails = JSON.parse(localStorage.getItem('currentUser')) || {};
+
 
   const [userDetails, setUserDetails] = useState({});
-
-  // useEffect(() => {
-  //   const userDetailsWithoutpassword = { ...userDetails };
-  //   delete userDetailsWithoutpassword.password;
-  //  localStorage.setItem('currentUser', JSON.stringify(userDetailsWithoutpassword));
-  // }, [userDetails]);
-
+//הבאת המשתמש הנוכחי כל פעם שהעמוד מתרענן
+  useEffect(() => {
+    const getUserRefresh = async () => {
+      try {
+        //בדיקה לפי העוגיה מי המשתמש הנוכחי
+        const response = await fetch("http://localhost:3000/checkConnect", {
+          method: "POST",
+          credentials: "include",
+        });
+  console.log(response,"response");
+        if (response.ok) {
+          const userSession = await response.json(); 
+          //הבאת המשתמש הנוכחי
+          const data = await fetch(`http://localhost:3000/users?id=${userSession.id}`, {
+            method: "GET",
+            credentials: "include",
+          });
+          const user = await data.json();
+          setUserDetails(user); // הגדרת המשתנה userDetails עם המידע של המשתמש
+        } else {
+          setUserDetails(null);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUserDetails(null);
+      }
+    };
+  
+    getUserRefresh();
+  }, []);
 
   return (
     <>
@@ -47,7 +70,7 @@ function App() {
           <Route path="/thank" element={<ThankYou />} />
           <Route path="/add-flight" element={<AddFlight />} />
           <Route path="/home" element={<Home />}>
-          <Route path="users/:userId">  </Route>
+            <Route path="users/:userId">  </Route>
           </Route>
         </Routes>
       </UserContext.Provider>
@@ -56,31 +79,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-/**
- * 
- * const templateParams = {
-                    from_name: `${user.firstName} ${user.lastName}`,
-                    to_email: fullRide.email,
-                    message: `${user.firstName} ${user.lastName} wants to travel with you \n
-                      on your ride from ${fullRide.source} to ${fullRide.destination} at ${fullRide.date}\n
-                      in station ${stop.name}.`,
-                    requestId: requestId.toString()
-                };
-
-                emailjs.send(
-                    'service_7vdgzor',
-                    'template_ww2a0cd',
-                    templateParams,
-                    '-smQEZzJW4OLKNgra'
-                )
-                    .then((response) => {
-                        console.log('Email sent successfully!', response.status, response.text);
-                    }, (error) => {
-                        console.error('Failed to send email:', error);
-                    });
-
- */

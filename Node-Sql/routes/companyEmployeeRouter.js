@@ -2,8 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/companyEmployeeController")
+const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 
 
+// router.get("/",dynamicCheckAbilities, async (req, res) => {
 router.get("/", async (req, res) => {
   const employeeId = req.query.employee_id;
   if (employeeId) {

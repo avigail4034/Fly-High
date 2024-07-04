@@ -5,15 +5,20 @@ const controller = require("../controllers/usersController");
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const roleAuthorization = require('../middlewares/roleAuthorization');
+const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
+const { lock } = require("./flightsRoutes");
 
 
 // GET all users
-router.get("/", async (req, res) => {
+// router.get("/",dynamicCheckAbilities, async (req, res) => {
+  router.get("/", async (req, res) => {
   try {
     const userName = req.query.userName;
+    const id = req.query.id;
     const password = req.query.password;
     const roleId = req.query.roleId;
     const arrOfUsersId = req.query.arrOfUsersId;
+    console.log(id,"id");
 //איך אני עושה הבדיקה פה לפי הרשאה??????איפה אני שמה את זה???
     if (userName) {
       let user;
@@ -39,6 +44,14 @@ router.get("/", async (req, res) => {
           return res.status(404).send({ error: "Employees not found" });
         }
         res.status(200).send(employees);
+      }
+        else if (id) {
+          const user = await controller.getUserById(id);
+          if (!user.id) {
+            return res.status(404).send({ error: "user not found" });
+          }
+          res.status(200).send(user);
+
       } else {
         const users = await controller.getAllUsers();
         res.status(200).send(users);
@@ -52,7 +65,6 @@ router.get("/", async (req, res) => {
 
 
 
-//פונקציה שמשמשת כאשר לקוח נרשפ פעם ראשונה למערכת (לאחר בדיקה שבאמת הוא לא קיים)
 router.post("/", async (req, res) => {
   try {
     const { userName, password } = req.body; // Assuming you meant to include completed
@@ -84,8 +96,8 @@ router.post("/", async (req, res) => {
 
 
 
-//עדכון בשביל ROLEID
-router.put("/:id", async (req, res) => {
+//עדכון משתמש כשמנהל רוצה לשנות סטטוס וגם כשמתמש נכנס בפעם הראושנה-מילוי פרטים
+router.put("/:id" ,dynamicCheckAbilities, async (req, res) => {
   try {
     const { firstName, lastName, userName, email, phone, roleId } = req.body;
     const user = await controller.updateUser(firstName, lastName, userName, email, phone, roleId, req.params.id);

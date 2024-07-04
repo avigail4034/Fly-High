@@ -9,6 +9,29 @@ export function Navbar1() {
   const context = useContext(UserContext);
   const { userDetails,setUserDetails } = context;
   const navigate = useNavigate();
+
+  
+
+const logout = async () => {
+  try {
+    console.log("jhhgfgd");
+    const response = await fetch("http://localhost:3000/LogOut", {
+      method: "POST",
+      credentials: "include",
+    });
+    const data = await response.json();
+    if (response.status !== 200) {
+      throw new Error(data.message || "An error occurred. Please try again.");
+    } else {
+      setUserDetails(null);
+     // disconnectClient();
+      navigate("/home");
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
   return (
     <div className="navbar-container">
       <div className="logo-container" onClick={() => navigate("/home")}>
@@ -22,17 +45,17 @@ export function Navbar1() {
         <Nav.Item>
           <Nav.Link onClick={() => navigate("/Flights")}>טיסות</Nav.Link>
         </Nav.Item>
-        {userDetails.userName ? (
+        {userDetails&&userDetails.userName ? (
           <Nav.Item>
             <Nav.Link onClick={() => navigate("/FlightSearch")}>חיפוש טיסה</Nav.Link>
           </Nav.Item>
         ) : null}
-        {userDetails.roleId === 1 ? (
+        {userDetails&&userDetails.roleId === 1 ? (
           <Nav.Item>
             <Nav.Link onClick={() => navigate("/users")}>לקוחות</Nav.Link>
           </Nav.Item>
         ) : null}
-        {userDetails.userName ? (
+        {userDetails&&userDetails.userName ? (
           <Nav.Item>
             <Nav.Link onClick={() => navigate("/profile")}>פרופיל</Nav.Link>
           </Nav.Item>
@@ -40,12 +63,12 @@ export function Navbar1() {
         <Nav.Item>
           <Nav.Link onClick={() => navigate("/about-us")}>אודות</Nav.Link>
         </Nav.Item>
-        {userDetails.userName ? (<Nav.Item>
-          <Nav.Link onClick={() => navigate("/logIn")}>התנתקות</Nav.Link>
+        {userDetails&&userDetails.userName ? (<Nav.Item>
+          <Nav.Link  onClick={logout}>התנתקות</Nav.Link>
           {/* מה עוד עושים ביציאה??????????? */}
         </Nav.Item>
         ) : null}
-                {userDetails.userName ? null : (<Nav.Item>
+                {userDetails&&userDetails.userName ? null : (<Nav.Item>
           <Nav.Link onClick={() => navigate("/logIn")}>התחברות</Nav.Link>
           {/* מה עוד עושים ביציאה??????????? */}
         </Nav.Item>

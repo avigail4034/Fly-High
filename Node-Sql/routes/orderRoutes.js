@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/orderController");
 const roleAuthorization = require('../middlewares/roleAuthorization');
+const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 
-
-router.get("/", async (req, res) => {
+// router.get("/",dynamicCheckAbilities, async (req, res) => {
+  router.get("/", async (req, res) => {
   const userId = req.query.user_id;
   const flightId = req.query.flightId;
   if (userId) {
+    //פה כל משתמש יכול לקבל את הטיסות שלו
     try {
       const flights = await controller.getFlightsOfUser(userId);
       if (!flights) {
@@ -18,6 +20,7 @@ router.get("/", async (req, res) => {
       console.error(error);
       res.status(500).send({ error: "Failed to fetch flights" });
     }
+    //פה רק עובד או מנהל יכול לקבל
   } if (flightId) {
     try {
       const flights = await controller.getUsersOfFlight(flightId);
@@ -32,7 +35,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-
+//כל המשתמשים יכולים להזמין טיסה 
 router.post("/", async (req, res) => {
   try {
     const { user_id, flight_id, places_arr } = req.body;
@@ -45,11 +48,12 @@ router.post("/", async (req, res) => {
 });
 
 
-router.delete("/", async (req, res) => {
+router.delete("/",dynamicCheckAbilities, async (req, res) => {
   const flight_id = req.query.flight_id;
   const flight_id_arr = req.query.flight_id_arr;
   const user_id = req.query.user_id;
   const { arrPlaces } = req.body;
+  //פה רק עובד או מנהל יכול למחוק הזמנות כשהוא מוחק את הטיסה
   try {
     if (user_id) {
       const result = await controller.deleteOrderToCancel(flight_id_arr, user_id);
@@ -57,6 +61,7 @@ router.delete("/", async (req, res) => {
         return res.status(404).send({ error: "order not found" });
       }
     }
+    //פה כל משתמש יכול למחוק את ההזמנה של הטיסה שלו
     else {
       const result = await await controller.deleteOrder(flight_id, arrPlaces);
       if (!result) {

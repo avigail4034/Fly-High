@@ -13,7 +13,9 @@ const usersRouter = require("./routes/usersRoutes")
 const logInRouter = require("./routes/logInRoutes")
 const orderRouter = require("./routes/orderRoutes")
 const cancelRouter = require("./routes/cancelRouter")
+const LogOutRouter = require("./routes/LogOutRouter")
 const PlacesRouter = require("./routes/placesRouter")
+const checkConnect = require("./routes/checkConnectRouter")
 const companyEmploeeRouter = require("./routes/companyEmployeeRouter")
 const airplanesRouter = require("./routes/airplaneRoutes")
 
@@ -28,10 +30,12 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use("/flights", flightsRouter);
 app.use("/users", usersRouter);
 app.use("/LogIn", logInRouter);
+app.use("/checkConnect", checkConnect);
 
 
 // app.use(jwtAuthentication)
 app.use("/Order", orderRouter);
+app.use("/LogOut", LogOutRouter);
 app.use("/Places", PlacesRouter);
 app.use("/airplanes", airplanesRouter);
 app.use("/company_employees", companyEmploeeRouter);

@@ -6,6 +6,7 @@ import { Navbar1 } from './Navbar1';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/Flights.css';
 
+
 // import '../CSS/list.css'
 const Flights = () => {
     const navigate = useNavigate();
@@ -28,7 +29,10 @@ const Flights = () => {
     }
     async function getflights() {// פונקציה אסינכרונית בגלל שאני רוצה לחכות לתשובבה  מהשרת כדי להציג את המשימות
         try {
-            const data = await fetch(`http://localhost:3000/flights`);
+            console.log(userDetails,"userDetails");
+            const ys=userDetails.id;
+            console.log(ys,"userDetails.id");
+            const data = await fetch(`http://localhost:3000/flights?user=${userDetails}`);
             const flights = await data.json();
             const today = new Date(); // מציין את תאריך היום
 

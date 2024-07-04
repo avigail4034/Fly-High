@@ -20,6 +20,17 @@ async function getUserByUserName(userName) {
     throw err;
   }
 }
+async function getUserById(id) {
+  try {
+    const sql = 'SELECT * FROM Users  WHERE Users.id = ?';
+    const [rows, fields] = await pool.query(sql, [id]);
+    console.log(rows[0],"rows[0]");
+     return rows[0];
+    
+  } catch (err) {
+    throw err;
+  }
+}
 async function getArrUsersByRoleId(roleId) {
   try {
     const sql = 'SELECT * FROM Users WHERE roleId = ? ';
@@ -75,4 +86,4 @@ async function updateUser(firstName, lastName, userName, email, phone,roleId,id)
   }
 }
   
-module.exports = {getArrUsersById, getAllUsers, getUserByUserName, createUser, updateUser ,getArrUsersByRoleId}  
+module.exports = {getArrUsersById, getAllUsers, getUserByUserName, createUser, updateUser ,getArrUsersByRoleId,getUserById}  

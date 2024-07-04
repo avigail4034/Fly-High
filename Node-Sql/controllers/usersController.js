@@ -30,6 +30,13 @@ async function getUserByUserName(userName) {
     }
 }
 
+async function getUserById(id) {
+    try {
+        return model.getUserById(id)
+    } catch (err) {
+        throw err;
+    }
+}
 async function getUserByNamePassword(userName, password) {
     try {
         const user = await model.getUserByUserName(userName);
@@ -63,4 +70,4 @@ async function updateUser(firstName, lastName, userName, email, phone,roleId,id)
     }
 }
 
-module.exports = { createUser,getArrUsersById, getAllUsers, getUserByUserName, updateUser, getUserByNamePassword ,getArrUsersByRoleId}
+module.exports = { createUser,getArrUsersById,getUserById, getAllUsers, getUserByUserName, updateUser, getUserByNamePassword ,getArrUsersByRoleId}

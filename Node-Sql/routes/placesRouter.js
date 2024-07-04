@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/placesController")
 const roleAuthorization = require('../middlewares/roleAuthorization');
+const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 
 router.get("/", async (req, res) => {
   const airplaneId = req.query.airplane_id;
@@ -29,7 +30,7 @@ router.get("/", async (req, res) => {
 
 
 });
-// router.put("/:airplaneId", roleAuthorization([1,2,3]), async (req, res) => {
+// כל סוגי המשתמשים יכולים להזמין טיסה...
   router.put("/:airplaneId", async (req, res) => {
   try {
     const airplaneId = req.params.airplaneId;
