@@ -13,10 +13,6 @@ function FlightDisplayPopUp(props) {
             <div className="popup-container">
                 <h2 className="popup-title">{flight.target}</h2>
                 <div className="popup-content">
-                    {/* <div className="popup-row">
-                        <span className="popup-label">Flight Code:</span>
-                        <span className="popup-value">{flight.flightCode}</span>
-                    </div> */}
                     <div className="popup-row">
                         <span className="popup-value">{flight.company}</span>
                         <span className="popup-label">:חברה</span>
@@ -38,7 +34,7 @@ function FlightDisplayPopUp(props) {
                         <span className="popup-label">:תאריך הגעה</span>
                     </div>
 
-                    {userDetails.userName && (
+                    {userDetails&&userDetails.userName && (
                         <Link to={{ pathname: "/order", search: `?id=${flight.airplain_id}&flightId=${flight.id}` }}>
                             {props.IOrder !== true && <button className="close-button">להזמנה</button>}
                         </Link>

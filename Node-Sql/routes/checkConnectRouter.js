@@ -9,9 +9,6 @@ const jwtAuthentication  = require('../middlewares/jwtAuthentication');
 router.post('/', jwtAuthentication, (req, res) => {
   try {
     // אם הגענו לפה המשתמש אומת בהצלחה
-    console.log("jhgfd");
-    console.log(req,"req");
-    console.log(req.userId,"req.user.userId");
     const userSession = {
       id: req.userId, // הזהות של המשתמש שמסומן ב-token
     };

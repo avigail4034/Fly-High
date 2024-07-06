@@ -84,6 +84,7 @@ export function Profile() {
                                 IOrder={true}
                                 numPlaces={flightsData.find(data => data.flight_id === flight.id)?.places.length || 0}
                                 places={flightsData.find(data => data.flight_id === flight.id)?.places || []}
+                                setFlightsArray={setFlightsArray}
                             />
                         ))}
                     </div>

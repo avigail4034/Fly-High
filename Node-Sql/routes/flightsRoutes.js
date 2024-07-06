@@ -42,7 +42,8 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 });
 
 
- router.post("/", roleAuthorization([1, 2]), async (req, res) => {
+//  router.post("/", roleAuthorization([1, 2]), async (req, res) => {
+  router.post("/",async (req, res) => {
   try {
     const airplane_id = req.query.airplane_id;
 
@@ -72,7 +73,8 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 
 
 //עדכון טיסה לטיסה לא פעילה
-router.put("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+// router.put("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+  router.put("/:ID", async (req, res) => {
   try {
     const ID = req.params.ID;
     const flight = await controller.updateFlight(ID);
@@ -87,7 +89,8 @@ router.put("/:ID",roleAuthorization([1, 2]), async (req, res) => {
 });
 
 
-router.delete("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+// router.delete("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+  router.delete("/:ID", async (req, res) => {
   try {
     const ID = req.params.ID;
     const result = await await controller.deleteFlight(ID);

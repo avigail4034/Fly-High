@@ -97,7 +97,8 @@ router.post("/", async (req, res) => {
 
 
 //עדכון משתמש כשמנהל רוצה לשנות סטטוס וגם כשמתמש נכנס בפעם הראושנה-מילוי פרטים
-router.put("/:id" ,dynamicCheckAbilities, async (req, res) => {
+// router.put("/:id" ,dynamicCheckAbilities, async (req, res) => {
+  router.put("/:id" , async (req, res) => {
   try {
     const { firstName, lastName, userName, email, phone, roleId } = req.body;
     const user = await controller.updateUser(firstName, lastName, userName, email, phone, roleId, req.params.id);

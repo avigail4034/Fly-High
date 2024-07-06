@@ -20,7 +20,7 @@ function App() {
 
 
   const [userDetails, setUserDetails] = useState({});
-//הבאת המשתמש הנוכחי כל פעם שהעמוד מתרענן
+  //הבאת המשתמש הנוכחי כל פעם שהעמוד מתרענן
   useEffect(() => {
     const getUserRefresh = async () => {
       try {
@@ -29,9 +29,8 @@ function App() {
           method: "POST",
           credentials: "include",
         });
-  console.log(response,"response");
         if (response.ok) {
-          const userSession = await response.json(); 
+          const userSession = await response.json();
           //הבאת המשתמש הנוכחי
           const data = await fetch(`http://localhost:3000/users?id=${userSession.id}`, {
             method: "GET",
@@ -47,7 +46,7 @@ function App() {
         setUserDetails(null);
       }
     };
-  
+
     getUserRefresh();
   }, []);
 

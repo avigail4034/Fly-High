@@ -14,7 +14,6 @@ export function Navbar1() {
 
 const logout = async () => {
   try {
-    console.log("jhhgfgd");
     const response = await fetch("http://localhost:3000/LogOut", {
       method: "POST",
       credentials: "include",

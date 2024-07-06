@@ -21,6 +21,7 @@ function FlightSearch() {
             .then((answer) => {
                 if (isDirect) {
                     if (!answer[0]) {//אם חזרה תשובה זה אומר שקיים כזה משתמש
+
                         alert("מצטערים! לא מצאנו לך טיסה מתאימה.")
                       
                     }

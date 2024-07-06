@@ -48,7 +48,8 @@ router.post("/", async (req, res) => {
 });
 
 
-router.delete("/",dynamicCheckAbilities, async (req, res) => {
+// router.delete("/",dynamicCheckAbilities, async (req, res) => {
+  router.delete("/", async (req, res) => {
   const flight_id = req.query.flight_id;
   const flight_id_arr = req.query.flight_id_arr;
   const user_id = req.query.user_id;

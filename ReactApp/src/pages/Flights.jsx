@@ -29,10 +29,10 @@ const Flights = () => {
     }
     async function getflights() {// פונקציה אסינכרונית בגלל שאני רוצה לחכות לתשובבה  מהשרת כדי להציג את המשימות
         try {
-            console.log(userDetails,"userDetails");
-            const ys=userDetails.id;
-            console.log(ys,"userDetails.id");
-            const data = await fetch(`http://localhost:3000/flights?user=${userDetails}`);
+            // console.log(userDetails,"userDetails");
+            // const ys=userDetails.id;
+            // console.log(ys,"userDetails.id");
+            const data = await fetch(`http://localhost:3000/flights`);
             const flights = await data.json();
             const today = new Date(); // מציין את תאריך היום
 
@@ -99,7 +99,7 @@ const Flights = () => {
         <Navbar1 />
         <h1>הטיסות הכי זולות</h1>
         <div id="flexBtnflight">
-            {(userDetails.roleId === 2 || userDetails.roleId === 1) && 
+            {(userDetails&&userDetails.roleId === 2 || userDetails&&userDetails.roleId === 1) && 
                 <button className='btnPost' onClick={() => navigate("/add-flight")}>הוספת טיסה</button>
             }
             <select className='btnTodo' name="order" id="order" onChange={orderOfFlights}>

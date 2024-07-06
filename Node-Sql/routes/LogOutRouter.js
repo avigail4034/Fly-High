@@ -1,7 +1,6 @@
 
 const express = require("express");
 const router = express.Router();
-// const controller = require("../controllers/LogOutController");
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const jwtAuthentication  = require('../middlewares/jwtAuthentication');

@@ -10,7 +10,6 @@ const FlightAtScreen = (props) => {
     const context = useContext(UserContext);
     const { userDetails } = context;
     const [flight, setFlight] = useState(props.flight);
-    console.log(flight,"flight");
     const [selectedPlace, setSelectedPlace] = useState([]);
     const [usersList, setUsersList] = useState([]);
     const [placesDetails, setPlacesDetails] = useState([]);
@@ -46,10 +45,11 @@ const FlightAtScreen = (props) => {
 
     const handleDeletePlace = async () => {
         if (selectedPlace.length > 0) {
-            const url = (`http://localhost:3000/Order?flight_id=${props.flight.id}`,{credentials: 'include'});
+            const url = (`http://localhost:3000/Order?flight_id=${props.flight.id}`);
             try {
                 const response = await fetch(url, {
                     method: 'DELETE',
+                    credentials: "include",
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -144,10 +144,11 @@ const FlightAtScreen = (props) => {
             alert("אינך יכול למחוק את הטיסה, כיון שנרשמו אליה כבר. לצפיה ברשימת הנוסעים לחץ אישור.");
             handleOpenModalOfAllUsers();
         } else {
-            const url = (`http://localhost:3000/flights/${props.flight.id}`,{credentials: 'include'});
+            const url = (`http://localhost:3000/flights/${props.flight.id}`);
             try {
                 const response = await fetch(url, {
                     method: 'DELETE',
+                    credentials: "include",
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -174,7 +175,7 @@ const FlightAtScreen = (props) => {
                 <p>Price: {flight.price}</p>
                 <div className='space'>
                     <button className='btnPost' onClick={() => setIsPopupVisible(true)}>פרטים</button>
-                    {((userDetails.roleId == 2 || userDetails.roleId == 1) && !props.IOrder) &&
+                    {((userDetails&&userDetails.roleId == 2 || userDetails&&userDetails.roleId == 1) && !props.IOrder) &&
                         <button className='btnPost' onClick={deleteFlight}>מחיקה</button>}
                     {props.IOrder &&
                         <button className='btnPost' onClick={handleOpenClosedDeleteModal}> ביטול טיסה</button>}
