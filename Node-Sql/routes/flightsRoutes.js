@@ -43,7 +43,7 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 });
 
 //יצירת טיסה חדשה
-  router.post("/", roleAuthorization([1, 2]), async (req, res) => {
+  router.post("/",jwtAuthentication, roleAuthorization([1, 2]), async (req, res) => {
   try {
     const airplane_id = req.query.airplane_id;
 
@@ -88,7 +88,7 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 });
 
 //מחיקת טיסה
- router.delete("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+ router.delete("/:ID",jwtAuthentication,roleAuthorization([1, 2]), async (req, res) => {
   try {
     const ID = req.params.ID;
     const result = await await controller.deleteFlight(ID);
