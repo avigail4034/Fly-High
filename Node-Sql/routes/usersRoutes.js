@@ -4,7 +4,7 @@ const router = express.Router();
 const controller = require("../controllers/usersController");
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-const roleAuthorization = require('../middlewares/roleAuthorization');
+const jwtAuthentication = require('../middlewares/jwtAuthentication');
 const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 const { lock } = require("./flightsRoutes");
 
@@ -21,7 +21,7 @@ const { lock } = require("./flightsRoutes");
     const arrOfUsersId = req.query.arrOfUsersId;
     // console.log(id,"id");
 //איך אני עושה הבדיקה פה לפי הרשאה??????איפה אני שמה את זה???
-// מה עושים עם זה שגם משתמש שלא קיים אושה גט כדי לבדוק אם קיים כבר כזה משתמש
+// מה עושים עם זה שגם משתמש שלא קיים עושה גט כדי לבדוק אם קיים כבר כזה משתמש
     if (userName) {
       let user;
       if (password) {
@@ -99,7 +99,7 @@ router.post("/", async (req, res) => {
 
 
 //עדכון משתמש כשמנהל רוצה לשנות סטטוס וגם כשמתמש נכנס בפעם הראושנה-מילוי פרטים
-router.put("/:id", dynamicCheckAbilities, async (req, res) => {
+router.put("/:id",jwtAuthentication, dynamicCheckAbilities, async (req, res) => {
   try {
     let firstName, lastName, email, phone, roleId;
     if (req.body.updatedUser) {//מקרה שזה עדכון ממנהל 

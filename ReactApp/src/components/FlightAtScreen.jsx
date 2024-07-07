@@ -88,11 +88,12 @@ const FlightAtScreen = (props) => {
             });
     };
 
-    if (props.IOrder) {
+    if (props.IOrder) {//אם הזמנתי טיסה-הבאת המקומות שהזמנתי 
         useEffect(() => {
             async function fetchPlacesDetails() {
                 let PlacesIds = [{}];
                 PlacesIds = props.places.map(item => item.place_id);
+                console.log("PlacesIds",PlacesIds);
                 try {
                     const response = await fetch(`http://localhost:3000/Places?arrOfPlacesId=${PlacesIds}`, { credentials: 'include' });
                     if (response.ok) {
@@ -173,7 +174,7 @@ const FlightAtScreen = (props) => {
             }
         }
     };
-
+   
     return (
         <div className='flight-card'>
             <img src={`http://localhost:3000/images/${flight.image}`} alt={flight.id} style={{ credentials: 'include' }} />

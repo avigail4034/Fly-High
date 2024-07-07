@@ -1,20 +1,21 @@
+
 const roleAuthorization = (requiredRoles) => {
     console.log("oooo");
 
     const roleFunction = (req, res, next) => {
-        const userId = req.body.userDetails.id;
-        const userRoleId = req.body.userDetails.roleId;
+        console.log("req.userId", req.userId);
+        console.log("req.roleId", req.roleId);
 
-        if (!userId) {
-            return res.status(401).send("Unauthorized");
+        if (!req.userId) {
+                res.status(401).send("Unauthoreturnrized");
         }
 
-        if (!requiredRoles.includes(userRoleId)) {
+        if (!requiredRoles.includes(req.roleId)) {
             return res.sendStatus(403);
         }
 
         console.log("pppp");
-        console.log(`User with role ID ${userRoleId} has access`);
+        console.log(`User with role ID ${req.roleId} has access`);
         return next();
     };
 

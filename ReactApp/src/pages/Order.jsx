@@ -68,7 +68,7 @@ export function Order() {
             });
 
     };
-
+//הבאת כל מקומות המטוס בתצוגה של בחירת מקום
     async function getAirplane() {
         try {
             const data = await fetch(`http://localhost:3000/Places?airplane_id=${airplaneId}`,({credentials: 'include'}));

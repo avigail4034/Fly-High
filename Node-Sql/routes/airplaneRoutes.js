@@ -5,8 +5,7 @@ const controller = require("../controllers/airplaneController")
 const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 
 
-// router.get("/",dynamicCheckAbilities, async (req, res) => {
-router.get("/", async (req, res) => {
+ router.get("/",dynamicCheckAbilities, async (req, res) => {
   try {
     const airplaneId = req.query.id;
     const company = req.query.company;

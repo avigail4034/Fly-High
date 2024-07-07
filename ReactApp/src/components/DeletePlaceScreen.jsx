@@ -16,6 +16,7 @@ const DeletePlaceScreen = ({ isOpen, onClose, placesDetails, handleCheckboxChang
             <h2>בחירת מקומות למחיקה</h2>
             <p>:נא בחר מקומות</p>
             <ul>
+           { console.log("placesDetails",placesDetails)}
                 {placesDetails.map((place, index) => (
                     <li key={index}>
                         <p><strong>:שורה</strong> {place.rowP}</p>

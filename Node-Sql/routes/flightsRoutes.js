@@ -3,8 +3,9 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/flightsController");
 const roleAuthorization = require('../middlewares/roleAuthorization');
+const jwtAuthentication = require('../middlewares/jwtAuthentication');
 const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
-
+//פה יש בעיה כי אפשר שיהיה גט גם אם לא מחוברים כלל-ורוצים תצוגה של כל הטיסות!!!!!!!
 // router.get("/",dynamicCheckAbilities, async (req, res) => {
   router.get("/", async (req, res) => {
   const { arrOfFlightsIdToCancel, exitP, target, date, isDirect, company, id, arrOfFlightsId } = req.query;
@@ -72,7 +73,7 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 
 
 //עדכון טיסה לטיסה לא פעילה
- router.put("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+ router.put("/:ID",jwtAuthentication, roleAuthorization([1, 2]), async (req, res) => {
   try {
     const ID = req.params.ID;
     const flight = await controller.updateFlight(ID);

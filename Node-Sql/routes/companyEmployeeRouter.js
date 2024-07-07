@@ -5,9 +5,8 @@ const controller = require("../controllers/companyEmployeeController")
 const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 const roleAuthorization = require('../middlewares/roleAuthorization');
 
-//איך אני יכולה להביא בגט את USERDETAILES????????????????????????????זה צריך להיות בגוף הבקשה ואין בגט
-//  router.get("/",roleAuthorization([1, 2]), async (req, res) => {
-router.get("/", async (req, res) => {
+//קבלת שם חברה של העובד- רק מנהל ועובד יכולים לקבל כשרוצים להזמין טיסה חדשה
+ router.get("/",roleAuthorization([1, 2]), async (req, res) => {
   const employeeId = req.query.employee_id;
   if (employeeId) {
       try {

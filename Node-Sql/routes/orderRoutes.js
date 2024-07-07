@@ -4,8 +4,7 @@ const controller = require("../controllers/orderController");
 const roleAuthorization = require('../middlewares/roleAuthorization');
 const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 
-// router.get("/",dynamicCheckAbilities, async (req, res) => {
-  router.get("/", async (req, res) => {
+ router.get("/",dynamicCheckAbilities, async (req, res) => {
   const userId = req.query.user_id;
   const flightId = req.query.flightId;
   if (userId) {
