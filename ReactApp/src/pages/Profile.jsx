@@ -14,6 +14,7 @@ export function Profile() {
     const [flightsArray, setFlightsArray] = useState([]);
     const [cancelsArray, setCancelsArray] = useState([]);
     const [flightsData, setflightsData] = useState([]);
+    let flightsIds;
 
     useEffect(() => {
         async function getFlightsOfUser() {
@@ -22,7 +23,7 @@ export function Profile() {
                 const orderResponse = await fetch(`http://localhost:3000/Order?user_id=${userId}`, { credentials: 'include' });
                 const orders = await orderResponse.json();
                 if (orders) {
-                    const flightsIds = orders.map(item => item.flight_id).join('')
+                     flightsIds = orders.map(item => item.flight_id).join('')
                 }
 
                 if (orders) {

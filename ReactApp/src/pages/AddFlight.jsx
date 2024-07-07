@@ -29,15 +29,15 @@ function AddFlight() {
     useEffect(() => {
         getAirplanesByCompany();
     }, []);
-
+//בקשה לקבלת שם חברה של העובד
     async function getAirplanesByCompany() {
         try {
-            const response = await fetch(`http://localhost:3000/company_employees?employee_id=${userDetails.id}`);
+            const response = await fetch(`http://localhost:3000/company_employees?employee_id=${userDetails.id}`,{credentials: 'include'});
             const companyData = await response.json();
             const company1 = companyData.company;
             setFlightDetails({ ...flightDetails, company: company1 });
-
-            const response2 = await fetch(`http://localhost:3000/airplanes?company=${company1}`);
+//בקשה לקבלת כל המטוסים של החברה
+            const response2 = await fetch(`http://localhost:3000/airplanes?company=${company1}`,{credentials: 'include'});
             const airplanesData = await response2.json();
             setAirplanes(airplanesData);
         } catch (error) {
@@ -78,7 +78,7 @@ function AddFlight() {
             return;
         }
 
-        //בדיקת זמינות מטוסים
+        
         const isAvailable = await checkAvailableAirplanes();
         if (isAvailable) {
             // הוספת טיסה בפועל
@@ -89,7 +89,7 @@ function AddFlight() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(flightDetails),
+                    body: JSON.stringify({flightDetails:flightDetails, userDetails:userDetails}),
                 });
                 if (response.ok) {
                     alert("טיסה נוספה בהצלחה");
@@ -102,7 +102,7 @@ function AddFlight() {
             }
         }
     };
-
+//בדיקת זמינות מטוסים
     async function checkAvailableAirplanes() {
         const { departureDate, arrivalDate, airplane_id } = flightDetails;
 
@@ -112,13 +112,14 @@ function AddFlight() {
         }
 
         try {
+            //ניסיון לקבוע טיסה בתאריכים מסוימים--שליחה לשרת בכדי לקבל תשובה אם התאריכים פנויים
             const response = await fetch(`http://localhost:3000/flights?airplane_id=${airplane_id}`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ departureDate, arrivalDate }),
+                body: JSON.stringify({ departureDate, arrivalDate ,userDetails}),
             });
             const result = await response.json();
             if (result.success) {

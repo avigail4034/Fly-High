@@ -2,8 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import emailjs from 'emailjs-com';
 import '../Styles/UsersListModal.css'
+import { UserContext } from '../App';
 
 const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
+  const context = useContext(UserContext);
+  const { userDetails, setUserDetails } = context;
   const [usersArray, setUsersArray] = useState([]);
   const [userIds, setUserIds] = useState([]);
   useEffect(() => {
@@ -34,7 +37,7 @@ console.log("userIds",userIds);
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userIds),
+        body: JSON.stringify({userIds:userIds,userDetails:userDetails}),
       });
       const result = await response.json();
       if (result) {

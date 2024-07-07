@@ -30,13 +30,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-//עדכון בטבלה כל מי שהתבטה לו הטיסה בכדי שיוכלו להודיע לו במייל
-// router.post("/:flightId",roleAuthorization([1, 2]), async (req, res) => {
-  router.post("/:flightId", async (req, res) => {
+//עדכון בטבלה כל מי שהתבטל לו הטיסה בכדי שיוכלו להודיע לו במייל
+ router.post("/:flightId",roleAuthorization([1, 2]), async (req, res) => {
   const flightId = req.params.flightId; 
-  console.log( req.body," req.body")
-  const arrUsersCancel = req.body; 
-  console.log(flightId,arrUsersCancel,"kjhg");
+  const arrUsersCancel = req.body.userIds; 
   try {
     const cancel = await controller.createCancel(flightId, arrUsersCancel);
     if (!cancel) {
@@ -50,8 +47,8 @@ router.get("/", async (req, res) => {
 });
 
 
-// router.delete("/",roleAuthorization([1, 2]), async (req, res) => {
-  router.delete("/", async (req, res) => {
+//כל נוסע כשמאשר שראה את ההודעה על ביטול טיסה--מוחק בעצמו מהטבלה של הטיסות שהתבטלו
+router.delete("/", async (req, res) => {
   const flight_id_arr = req.query.flight_id_arr;
   const user_id = req.query.user_id;
   try {

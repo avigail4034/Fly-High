@@ -60,6 +60,7 @@ const MessageOfCancel = ({ cancels }) => {
             }
         } catch (error) {
             console.error('An error occurred while deleting places', error);
+            
             //לאחר מחיקת ההזמנות- מחיקה ההזמנות מהטבלה של ההזמנות שבוטלו
         }
         const url2 = `http://localhost:3000/Cancel?flight_id_arr=${flightsIdsToCancel}&user_id=${userDetails.id}`;

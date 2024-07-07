@@ -55,7 +55,7 @@ const FlightAtScreen = (props) => {
                     },
                     body: JSON.stringify({
                         arrPlaces: selectedPlace,
-                       userDetails:userDetails,
+                        userDetails: userDetails,
                     })
                 });
                 if (response.ok) {
@@ -94,7 +94,7 @@ const FlightAtScreen = (props) => {
                 let PlacesIds = [{}];
                 PlacesIds = props.places.map(item => item.place_id);
                 try {
-                    const response = await fetch(`http://localhost:3000/Places?arrOfPlacesId=${PlacesIds}`,{credentials: 'include'});
+                    const response = await fetch(`http://localhost:3000/Places?arrOfPlacesId=${PlacesIds}`, { credentials: 'include' });
                     if (response.ok) {
                         const places = await response.json();
                         setPlacesDetails(places);
@@ -114,7 +114,7 @@ const FlightAtScreen = (props) => {
         let usersData;
         try {
             //הבאה מטבלת ההזמנות את כל הלקוחות שהזמינו את הטיסה שעכשיו הוא מוחק
-            const response = await fetch(`http://localhost:3000/Order?flightId=${props.flight.id}`  ,{credentials: 'include'});
+            const response = await fetch(`http://localhost:3000/Order?flightId=${props.flight.id}`, { credentials: 'include' });
 
             if (!response) {
                 console.error('Failed to fetch users');
@@ -124,7 +124,7 @@ const FlightAtScreen = (props) => {
         } catch (error) {
             console.error('Error fetching users:', error);
         }
-console.log(usersData.length,"usersData.length");
+        console.log(usersData.length, "usersData.length");
         if (usersData.length > 0) {
             try {
                 //עדכון טיסה ללא פעילה עד שכל הנוסעים יאשרו את ביטול הטיסה
@@ -134,7 +134,8 @@ console.log(usersData.length,"usersData.length");
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(props.flight),
+                    // body: JSON.stringify(props.flight),
+                    body: JSON.stringify({ userDetails: userDetails }),
                 });
 
                 if (!response) {
@@ -158,7 +159,7 @@ console.log(usersData.length,"usersData.length");
                     },
                     body: JSON.stringify({
                         flight: flight,
-                       userDetails:userDetails,
+                        userDetails: userDetails,
                     })
                 });
                 if (response) {
@@ -175,21 +176,21 @@ console.log(usersData.length,"usersData.length");
 
     return (
         <div className='flight-card'>
-        <img src={`http://localhost:3000/images/${flight.image}`} alt={flight.id} style={{credentials: 'include'}} />   
+            <img src={`http://localhost:3000/images/${flight.image}`} alt={flight.id} style={{ credentials: 'include' }} />
             <div className="overlay">
                 <h3>Flight {flight.id}</h3>
                 <h2>{flight.target}</h2>
                 <p>Price: {flight.price}</p>
                 <div className='space'>
                     <button className='btnPost' onClick={() => setIsPopupVisible(true)}>פרטים</button>
-                    {((userDetails&&userDetails.roleId == 2 || userDetails&&userDetails.roleId == 1) && !props.IOrder) &&
+                    {((userDetails && userDetails.roleId == 2 || userDetails && userDetails.roleId == 1) && !props.IOrder) &&
                         <button className='btnPost' onClick={deleteFlight}>מחיקה</button>}
                     {props.IOrder &&
                         <button className='btnPost' onClick={handleOpenClosedDeleteModal}> ביטול טיסה</button>}
                 </div>
             </div>
             {isPopupVisible && (
-        
+
                 <FlightDisplayPopUp
                     flight={props.flight}
                     index={props.index}
