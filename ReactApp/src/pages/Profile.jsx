@@ -19,31 +19,34 @@ export function Profile() {
         async function getFlightsOfUser() {
             try {
                 const userId = userDetails.id;
-                const orderResponse = await fetch(`http://localhost:3000/Order?user_id=${userId}`);
+                const orderResponse = await fetch(`http://localhost:3000/Order?user_id=${userId}`, { credentials: 'include' });
                 const orders = await orderResponse.json();
-                const flightsIds = orders.map(item => item.flight_id).join('');
+                if (orders) {
+                    const flightsIds = orders.map(item => item.flight_id).join('')
+                }
 
-                const flightsData = orders.map(order => ({
-                    flight_id: order.flight_id,
-                    places: order.place_ids.split(',').map(placeId => ({
-                        place_id: placeId,
-                        // Additional details for each place can be added here if needed
-                    }))
-                }));
-
-                const cancelResponse = await fetch(`http://localhost:3000/Cancel?userId=${userId}`);
+                if (orders) {
+                    const flightsData = orders.map(order => ({
+                        flight_id: order.flight_id,
+                        places: order.place_ids.split(',').map(placeId => ({
+                            place_id: placeId,
+                            // Additional details for each place can be added here if needed
+                        }))
+                    }));
+                }
+                //קבלת כל הטיסות שנמחקו למשתמש
+                const cancelResponse = await fetch(`http://localhost:3000/Cancel?userId=${userId}`, { credentials: 'include' });
                 const cancels = await cancelResponse.json();
                 setCancelsArray(cancels);
 
                 setflightsData(flightsData);
-                if (flightsIds.length > 0) {
-                    const flightsResponse = await fetch(`http://localhost:3000/flights?arrOfFlightsId=${flightsIds}`);
+                if (flightsIds&&flightsIds.length > 0) {
+                    const flightsResponse = await fetch(`http://localhost:3000/flights?arrOfFlightsId=${flightsIds}`, { credentials: 'include' });
                     const flights = await flightsResponse.json();
                     setFlightsArray(flights);
                 }
             } catch (error) {
                 console.error('Error fetching flights:', error);
-                alert(error);
             }
         }
 

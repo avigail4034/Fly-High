@@ -2,8 +2,12 @@
 const roleAuthorization = require('./roleAuthorization');
 const jwtAuthentication = require('./jwtAuthentication');
 require('dotenv').config();
+
+
 const dynamicCheckAbilities = (req, res, next) => {
-    const user = req.body;
+   const user = req.body.userDetails;
+   console.log(user,"user");
+    // const id = req.params.id;
   console.log("dynamicCheckAbilities");
   console.log(user.roleId,"user.roleId");
     // אם המשתמש אינו מוגדר או שה-roleId שלו אינו קיים
@@ -13,6 +17,7 @@ const dynamicCheckAbilities = (req, res, next) => {
     
     // אם ה-roleId שווה ל-1 או 2, יש לבצע בדיקת הרשאות
     if (user.roleId == "1" || user.roleId == "2") {
+      console.log("auuauu");
       // בדיקת הרשאה באמצעות middleware roleAuthorization
       roleAuthorization([1, 2])(req, res, next);
    

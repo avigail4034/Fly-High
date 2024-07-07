@@ -5,13 +5,14 @@ import '../Styles/UsersListModal.css'
 
 const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
   const [usersArray, setUsersArray] = useState([]);
-
+  const [userIds, setUserIds] = useState([]);
   useEffect(() => {
-    const userIds = Array.from(new Set(users.map(item => item.user_id)));
-    
+ const userIds = Array.from(new Set(users.map(item => item.user_id)));
+ setUserIds(userIds);
+console.log("userIds",userIds);
     async function getUsersByIds() {
       try {
-        const usersResponse = await fetch(`http://localhost:3000/users?arrOfUsersId=${userIds}`,({credentials: 'include'}));
+        const usersResponse = await fetch(`http://localhost:3000/users?arrOfUsersId=${userIds}`, ({ credentials: 'include' }));
         const users = await usersResponse.json();
         setUsersArray(users);
       } catch (error) {
@@ -24,24 +25,9 @@ const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
   }, []);
 
   const handleMessageToPassengers = async () => {
-    try {
-      await Promise.all(usersArray.map(async (user) => {
-        const templateParams = {
-          from_name: `FLY-HIGH`,
-          to_name: `${user.firstName} ${user.lastName}`,
-          to_email: user.email,
-          message: ` טיסה מספר ${flightId} שהזמנת בוטלה. נא הכנס לפרופיל שלך כדי לאשר ביטול. `,
-        };
-
-        await emailjs.send('service_3d97smk', 'template_mugrt4p', templateParams, 'brqCSjHygkRyZhacH');
-      }));
-      alert('ההודעה נשלחה לנוסעים');
-    } catch (error) {
-      console.error('שגיאה בשליחת המייל:', error);
-      alert('נכשל לשלוח הודעה לנוסעים');
-    }
 
     try {
+      console.log("userIds!!!!!!",userIds);
       const response = await fetch(`http://localhost:3000/Cancel/${flightId}`, {
         method: 'POST',
         credentials: 'include',
@@ -59,6 +45,25 @@ const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
     } catch (error) {
       console.error(error);
     }
+    
+    try {
+      await Promise.all(usersArray.map(async (user) => {
+        const templateParams = {
+          from_name: `FLY-HIGH`,
+          to_name: `${user.firstName} ${user.lastName}`,
+          to_email: user.email,
+          message: ` טיסה מספר ${flightId} שהזמנת בוטלה. נא הכנס לפרופיל שלך כדי לאשר ביטול. `,
+        };
+
+        await emailjs.send('service_3d97smk', 'template_mugrt4p', templateParams, 'brqCSjHygkRyZhacH');
+      }));
+      alert('ההודעה נשלחה לנוסעים');
+    } catch (error) {
+      console.error('שגיאה בשליחת המייל:', error);
+      alert('נכשל לשלוח הודעה לנוסעים');
+    }
+
+
 
     window.location.reload();
   };

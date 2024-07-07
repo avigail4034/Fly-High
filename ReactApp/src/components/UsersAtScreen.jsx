@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/UsersList.css';
+import { UserContext } from '../App';
 
 function UsersAtScreen(props) {
+    const context = useContext(UserContext);
+    const { userDetails, setUserDetails } = context;
     const navigate = useNavigate();
     const [user, setUser] = useState(props.user);
 
@@ -16,13 +20,14 @@ function UsersAtScreen(props) {
         setUser(updatedUser);
 
         // בקשת PUT לשרת לעדכון המשתמש
-        fetch(`http://localhost:3000/users/${props.user.id}`, {
+        // console.log(userDetails.id,"userDetails.id");
+        fetch(`http://localhost:3000/users/${userDetails.id}`, {
             method: 'PUT',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(updatedUser),
+            body: JSON.stringify({updatedUser,userDetails}),
         })
             .then(() => {
                 alert("העדכון הושלם");

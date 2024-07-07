@@ -33,7 +33,7 @@ app.use("/LogIn", logInRouter);
 app.use("/checkConnect", checkConnect);
 
 
-// app.use(jwtAuthentication)
+ app.use(jwtAuthentication)
 app.use("/Order", orderRouter);
 app.use("/LogOut", LogOutRouter);
 app.use("/Places", PlacesRouter);

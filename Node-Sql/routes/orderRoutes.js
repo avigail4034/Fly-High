@@ -35,7 +35,7 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
   }
 });
 
-//כל המשתמשים יכולים להזמין טיסה 
+//כל המשתמשים יכולים להזמין טיסה- נבדק כבר באפפ שהמשתמש מחובר
 router.post("/", async (req, res) => {
   try {
     const { user_id, flight_id, places_arr } = req.body;
@@ -48,13 +48,12 @@ router.post("/", async (req, res) => {
 });
 
 
-// router.delete("/",dynamicCheckAbilities, async (req, res) => {
-  router.delete("/", async (req, res) => {
+ router.delete("/",dynamicCheckAbilities, async (req, res) => {
   const flight_id = req.query.flight_id;
   const flight_id_arr = req.query.flight_id_arr;
   const user_id = req.query.user_id;
   const { arrPlaces } = req.body;
-  //פה רק עובד או מנהל יכול למחוק הזמנות כשהוא מוחק את הטיסה
+  //פה משתמש מוחק את הטיסה שלו לאחר שהוא מאשר ביטול של טיסה שנמחקה
   try {
     if (user_id) {
       const result = await controller.deleteOrderToCancel(flight_id_arr, user_id);

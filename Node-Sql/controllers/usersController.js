@@ -62,9 +62,9 @@ async function createUser(userName, password) {
     }
 }
 
-async function updateUser(firstName, lastName, userName, email, phone,roleId,id){
+async function updateUser(firstName, lastName, email, phone,roleId,id){
     try {
-        return model.updateUser(firstName, lastName, userName, email, phone,roleId,id)
+        return model.updateUser(firstName, lastName, email, phone,roleId,id)
     } catch (err) {
         throw err;
     }

@@ -34,7 +34,9 @@ router.get("/", async (req, res) => {
 // router.post("/:flightId",roleAuthorization([1, 2]), async (req, res) => {
   router.post("/:flightId", async (req, res) => {
   const flightId = req.params.flightId; 
+  console.log( req.body," req.body")
   const arrUsersCancel = req.body; 
+  console.log(flightId,arrUsersCancel,"kjhg");
   try {
     const cancel = await controller.createCancel(flightId, arrUsersCancel);
     if (!cancel) {

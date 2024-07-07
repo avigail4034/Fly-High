@@ -13,13 +13,15 @@ const { lock } = require("./flightsRoutes");
 // router.get("/",dynamicCheckAbilities, async (req, res) => {
   router.get("/", async (req, res) => {
   try {
+    console.log("kjhgfds");
     const userName = req.query.userName;
     const id = req.query.id;
     const password = req.query.password;
     const roleId = req.query.roleId;
     const arrOfUsersId = req.query.arrOfUsersId;
-    console.log(id,"id");
+    // console.log(id,"id");
 //איך אני עושה הבדיקה פה לפי הרשאה??????איפה אני שמה את זה???
+// מה עושים עם זה שגם משתמש שלא קיים אושה גט כדי לבדוק אם קיים כבר כזה משתמש
     if (userName) {
       let user;
       if (password) {
@@ -64,7 +66,7 @@ const { lock } = require("./flightsRoutes");
 });
 
 
-
+//יצירת משתשמש חדש- כולם יכולים...
 router.post("/", async (req, res) => {
   try {
     const { userName, password } = req.body; // Assuming you meant to include completed
@@ -97,11 +99,19 @@ router.post("/", async (req, res) => {
 
 
 //עדכון משתמש כשמנהל רוצה לשנות סטטוס וגם כשמתמש נכנס בפעם הראושנה-מילוי פרטים
-// router.put("/:id" ,dynamicCheckAbilities, async (req, res) => {
-  router.put("/:id" , async (req, res) => {
+router.put("/:id", dynamicCheckAbilities, async (req, res) => {
   try {
-    const { firstName, lastName, userName, email, phone, roleId } = req.body;
-    const user = await controller.updateUser(firstName, lastName, userName, email, phone, roleId, req.params.id);
+    let firstName, lastName, email, phone, roleId;
+    if (req.body.updatedUser) {//מקרה שזה עדכון ממנהל 
+      ({ firstName, lastName, email, phone, roleId } = req.body.updatedUser);
+      id=req.body.updatedUser.id;
+    } else if (req.body.userDetails) {//עדכון של משתמש כשנרשם
+      ({ firstName, lastName, email, phone, roleId } = req.body.userDetails);
+      id=req.params.id;
+    } else {
+      return res.status(400).send({ error: "Invalid request body" });
+    }
+    const user = await controller.updateUser(firstName, lastName, email, phone, roleId, id);
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
@@ -111,4 +121,5 @@ router.post("/", async (req, res) => {
     res.status(500).send({ error: "Failed to update user" });
   }
 });
+
 module.exports = router;

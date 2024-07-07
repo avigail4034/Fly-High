@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 
 
 });
-// כל סוגי המשתמשים יכולים להזמין טיסה...
+// - צריך רק שיהיה מחובר כל סוגי המשתמשים יכולים להזמין טיסה...
   router.put("/:airplaneId", async (req, res) => {
   try {
     const airplaneId = req.params.airplaneId;

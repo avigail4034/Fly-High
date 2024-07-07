@@ -1,18 +1,24 @@
-
-//אימות תפקידים לפי המשתמש המחובר, ולוודא שיש לו את ההרשאות הנדרשות על מנת לגשת למסלול או למשאב
 const roleAuthorization = (requiredRoles) => {
-    return (req, res, next) => {
-        if (!req.userId) {
-            return res.status(401)
+    console.log("oooo");
+
+    const roleFunction = (req, res, next) => {
+        const userId = req.body.userDetails.id;
+        const userRoleId = req.body.userDetails.roleId;
+
+        if (!userId) {
+            return res.status(401).send("Unauthorized");
         }
 
-        if (!requiredRoles.includes(req.roleId)) {
-            return res.sendStatus(403)
+        if (!requiredRoles.includes(userRoleId)) {
+            return res.sendStatus(403);
         }
 
-        console.log(`User with role ID ${req.roleId} has access`);
+        console.log("pppp");
+        console.log(`User with role ID ${userRoleId} has access`);
         return next();
     };
-}
+
+    return roleFunction;
+};
 
 module.exports = roleAuthorization;

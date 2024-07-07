@@ -42,7 +42,7 @@ const MessageOfCancel = ({ cancels }) => {
     }, [cancels]); // ריענון בכל שינוי ב- props.places
 
     const handleAgreeCancle = async (id) => {
-        //מחיקה מההזמנות לפי ID--- של משתמש ומערך של כל הטיסות לביטול
+        //מחיקת הזמנת הטיסות לאחר שהלקוח מאשר שראה שהתבטלו לו הטיסות
         const url = `http://localhost:3000/Order?flight_id_arr=${flightsIdsToCancel}&user_id=${userDetails.id}`;
         try {
             const response = await fetch(url, {
@@ -51,16 +51,18 @@ const MessageOfCancel = ({ cancels }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({userDetails:userDetails}), // המרת userDetails לתבנית JSON
             });
             if (response.ok) {
-                console.log('Places deleted successfully');
+                console.log('Order deleted successfully');
             } else {
-                console.log('Failed to delete places');
+                console.log('Failed to delete Order');
             }
         } catch (error) {
             console.error('An error occurred while deleting places', error);
             //לאחר מחיקת ההזמנות- מחיקה ההזמנות מהטבלה של ההזמנות שבוטלו
-        } const url2 = `http://localhost:3000/Cancel?flight_id_arr=${flightsIdsToCancel}&user_id=${userDetails.id}`;
+        }
+        const url2 = `http://localhost:3000/Cancel?flight_id_arr=${flightsIdsToCancel}&user_id=${userDetails.id}`;
         try {
             const response = await fetch(url2, {
                 method: 'DELETE',
@@ -68,26 +70,28 @@ const MessageOfCancel = ({ cancels }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify(userDetails), // המרת userDetails לתבנית JSON
             });
             if (response.ok) {
-                console.log('Places deleted successfully');
+                console.log(' Cancel deleted successfully');
                 window.location.reload();
 
             } else {
-                console.log('Failed to delete places');
+                console.log('Failed to delete Cancel');
             }
         } catch (error) {
-            console.error('An error occurred while deleting places', error);
+            console.error('An error occurred while deleting Cancel', error);
         }
 
         console.log(id, "id!!!!!");
         try {
+            //כל פעם שלקוח מוחק טיסה- יהיה בדיקת שרת האם כל המזמינים של הטיסה אישרו שהם ראו- אם כן שליחת הודעה למנהל שניתן למחוק סופית את הטיסה
             const data = await fetch(`http://localhost:3000/Cancel?flightId=${id}`,{credentials: 'include'});
             const cancelOfFlight = await data.json();
             console.log(cancelOfFlight, "cancelOfFlight");
             if (cancelOfFlight.length>0) { return false; }
             else {
-                //////////////מביאים את כל העובדים והמנהלים כדי לשלוח להם מייל שניתן למחוק סופית של הטיסה
+                //////////////מביאים את כל העובדים והמנהלים כדי לשלוח להם מייל שניתן למחוק סופית של הטיסה--------------------------------------------------------לא עובד
                 try {
                     const data = await fetch(`http://localhost:3000/users?roleId=${1}`,{credentials: 'include'});
                     const employees = await data.json();
@@ -127,7 +131,8 @@ const MessageOfCancel = ({ cancels }) => {
             {haveMessage ? <div className="main-component">
                 {cancelsDetails.map((cancel, index) => (
                     <div>
-                        <p>Your flight to {cancel.target} was cancelled </p>
+                        <p>{cancel.target} </p>
+                        <p>הטיסה התבטלה </p>
                         <button className='btnPost' onClick={() => handleAgreeCancle(cancel.id)}>אישור</button>
 
                     </div>

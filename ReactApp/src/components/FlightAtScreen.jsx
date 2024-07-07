@@ -54,7 +54,8 @@ const FlightAtScreen = (props) => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        arrPlaces: selectedPlace
+                        arrPlaces: selectedPlace,
+                       userDetails:userDetails,
                     })
                 });
                 if (response.ok) {
@@ -112,6 +113,7 @@ const FlightAtScreen = (props) => {
     const deleteFlight = async () => {
         let usersData;
         try {
+            //הבאה מטבלת ההזמנות את כל הלקוחות שהזמינו את הטיסה שעכשיו הוא מוחק
             const response = await fetch(`http://localhost:3000/Order?flightId=${props.flight.id}`  ,{credentials: 'include'});
 
             if (!response) {
@@ -122,9 +124,10 @@ const FlightAtScreen = (props) => {
         } catch (error) {
             console.error('Error fetching users:', error);
         }
-
+console.log(usersData.length,"usersData.length");
         if (usersData.length > 0) {
             try {
+                //עדכון טיסה ללא פעילה עד שכל הנוסעים יאשרו את ביטול הטיסה
                 const response = await fetch(`http://localhost:3000/flights/${props.flight.id}`, {
                     method: 'PUT',
                     credentials: 'include',
@@ -144,6 +147,7 @@ const FlightAtScreen = (props) => {
             alert("אינך יכול למחוק את הטיסה, כיון שנרשמו אליה כבר. לצפיה ברשימת הנוסעים לחץ אישור.");
             handleOpenModalOfAllUsers();
         } else {
+            //מחיקת הטיסה מטבלת הטיסות
             const url = (`http://localhost:3000/flights/${props.flight.id}`);
             try {
                 const response = await fetch(url, {
@@ -152,7 +156,10 @@ const FlightAtScreen = (props) => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(flight)
+                    body: JSON.stringify({
+                        flight: flight,
+                       userDetails:userDetails,
+                    })
                 });
                 if (response) {
                     console.log('Flight deleted successfully');

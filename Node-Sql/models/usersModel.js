@@ -24,7 +24,6 @@ async function getUserById(id) {
   try {
     const sql = 'SELECT * FROM Users  WHERE Users.id = ?';
     const [rows, fields] = await pool.query(sql, [id]);
-    console.log(rows[0],"rows[0]");
      return rows[0];
     
   } catch (err) {
@@ -73,12 +72,13 @@ async function getArrUsersById(arrOfUsersId) {
   }
 }
 
-async function updateUser(firstName, lastName, userName, email, phone,roleId,id) {
+async function updateUser(firstName, lastName, email, phone,roleId,id) {
   try {
     // עדכון המשתמש
-    const updateUserSql = 'UPDATE users SET firstName=?, lastName=?, userName=?, email=?, phone=?,roleId=?  WHERE id = ?';
-    await pool.query(updateUserSql, [firstName, lastName, userName, email, phone,roleId,id]);
- const updateUser={"firstName":firstName, "lastName":lastName, "userName":userName, "email":email, "phone":phone,"roleId":roleId,"id":id};
+    console.log(firstName, lastName, email, phone,roleId,id);
+    const updateUserSql = 'UPDATE users SET firstName=?, lastName=?, email=?, phone=?,roleId=?  WHERE id = ?';
+    await pool.query(updateUserSql, [firstName, lastName, email, phone,roleId,id]);
+ const updateUser={"firstName":firstName, "lastName":lastName, "email":email, "phone":phone,"roleId":roleId,"id":id};
  return updateUser;
   } catch (error) {
     console.error('Error updating user:', error);
