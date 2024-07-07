@@ -34,7 +34,6 @@ const LogIn = () => {
                 return response.json();
             })
             .then((answer) => {
-                console.log(answer,"answer");
                 if (answer.id) {
                     setUserDetails(answer);
                     navigate(`/home/users/${answer.id}`);

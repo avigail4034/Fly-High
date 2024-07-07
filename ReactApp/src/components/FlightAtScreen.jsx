@@ -93,7 +93,6 @@ const FlightAtScreen = (props) => {
             async function fetchPlacesDetails() {
                 let PlacesIds = [{}];
                 PlacesIds = props.places.map(item => item.place_id);
-                console.log("PlacesIds",PlacesIds);
                 try {
                     const response = await fetch(`http://localhost:3000/Places?arrOfPlacesId=${PlacesIds}`, { credentials: 'include' });
                     if (response.ok) {
@@ -125,7 +124,6 @@ const FlightAtScreen = (props) => {
         } catch (error) {
             console.error('Error fetching users:', error);
         }
-        console.log(usersData.length, "usersData.length");
         if (usersData.length > 0) {
             try {
                 //עדכון טיסה ללא פעילה עד שכל הנוסעים יאשרו את ביטול הטיסה

@@ -75,7 +75,6 @@ async function getArrUsersById(arrOfUsersId) {
 async function updateUser(firstName, lastName, email, phone,roleId,id) {
   try {
     // עדכון המשתמש
-    console.log(firstName, lastName, email, phone,roleId,id);
     const updateUserSql = 'UPDATE users SET firstName=?, lastName=?, email=?, phone=?,roleId=?  WHERE id = ?';
     await pool.query(updateUserSql, [firstName, lastName, email, phone,roleId,id]);
  const updateUser={"firstName":firstName, "lastName":lastName, "email":email, "phone":phone,"roleId":roleId,"id":id};

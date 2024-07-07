@@ -73,9 +73,7 @@ export function Order() {
         try {
             const data = await fetch(`http://localhost:3000/Places?airplane_id=${airplaneId}`,({credentials: 'include'}));
             const seats = await data.json();
-            console.log(airplaneId,"airplaneId");
             const generatedSeatMap = generateSeatMap(seats);
-            console.log(generatedSeatMap,"generatedSeatMap");
             setSeatMap(generatedSeatMap);
 
 

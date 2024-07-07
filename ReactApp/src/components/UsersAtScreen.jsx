@@ -20,7 +20,6 @@ function UsersAtScreen(props) {
         setUser(updatedUser);
 
         // בקשת PUT לשרת לעדכון המשתמש
-        // console.log(userDetails.id,"userDetails.id");
         fetch(`http://localhost:3000/users/${userDetails.id}`, {
             method: 'PUT',
             credentials: 'include',

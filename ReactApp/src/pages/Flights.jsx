@@ -29,9 +29,7 @@ const Flights = () => {
     }
     async function getflights() {// פונקציה אסינכרונית בגלל שאני רוצה לחכות לתשובבה  מהשרת כדי להציג את המשימות
         try {
-            // console.log(userDetails,"userDetails");
-            // const ys=userDetails.id;
-            // console.log(ys,"userDetails.id");
+   
             const data = await fetch(`http://localhost:3000/flights`);
             const flights = await data.json();
             const today = new Date(); // מציין את תאריך היום

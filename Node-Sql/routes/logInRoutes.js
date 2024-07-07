@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
               roleId: user.roleId,
           },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "5m" }
+          { expiresIn: "1h" }
       );
       res.cookie("accessToken", accessToken, {
           httpOnly: true,

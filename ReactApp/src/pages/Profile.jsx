@@ -23,7 +23,6 @@ export function Profile() {
                 const userId = userDetails.id;
                 const orderResponse = await fetch(`http://localhost:3000/Order?user_id=${userId}`, { credentials: 'include' });
                 const orders = await orderResponse.json();
-                console.log("orders",orders);
                 if (orders) {
                      flightsIds = orders.map(item => item.flight_id).join('')
                 }

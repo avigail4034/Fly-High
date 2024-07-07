@@ -13,13 +13,11 @@ const { lock } = require("./flightsRoutes");
 // router.get("/",dynamicCheckAbilities, async (req, res) => {
   router.get("/", async (req, res) => {
   try {
-    console.log("kjhgfds");
     const userName = req.query.userName;
     const id = req.query.id;
     const password = req.query.password;
     const roleId = req.query.roleId;
     const arrOfUsersId = req.query.arrOfUsersId;
-    // console.log(id,"id");
 //איך אני עושה הבדיקה פה לפי הרשאה??????איפה אני שמה את זה???
 // מה עושים עם זה שגם משתמש שלא קיים עושה גט כדי לבדוק אם קיים כבר כזה משתמש
     if (userName) {
@@ -41,11 +39,16 @@ const { lock } = require("./flightsRoutes");
         }
         res.status(200).send(users);
       } else if (roleId) {
+        console.log("GET roleId",roleId);
         const employees = await controller.getArrUsersByRoleId(roleId);
-        if (!employees.length) {
-          return res.status(404).send({ error: "Employees not found" });
+        console.log(employees.length,"employees");
+        if (employees.length) {
+          res.status(200).send(employees);
         }
-        res.status(200).send(employees);
+        else {res.status(404).send({ error: "Employees not found" });}
+  
+        
+        // res.json(employees)
       }
         else if (id) {
           const user = await controller.getUserById(id);
@@ -79,7 +82,7 @@ router.post("/", async (req, res) => {
           roleId: user.roleId,
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "5m" }
+        { expiresIn: "1h" }
       );
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
