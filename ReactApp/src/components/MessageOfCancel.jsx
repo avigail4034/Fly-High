@@ -4,7 +4,7 @@ import React from 'react';
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../App';
 
-const MessageOfCancel = ({ cancels }) => {
+const MessageOfCancel = ({ cancels }) => {//כשנפתח פרופיל של משתמש, אם יש ביטולי טיסות- זו הקומפננטה שמציגה אותם
     const [cancelsDetails, setCancelsDetails] = useState([{}]);
     const [flightsIdsToCancel, setFlightsIdsToCancel] = useState([]);
     const [employeesArray, setEmployeesArray] = useState([]);
@@ -18,7 +18,7 @@ const MessageOfCancel = ({ cancels }) => {
                 flightsIdsToCancel1 = cancels.map(item => item.flight_id)
                 setFlightsIdsToCancel(flightsIdsToCancel1);
                 if (flightsIdsToCancel.length > 0) {
-                    try {
+                    try {//יש לנו מערך של תז של טיסות שבוטלו, ורוצים להביא פרטי טיסה
                         //בקשת הטיסות שהתבטלו בשביל התצוגה
                         const response = await fetch(`http://localhost:3000/flights?arrOfFlightsIdToCancel=${flightsIdsToCancel}`, { credentials: 'include' });
                         if (response.ok) {
@@ -98,7 +98,7 @@ const MessageOfCancel = ({ cancels }) => {
                 const employees = await usersResponse.json();
                 setEmployeesArray(employees);
 
-                // שליחת מיילים לכל אחד מהעובדים
+                // שליחת מיילים לכל אחד מהמנהלים
                 await Promise.all(employees.map(async (employee) => {
                     const templateParams = {
                         from_name: `FLY-HIGH`,
@@ -123,8 +123,8 @@ const MessageOfCancel = ({ cancels }) => {
             {haveMessage ? <div className="main-component">
                 {cancelsDetails.map((cancel, index) => (
                     <div>
-                        <p>{cancel.target} </p>
-                        <p>הטיסה התבטלה </p>
+                      {/* //  <p> </p> */}
+                        <p> שהזמנת- התבטלה {cancel.target} הטיסה ל  </p>
                         <button className='btnPost' onClick={() => handleAgreeCancle(cancel.id)}>אישור</button>
 
                     </div>

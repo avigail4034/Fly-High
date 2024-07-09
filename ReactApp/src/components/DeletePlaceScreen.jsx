@@ -3,7 +3,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import '../Styles/DeletePlaceScreen.css';
-
+//קומפוננטה שנפתחת מהפרופיל כאשר רוצים לבטל הזמנה
 const DeletePlaceScreen = ({ isOpen, onClose, placesDetails, handleCheckboxChange, handleDeletePlace, selectedPlace }) => {
     return (
         <Modal

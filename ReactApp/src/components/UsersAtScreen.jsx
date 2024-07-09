@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/UsersList.css';
 import { UserContext } from '../App';
-
+//רשימת לקוחות לצפייה למנהל!!
 function UsersAtScreen(props) {
     const context = useContext(UserContext);
     const { userDetails, setUserDetails } = context;

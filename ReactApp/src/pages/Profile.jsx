@@ -39,7 +39,7 @@ export function Profile() {
                     setflightsData(flightsPlacesScreen);
                 }
 
-                if (flightsIds && flightsIds.length > 0) {
+                if (flightsIds && flightsIds.length > 0) {//הבאתת פרטי הטיסות שהזמנתתי
                     const flightsResponse = await fetch(`http://localhost:3000/flights?arrOfFlightsId=${flightsIds}`, { credentials: 'include' });
                     const flights = await flightsResponse.json();
                     setFlightsArray(flights);

@@ -16,18 +16,18 @@ const FlightAtScreen = (props) => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleOpenModalOfAllUsers = () => {
         setIsModalOpen(!isModalOpen);
     };
 
-    const navigate = useNavigate();
 
     const handleOpenClosedDeleteModal = () => {
         setIsDeleteModalOpen(!isDeleteModalOpen);
     };
 
-    const handleCheckboxChange = (placeId, isChecked) => {
+    const handleCheckboxChange = (placeId, isChecked) => {//פונקציה שמקבלת את הלחיצה על המקומות שרוצים למחוק
         if (isChecked) {
             const updatedPlaces = placesDetails.map(place => {
                 if (place.id === placeId) {
@@ -43,7 +43,7 @@ const FlightAtScreen = (props) => {
         }
     };
 
-    const handleDeletePlace = async () => {
+    const handleDeletePlace = async () => {//מחיקת ההזמנה
         if (selectedPlace.length > 0) {
             const url = (`http://localhost:3000/Order?flight_id=${props.flight.id}`);
             try {
@@ -70,7 +70,7 @@ const FlightAtScreen = (props) => {
         }
 
         const airplaneId = flight.airplain_id;
-        fetch(`http://localhost:3000/Places/${airplaneId}`, {
+        fetch(`http://localhost:3000/Places/${airplaneId}`, {//עדכון המקומות לפנויים
             method: 'PUT',
             credentials: 'include',
             headers: {
@@ -88,7 +88,7 @@ const FlightAtScreen = (props) => {
             });
     };
 
-    if (props.IOrder) {//אם הזמנתי טיסה-הבאת המקומות שהזמנתי 
+    if (props.IOrder) {//אם הזמנתי טיסה-הבאת המקומות שהזמנתי ---אם הגעתי מפרופיל
         useEffect(() => {
             async function fetchPlacesDetails() {
                 let PlacesIds = [{}];
@@ -184,20 +184,21 @@ const FlightAtScreen = (props) => {
                     <button className='btnPost' onClick={() => setIsPopupVisible(true)}>פרטים</button>
                     {((userDetails && userDetails.roleId == 2 || userDetails && userDetails.roleId == 1) && !props.IOrder) &&
                         <button className='btnPost' onClick={deleteFlight}>מחיקה</button>}
-                    {props.IOrder &&
+                    {props.IOrder &&//מראה שהגעתי מהפרופיל
                         <button className='btnPost' onClick={handleOpenClosedDeleteModal}> ביטול טיסה</button>}
                 </div>
             </div>
             {isPopupVisible && (
 
-                <FlightDisplayPopUp
+                <FlightDisplayPopUp//פרטי הטיסה
                     flight={props.flight}
                     index={props.index}
                     IOrder={props.IOrder}
                     onClose={() => setIsPopupVisible(false)}
                 />
             )}
-            {isDeleteModalOpen && (
+            {isDeleteModalOpen && (//קומפוננטה שנפתחת מהפרופיל כאשר רוצים לבטל הזמנה
+
                 <DeletePlaceScreen
                     isOpen={isDeleteModalOpen}
                     onClose={handleOpenClosedDeleteModal}
@@ -207,7 +208,7 @@ const FlightAtScreen = (props) => {
                     selectedPlace={selectedPlace}
                 />
             )}
-            {isModalOpen && (
+            {isModalOpen && (//פתיחת חלונית של רשימת הנוסעים שנרשמו לטיסה
                 <UsersListModal
                     isOpen={isModalOpen}
                     onClose={handleOpenModalOfAllUsers}

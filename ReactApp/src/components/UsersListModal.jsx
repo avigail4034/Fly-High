@@ -3,12 +3,13 @@ import Modal from 'react-modal';
 import emailjs from 'emailjs-com';
 import '../Styles/UsersListModal.css'
 import { UserContext } from '../App';
-
-const UsersListModal = ({ isOpen, onClose, users, flightId }) => {
+//רשימת לקוחות שהזמינו טיסה מסוימת
+const UsersListModal = ({ isOpen, onClose, users, flightId }) => {//פתיחת חלונית של רשימת הנוסעים שנרשמו לטיסה
   const context = useContext(UserContext);
   const { userDetails, setUserDetails } = context;
   const [usersArray, setUsersArray] = useState([]);
   const [userIds, setUserIds] = useState([]);
+  
   useEffect(() => {
  const userIds = Array.from(new Set(users.map(item => item.user_id)));
  setUserIds(userIds);
@@ -27,10 +28,9 @@ console.log("userIds",userIds);
     getUsersByIds();
   }, []);
 
-  const handleMessageToPassengers = async () => {
+  const handleMessageToPassengers = async () => {//שליחת הודעה לנוסעים
 
-    try {
-      console.log("userIds!!!!!!",userIds);
+    try {//ברישום טבלת ביטולים 
       const response = await fetch(`http://localhost:3000/Cancel/${flightId}`, {
         method: 'POST',
         credentials: 'include',
@@ -49,7 +49,7 @@ console.log("userIds",userIds);
       console.error(error);
     }
     
-    try {
+    try {//שליחת מייל לנוסעים
       await Promise.all(usersArray.map(async (user) => {
         const templateParams = {
           from_name: `FLY-HIGH`,
