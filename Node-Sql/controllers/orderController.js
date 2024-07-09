@@ -14,7 +14,6 @@ async function getFlightsOfUser(ID) {
     } catch (err) {
         throw err;
     }
-
 }
 
 async function deleteOrder(flight_id,arrPlaces) {

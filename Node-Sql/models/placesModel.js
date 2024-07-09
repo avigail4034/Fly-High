@@ -22,10 +22,9 @@ async function getPlacesById(arrPlacesStr) {
               const result = await pool.query(sql, [id]);
               places.push(result[0][0]);
           } else {
-              throw new Error(`Invalid id: ${id}`);
+              throw (`Invalid id: ${id}`);
           }
       }
-
       return places;
   } catch (err) {
       throw err;

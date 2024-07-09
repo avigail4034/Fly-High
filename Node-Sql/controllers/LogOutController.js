@@ -1,14 +1,14 @@
-const model = require('../models/LogOutModel');
+
 const bcrypt = require('bcrypt');
 
-async function LogOutUser() {
+const LogOutUser = (req, res, next) => {
+
     try {
-        return model.LogOutUser()
+      res.clearCookie('accessToken');
+      res.status(200).json({ message: 'התנתקת בהצלחה' });
     } catch (err) {
-        throw err;
+      res.status(500).json({ error: 'שגיאה בתהליך ההתנתקות' });
     }
 }
-
-
 
 module.exports = { LogOutUser}

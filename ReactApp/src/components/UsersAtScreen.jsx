@@ -20,7 +20,6 @@ function UsersAtScreen(props) {
         setUser(updatedUser);
 
         // בקשת PUT לשרת לעדכון המשתמש
-        // console.log(userDetails.id,"userDetails.id");
         fetch(`http://localhost:3000/users/${userDetails.id}`, {
             method: 'PUT',
             credentials: 'include',
@@ -43,7 +42,7 @@ function UsersAtScreen(props) {
             <p className="user-info">{user.firstName} :שם </p>
             <p className="user-info"> {user.lastName} :משפחה</p>
             <p className="user-info"> {user.email} :כתובת אימייל</p>
-            <p className="user-info"> {user.roleId === 3 ? 'Admin' : 'Employee'} :תפקיד</p>
+            <p className="user-info"> תפקיד: {user.roleId === 3 ? 'משתמש' :user.roleId === 2 ? 'עובד':'מנהל'}</p>
             {user.roleId === 3 ? (
                 <button onClick={handlePermissionChange}>עדכון להרשאת עובד</button>
             ) : user.roleId === 2 ? (

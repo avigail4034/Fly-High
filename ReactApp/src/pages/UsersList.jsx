@@ -6,6 +6,7 @@ function UsersList() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
+        document.title = 'לקוחות';
         async function fetchUsers() {
             try {
                 const response = await fetch(`http://localhost:3000/users`,{credentials: 'include'});

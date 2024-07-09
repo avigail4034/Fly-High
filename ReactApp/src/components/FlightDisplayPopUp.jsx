@@ -26,11 +26,11 @@ function FlightDisplayPopUp(props) {
                         <span className="popup-label">:ארץ מוצא</span>
                     </div>
                     <div className="popup-row">
-                    <span className="popup-value">{flight.departureDate}</span>
+                    <span className="popup-value">{flight.departureDate.split("T")[0]}</span>
                         <span className="popup-label">:תאריך יציאה</span>
                     </div>
                     <div className="popup-row">
-                    <span className="popup-value">{flight.arrivalDate}</span>
+                    <span className="popup-value">{flight.arrivalDate.split("T")[0]}</span>
                         <span className="popup-label">:תאריך הגעה</span>
                     </div>
 

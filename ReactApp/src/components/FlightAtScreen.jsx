@@ -93,7 +93,6 @@ const FlightAtScreen = (props) => {
             async function fetchPlacesDetails() {
                 let PlacesIds = [{}];
                 PlacesIds = props.places.map(item => item.place_id);
-                console.log("PlacesIds",PlacesIds);
                 try {
                     const response = await fetch(`http://localhost:3000/Places?arrOfPlacesId=${PlacesIds}`, { credentials: 'include' });
                     if (response.ok) {
@@ -125,7 +124,6 @@ const FlightAtScreen = (props) => {
         } catch (error) {
             console.error('Error fetching users:', error);
         }
-        console.log(usersData.length, "usersData.length");
         if (usersData.length > 0) {
             try {
                 //עדכון טיסה ללא פעילה עד שכל הנוסעים יאשרו את ביטול הטיסה
@@ -179,9 +177,9 @@ const FlightAtScreen = (props) => {
         <div className='flight-card'>
             <img src={`http://localhost:3000/images/${flight.image}`} alt={flight.id} style={{ credentials: 'include' }} />
             <div className="overlay">
-                <h3>Flight {flight.id}</h3>
+                <h3> {flight.flightCode} טיסה </h3>
                 <h2>{flight.target}</h2>
-                <p>Price: {flight.price}</p>
+                <p> {flight.price}:מחיר</p>
                 <div className='space'>
                     <button className='btnPost' onClick={() => setIsPopupVisible(true)}>פרטים</button>
                     {((userDetails && userDetails.roleId == 2 || userDetails && userDetails.roleId == 1) && !props.IOrder) &&

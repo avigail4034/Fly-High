@@ -14,9 +14,14 @@ export function Order() {
     const flightId1 = searchParams.get('flightId'); // מקבל את הערך כמחרוזת
     const flightId = parseInt(flightId1); // ממיר את המחרוזת למספר שלם
     const navigate = useNavigate();
-
     const [seatMap, setSeatMap] = useState([]);
     const [seatMapSelected, setSeatMapSelected] = useState([]);
+
+    
+    useEffect(() => {
+        getAirplane();
+    }, []);
+
 
     const handleOrderOnDBButton = () => {
         const selectedSeats = [];
@@ -71,26 +76,17 @@ export function Order() {
 //הבאת כל מקומות המטוס בתצוגה של בחירת מקום
     async function getAirplane() {
         try {
-            const data = await fetch(`http://localhost:3000/Places?airplane_id=${airplaneId}`,({credentials: 'include'}));
+            const data = await fetch(`http://localhost:3000/Places?airplane_id=${airplaneId}`,({credentials: 'include'}));//מביאים את כל המקומות של המטוס הנוכחית
             const seats = await data.json();
-            console.log(airplaneId,"airplaneId");
             const generatedSeatMap = generateSeatMap(seats);
-            console.log(generatedSeatMap,"generatedSeatMap");
             setSeatMap(generatedSeatMap);
-
-
         } catch (error) {
             alert(error);
         }
     }
 
-    useEffect(() => {
-        getAirplane();
-    }, []);
-
     const generateSeatMap = (seats) => {
         const seatMap = [];
-
         seats.forEach(seat => {
             if (!seatMap[seat.rowP - 1]) {
                 seatMap[seat.rowP - 1] = [];

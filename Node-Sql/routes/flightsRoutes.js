@@ -5,14 +5,13 @@ const controller = require("../controllers/flightsController");
 const roleAuthorization = require('../middlewares/roleAuthorization');
 const jwtAuthentication = require('../middlewares/jwtAuthentication');
 const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
-//פה יש בעיה כי אפשר שיהיה גט גם אם לא מחוברים כלל-ורוצים תצוגה של כל הטיסות!!!!!!!
-// router.get("/",dynamicCheckAbilities, async (req, res) => {
+
+
   router.get("/", async (req, res) => {
   const { arrOfFlightsIdToCancel, exitP, target, date, isDirect, company, id, arrOfFlightsId } = req.query;
   let flights;
 
   try {
-    //מאופשר רק אם יש משתמש מחובר--בדיקה ב-dynamicCheckAbilities
     if (arrOfFlightsId) {
       flights = await controller.getArrFlightsById(arrOfFlightsId);
     } else if (arrOfFlightsIdToCancel) {
@@ -42,8 +41,9 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
   }
 });
 
+
 //יצירת טיסה חדשה
-  router.post("/", roleAuthorization([1, 2]), async (req, res) => {
+  router.post("/",jwtAuthentication, roleAuthorization([1, 2]), async (req, res) => {
   try {
     const airplane_id = req.query.airplane_id;
 
@@ -88,7 +88,7 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 });
 
 //מחיקת טיסה
- router.delete("/:ID",roleAuthorization([1, 2]), async (req, res) => {
+ router.delete("/:ID",jwtAuthentication,roleAuthorization([1, 2]), async (req, res) => {
   try {
     const ID = req.params.ID;
     const result = await await controller.deleteFlight(ID);

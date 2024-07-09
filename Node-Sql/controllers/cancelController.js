@@ -1,4 +1,6 @@
 const model = require('../models/cancelModel');
+
+
 async function getCancelOfUser(ID) {
     try {
         return model.getCancelOfUser(ID)

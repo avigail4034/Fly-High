@@ -41,7 +41,7 @@ async function getUserByNamePassword(userName, password) {
     try {
         const user = await model.getUserByUserName(userName);
         if (user) {
-            if (bcrypt.compareSync(password, user.password))
+            if (bcrypt.compareSync(password, user.password))//בדיקה שהסיסמא לאחר הצפנה שווה לסיסמא השמורה
                 return user;
         }
         else {
@@ -55,7 +55,7 @@ async function getUserByNamePassword(userName, password) {
 
 async function createUser(userName, password) {
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);//הצפנת סיסמא
         return model.createUser(userName, hashedPassword);
     } catch (err) {
         throw err;

@@ -21,8 +21,6 @@ const UserAddDetails = () => {
     setUserDetails(updatedUser); // Update userDetails with the updated user details
   
     try {
-      console.log(updatedUser);
-      
       // Wait for setUserDetails to complete before sending PUT request
       await fetch(`http://localhost:3000/users/${updatedUser.id}`, {
         method: 'PUT',

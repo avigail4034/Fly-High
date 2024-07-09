@@ -6,64 +6,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const jwtAuthentication = require('../middlewares/jwtAuthentication');
 const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
-const { lock } = require("./flightsRoutes");
 
-
-// GET all users
-// router.get("/",dynamicCheckAbilities, async (req, res) => {
-  router.get("/", async (req, res) => {
-  try {
-    console.log("kjhgfds");
-    const userName = req.query.userName;
-    const id = req.query.id;
-    const password = req.query.password;
-    const roleId = req.query.roleId;
-    const arrOfUsersId = req.query.arrOfUsersId;
-    // console.log(id,"id");
-//איך אני עושה הבדיקה פה לפי הרשאה??????איפה אני שמה את זה???
-// מה עושים עם זה שגם משתמש שלא קיים עושה גט כדי לבדוק אם קיים כבר כזה משתמש
-    if (userName) {
-      let user;
-      if (password) {
-        user = await controller.getUserByNamePassword(userName, password);
-      } else {
-        user = await controller.getUserByUserName(userName);
-      }
-      if (!user) {
-        return res.status(404).send({ error: "User not found" });
-      }
-      res.status(200).send(user);
-    } else {
-      if (arrOfUsersId) {
-        const users = await controller.getArrUsersById(arrOfUsersId);
-        if (!users.length) {
-          return res.status(404).send({ error: "Users not found" });
-        }
-        res.status(200).send(users);
-      } else if (roleId) {
-        const employees = await controller.getArrUsersByRoleId(roleId);
-        if (!employees.length) {
-          return res.status(404).send({ error: "Employees not found" });
-        }
-        res.status(200).send(employees);
-      }
-        else if (id) {
-          const user = await controller.getUserById(id);
-          if (!user.id) {
-            return res.status(404).send({ error: "user not found" });
-          }
-          res.status(200).send(user);
-
-      } else {
-        const users = await controller.getAllUsers();
-        res.status(200).send(users);
-      }
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: "Failed to process request" });
-  }
-});
 
 
 //יצירת משתשמש חדש- כולם יכולים...
@@ -79,7 +22,7 @@ router.post("/", async (req, res) => {
           roleId: user.roleId,
         },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "5m" }
+        { expiresIn: "1h" }
       );
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
@@ -121,5 +64,58 @@ router.put("/:id",jwtAuthentication, dynamicCheckAbilities, async (req, res) => 
     res.status(500).send({ error: "Failed to update user" });
   }
 });
+
+
+router.get("/", async (req, res) => {
+  try {
+    const userName = req.query.userName;
+    const id = req.query.id;
+    const password = req.query.password;
+    const roleId = req.query.roleId;
+    const arrOfUsersId = req.query.arrOfUsersId;
+    if (userName) {
+      let user;
+      if (password) {
+        user = await controller.getUserByNamePassword(userName, password);
+      } else {
+        user = await controller.getUserByUserName(userName);
+      }
+      if (!user) {
+        return res.status(404).send({ error: "User not found" });
+      }
+      res.status(200).send(user);
+    } else {
+      if (arrOfUsersId) {
+        const users = await controller.getArrUsersById(arrOfUsersId);
+        if (!users.length) {
+          return res.status(404).send({ error: "Users not found" });
+        }
+        res.status(200).send(users);
+      } else if (roleId) {
+        const employees = await controller.getArrUsersByRoleId(roleId);
+        console.log(employees.length,"employees");
+        if (employees.length) {
+          res.status(200).send(employees);
+        }
+        else {res.status(404).send({ error: "Employees not found" });}
+      }
+        else if (id) {
+          const user = await controller.getUserById(id);
+          if (!user.id) {
+            return res.status(404).send({ error: "user not found" });
+          }
+          res.status(200).send(user);
+
+      } else {
+        const users = await controller.getAllUsers();
+        res.status(200).send(users);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Failed to process request" });
+  }
+});
+
 
 module.exports = router;

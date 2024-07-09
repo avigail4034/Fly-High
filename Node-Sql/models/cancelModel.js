@@ -2,7 +2,7 @@ const pool = require('../DB.js');
 
 async function createCancel(flightId ,arrUsersCancel) {
   if (arrUsersCancel.length === 0) {
-      throw new Error('places_arr cannot be empty');
+      throw ('places_arr cannot be empty');
   }
   try {
       const sql = `INSERT INTO Canceled_flights (user_id, flight_id) VALUES ?`;
@@ -47,7 +47,7 @@ async function deleteCancel(flight_id_arr, user_id) {
         const result = await pool.query(sql, [id, user_id]);
         return result[0];
       } else {
-        throw new Error(`Invalid id: ${id}`);
+        throw (`Invalid id: ${id}`);
       }
     }
 

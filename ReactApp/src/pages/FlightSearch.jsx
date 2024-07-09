@@ -2,10 +2,11 @@
 import { Component } from 'react';
 import { useParams } from 'react-router-dom'
 import FlightAtScreen from '../components/FlightAtScreen';
+import { useState, useContext, useEffect } from 'react'
 import { Navbar1 } from './Navbar1'
-import React, { useState } from 'react';
+import React from 'react';
 import '../Styles/FlightSearch.css'
-
+//ככ
 function FlightSearch() {
     const [flightsArray, setFlightsArray] = useState([]);
     const [flightsArrayOfRoute, setFlightsArrayOfRoute] = useState([]);
@@ -15,15 +16,17 @@ function FlightSearch() {
     const [date, setDate] = useState("");
     const [isDirect, setIsDirect] = useState(false);
 
+    useEffect(() => {//כל פעם שיש שינוי מציג אותו
+        document.title = 'חיפוש טיסה';
+    }, [])
+
     const handleSearch = () => {
         fetch(`http://localhost:3000/flights?exitP=${exitP}&target=${target}&date=${date}&isDirect=${isDirect}`)
             .then((response) => response.json())
             .then((answer) => {
                 if (isDirect) {
                     if (!answer[0]) {//אם חזרה תשובה זה אומר שקיים כזה משתמש
-
                         alert("מצטערים! לא מצאנו לך טיסה מתאימה.")
-                      
                     }
                     else {
                         setFlightsArray(answer)
@@ -86,15 +89,15 @@ function FlightSearch() {
 
                 {flightsArrayOfRoute.length > 0 && flightsArrayOfRoute.map((route, index) => (
                     <div key={index}>
-                        <p>תחנת ביניים: {route[0].target} </p>
+                        <p> {route[0].target} :תחנת ביניים</p>
                         <br />
-                        <p>יציאה ב: {route[0].departureDate} {route[0].departureTime}</p>
+                        <p> {route[0].departureDate.split("T")[0]} :יציאה ב</p>
+                        <p>{route[0].departureTime}</p>
                         <br />
-                        <p>הגעה ב: {route[1].arrivalDate} {route[1].arrivalTime}</p>
+                        <p> {route[1].arrivalDate.split("T")[0]}:הגעה ב</p>
+                        <p> {route[1].arrivalTime}</p>
                         <button onClick={(e) => { routeViewing(route); }}>לצפייה במסלול המפורט</button>
-
                     </div>
-
                 ))}
                 {flightsArrayOfFlightsInRoute.length > 0 && flightsArrayOfFlightsInRoute.map((flight, index) => (
                     <FlightAtScreen key={flight.id} index={index} flight={flight} />

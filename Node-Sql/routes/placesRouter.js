@@ -5,7 +5,8 @@ const controller = require("../controllers/placesController")
 const roleAuthorization = require('../middlewares/roleAuthorization');
 const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
 
-//צריך רק שיהיה מחובר- כל משתמש כשרוצה להזמין- מקבל טבלת מקומות לבחירת מקום
+//צריך רק שיהיה מחובר-בדיקה כבר באפפ
+// כל משתמש כשרוצה להזמין- מקבל טבלת מקומות לבחירת מקום
 //וכן כשרוצה למחוק טיסה מקבל את המקומות שלו לבחירת מקום למחיקה 
 router.get("/", async (req, res) => {
   const airplaneId = req.query.airplane_id;

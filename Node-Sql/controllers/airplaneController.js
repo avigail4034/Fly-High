@@ -8,14 +8,14 @@ async function getAirplaneById(ID) {
         throw err;
     }
 
-}async function getAirplaneByCompany(company)
-{
+}
+
+async function getAirplaneByCompany(company){
     try {
         return model.getAirplaneByCompany(company)
 
     } catch (err) {
         throw err;
     }
-
 }
 module.exports = { getAirplaneById,getAirplaneByCompany}

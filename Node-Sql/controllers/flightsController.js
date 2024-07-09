@@ -83,15 +83,6 @@ function daysDifference(arrivalDate, arrivalTime, departureDate, departureTime) 
     return true; // התנאים מתקיימים - המטוס הראשון מגיע לפני שהמטוס השני יוצא וההפרש ביניהם הוא לא יותר מיום אחד
 }
 
-// // דוגמה לשימוש בפונקציה
-// const result = daysDifference('2024-06-10', '10:50:00', '2024-06-11', '08:00:00');
-// console.log(result); // יציבית - המטוס הראשון מגיע לפני שהמטוס השני יוצא וההפרש ביניהם הוא לא יותר מיום אחד
-
-// const result2 = daysDifference('2024-06-11', '12:00:00', '2024-06-11', '08:00:00');
-// console.log(result2); // שלילית - המטוס הראשון לא מגיע לפני שהמטוס השני יוצא או ההפרש ביניהם גדול מיום אחד
-
-
-
 
 async function getFlightByParamsNotDirect(exitP, target, date) {
     try {

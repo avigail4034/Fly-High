@@ -10,7 +10,6 @@ export function Navbar1() {
   const { userDetails,setUserDetails } = context;
   const navigate = useNavigate();
 
-  
 
 const logout = async () => {
   try {
@@ -23,7 +22,6 @@ const logout = async () => {
       throw new Error(data.message || "An error occurred. Please try again.");
     } else {
       setUserDetails(null);
-     // disconnectClient();
       navigate("/home");
     }
   } catch (error) {

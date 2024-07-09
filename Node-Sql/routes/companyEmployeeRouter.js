@@ -12,11 +12,10 @@ const roleAuthorization = require('../middlewares/roleAuthorization');
       try {
         const company = await controller.getCompanyByemployeeId(employeeId);
         if (!company) {
-          return res.status(404).send({ error: "company not found" });
+           res.status(404).send({ error: "company not found" });
         }
         res.status(200).send(company);
       } catch (error) {
-        console.error(error);
         res.status(500).send({ error: "Failed to fetch company" });
       } 
     }

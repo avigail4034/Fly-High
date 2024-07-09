@@ -20,6 +20,7 @@ const dynamicCheckAbilities  = require('../middlewares/dynamicCheckAbilities ');
       if (!cancel) {
         return res.status(404).send({ error: "cancel not found" });
       }
+      console.log("cancel",cancel);
       res.status(200).send(cancel);
     }
   } catch (error) {

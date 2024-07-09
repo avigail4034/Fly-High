@@ -2,7 +2,7 @@ const pool = require('../DB.js');
 
 async function createOrder(user_id, flight_id, places_arr) {
   if (places_arr.length === 0) {
-    throw new Error('places_arr cannot be empty');
+    throw('places_arr cannot be empty');
   }
 
   try {
@@ -42,19 +42,16 @@ async function getUsersOfFlight(flightId) {
 
 async function deleteOrder(flight_id, arrPlaces) {
   try {
-    // Construct the SQL query to delete orders
     const sql = `DELETE FROM orders WHERE flight_id = ? AND place_id IN (?)`;
-
-    // Execute the query with flight_id and arrPlaces
     const result = await pool.query(sql, [flight_id, arrPlaces]);
-
-    // Return the affected rows count or whatever makes sense for your application
     return result[0].affectedRows;
   } catch (err) {
     console.error('Error deleting Orders:', err);
     throw err;
   }
-} async function deleteOrderToCancel(flight_id_arr, user_id) {
+}
+
+async function deleteOrderToCancel(flight_id_arr, user_id) {
   try {
     const arrCancel = flight_id_arr.split(',').map(Number);
     for (const id of arrCancel) {
@@ -63,7 +60,7 @@ async function deleteOrder(flight_id, arrPlaces) {
         const result = await pool.query(sql, [id, user_id]);
         return result[0];
       } else {
-        throw new Error(`Invalid id: ${id}`);
+        throw (`Invalid id: ${id}`);
       }
     }
 

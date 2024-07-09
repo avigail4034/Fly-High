@@ -10,6 +10,9 @@ import { UserContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 
 export function Home() {
+  useEffect(() => {
+    document.title = 'עמוד ראשי';
+  })
 const navigate = useNavigate();
     const context = useContext(UserContext);
     const { userDetails,setUserDetails } = context;

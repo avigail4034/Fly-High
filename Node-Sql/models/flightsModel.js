@@ -10,7 +10,7 @@ async function getAllflights() {
    throw err;
   }
 }
-//id, company, exitP, flightCode, target, date
+
 async function getFlightById(ID) {
   try {
     const sql = 'SELECT * FROM flights where id=? AND active=1';
@@ -20,7 +20,7 @@ async function getFlightById(ID) {
     throw err;
   }
 }
-//אולי זה בעייתי שיש תקריאה הזאתי? יכולנו לקחת את כל המטוסים ולסנן רק את הID המתאימים
+
 async function getArrFlightsById(arrOfFlightsId) {
   try {
       const flights = [];
@@ -65,7 +65,7 @@ async function checkDatesModel(departureDate, arrivalDate, airplane_id) {//בד�
     return { success: true, unavailableAirplanes };
   } catch (error) {
     console.error(error);
-    throw new Error('Error checking flight dates');
+    throw ('Error checking flight dates');
   }
 }
 
@@ -92,16 +92,7 @@ async function getFlightByParams(exitP,target,date) {
   }
 }
 
-// async function getFlightByUser(userID) {
-//   try {
-//     const sql = 'SELECT * FROM flights where id=?';
-//     const [rows, fields] = await pool.query(sql, [userID]);
-//     return rows;
 
-//   } catch (err) {
-//     throw err;
-//   }
-// }
 async function createFlight(company, airplane_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime,image ) {
   try {
     const sql = `INSERT INTO flights (company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime ,active,image) VALUES (?,?,?, ?, ?,?,?,?,?,?,?,?)`;
@@ -124,16 +115,7 @@ async function deleteFlight(FlightID) {
     throw err;
   }
 }
-// async function updateFlight(id, company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, active) {
-//   try {
-//     const sql = `UPDATE flights SET  company=?, airplain_id=?, exitP=?, flightCode=?, price=?, target=?, departureDate=?, arrivalDate=?, departureTime=?, arrivalTime=?, active=? WHERE id = ?`;
-//     const result = await pool.query(sql, [ company, airplain_id, exitP, flightCode, price, target, departureDate, arrivalDate, departureTime, arrivalTime, 0, id]);
-//     return result[0][0];
-//   } catch (err) {
-//     console.error('Error updating Flight:', err);
-//     throw err;
-//   }
-// }
+
 async function updateFlight(id) {
   try {
     const sql = `UPDATE flights SET   active=? WHERE id = ?`;

@@ -32,6 +32,7 @@ function AddFlight() {
 //בקשה לקבלת שם חברה של העובד
     async function getAirplanesByCompany() {
         try {
+            //קבלת שם החברה של העובד
             const response = await fetch(`http://localhost:3000/company_employees?employee_id=${userDetails.id}`,{credentials: 'include'});
             const companyData = await response.json();
             const company1 = companyData.company;
@@ -50,7 +51,8 @@ function AddFlight() {
         setFlightDetails({ ...flightDetails, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) =>
+     {
         e.preventDefault();
 
         const { departureDate, arrivalDate, departureTime, arrivalTime } = flightDetails;
@@ -263,11 +265,7 @@ function AddFlight() {
                             ))}
                         </select>
                     </label>
-
-                
-
                     {formError && <p className="form-error">{formError}</p>}
-
                     <button type="submit" className="form-button">שלח</button>
                 </form>
             </div>

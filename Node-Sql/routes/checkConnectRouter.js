@@ -12,7 +12,7 @@ router.post('/', jwtAuthentication, (req, res) => {
     const userSession = {
       id: req.userId, // הזהות של המשתמש שמסומן ב-token
     };
-    console.log(userSession,"userSession");
+
     res.status(200).json(userSession); // שלח חזרה את פרטי המשתמש
   } catch (error) {
     res.status(403).json({ message: 'Unauthorized' }); // אם יש בעיה באימות ה-token

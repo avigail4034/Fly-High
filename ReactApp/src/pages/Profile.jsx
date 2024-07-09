@@ -19,32 +19,27 @@ export function Profile() {
     useEffect(() => {
         async function getFlightsOfUser() {
             try {
-                //קבלת כל הטיסות שהוזמנו של המשתשמש
                 const userId = userDetails.id;
-                const orderResponse = await fetch(`http://localhost:3000/Order?user_id=${userId}`, { credentials: 'include' });
-                const orders = await orderResponse.json();
-                console.log("orders",orders);
-                if (orders) {
-                     flightsIds = orders.map(item => item.flight_id).join('')
-                }
-
-                if (orders) {
-                  const  flightsData1 = orders.map(order => ({
-                        flight_id: order.flight_id,
-                        places: order.place_ids.split(',').map(placeId => ({
-                            place_id: placeId,
-                            // Additional details for each place can be added here if needed
-                        }))
-                    }));
-                    setflightsData(flightsData1);
-                }
                 //קבלת כל הטיסות שנמחקו למשתמש
                 const cancelResponse = await fetch(`http://localhost:3000/Cancel?userId=${userId}`, { credentials: 'include' });
                 const cancels = await cancelResponse.json();
                 setCancelsArray(cancels);
+                //קבלת כל הטיסות שהוזמנו של המשתשמש
 
-               
-                if (flightsIds&&flightsIds.length > 0) {
+                const orderResponse = await fetch(`http://localhost:3000/Order?user_id=${userId}`, { credentials: 'include' });
+                const orders = await orderResponse.json();
+                if (orders) {
+                    flightsIds = orders.map(item => item.flight_id).join('')//בשביל הבאת הטיסות מהשרת
+                    const flightsPlacesScreen = orders.map(order => ({//בשביל התצוגה
+                        flight_id: order.flight_id,
+                        places: order.place_ids.split(',').map(placeId => ({
+                            place_id: placeId,
+                        }))
+                    }));
+                    setflightsData(flightsPlacesScreen);
+                }
+
+                if (flightsIds && flightsIds.length > 0) {
                     const flightsResponse = await fetch(`http://localhost:3000/flights?arrOfFlightsId=${flightsIds}`, { credentials: 'include' });
                     const flights = await flightsResponse.json();
                     setFlightsArray(flights);

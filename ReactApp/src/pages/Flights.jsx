@@ -14,29 +14,32 @@ const Flights = () => {
     const [flightsArray, setflightsArray] = useState([]);
     const context = useContext(UserContext);
     const { userDetails } = context;
-    const [flight, setflight] = useState({ company: "", exitP: "", flightCode: "", target: "", price: "", date: "", time: "", image: "" });
-    const [enableAdd, setEnableAdd] = useState(false);
-    const [enableSearch, setEnableSearch] = useState(false);
-    const [searchID, setSearchID] = useState(0);
     const [searchTitle, setSearchTitle] = useState("");
     const [searchArrayflights, setSearchArrayflights] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
+   
+   
+    useEffect(() => {//כל פעם שיש שינוי מציג אותו
+        getflights();
+        document.title = 'טיסות';
+    }, [])
+
+
+
     function isBeforeISODate(fullDateStr, isoDateStr) {
         const fullDate = new Date(fullDateStr); // המרת התאריך המלא לאובייקט Date
         const isoDate = new Date(isoDateStr); // המרת התאריך ה-ISO לאובייקט Date
-
         return fullDate < isoDate; // בדיקה אם התאריך המלא הוא לפני התאריך ה-ISO
     }
+
+
     async function getflights() {// פונקציה אסינכרונית בגלל שאני רוצה לחכות לתשובבה  מהשרת כדי להציג את המשימות
         try {
-            // console.log(userDetails,"userDetails");
-            // const ys=userDetails.id;
-            // console.log(ys,"userDetails.id");
+   
             const data = await fetch(`http://localhost:3000/flights`);
             const flights = await data.json();
             const today = new Date(); // מציין את תאריך היום
 
-            // סינון הטיסות לפי תאריך היום
+            // - שלא יוצגו :סינון הטיסות לפי תאריך היום
             const filteredFlights = flights.filter(flight => {
                 const result = isBeforeISODate(today, flight.departureDate);
                 return result;
@@ -50,15 +53,9 @@ const Flights = () => {
 
     }
 
-    useEffect(() => {//כל פעם שיש שינוי מציג אותו
-        getflights();
-    }, [])
-
-
-
     const orderOfFlights = (event) => {//פונקציה שמפנה לפונקציות המיון
         if (event.target.value === "serial") {
-            FlightSearcheri();
+            FlightSearch();
         }
         if (event.target.value === "random") {
             orderRandom();
@@ -66,7 +63,7 @@ const Flights = () => {
             SortByPrice();
         }
     }
-    const FlightSearcheri = () => {
+    const FlightSearch = () => {
         let arrTemp = [...flightsArray];
         arrTemp.sort((flight1, flight2) => {
             return flight1.id - flight2.id;
