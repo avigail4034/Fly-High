@@ -112,7 +112,6 @@ const MessageOfCancel = ({ cancels }) => {
             }
         } catch (error) {
             console.error('שגיאה בביצוע הקוד:', error);
-            // alert('אירעה שגיאה בביצוע הקוד');
         }
 
 
